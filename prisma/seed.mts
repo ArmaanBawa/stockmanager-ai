@@ -2,17 +2,12 @@ import bcrypt from 'bcryptjs';
 
 async function main() {
     // Dynamic import to handle Prisma v7 ESM exports
-    const prismaModule = await import('../src/generated/prisma/client.ts');
+    // @ts-ignore
+    const prismaModule = await import('../src/generated/prisma/client');
     const PrismaClient = prismaModule.PrismaClient;
 
-    const dbPath = new URL('../prisma/dev.db', import.meta.url).pathname;
-    const prisma = new PrismaClient({
-        datasources: {
-            db: {
-                url: `file:${dbPath}`,
-            },
-        },
-    });
+    // @ts-ignore
+    const prisma = new PrismaClient();
 
     console.log('🌱 Seeding database...');
 

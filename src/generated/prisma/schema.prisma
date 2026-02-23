@@ -1,0 +1,202 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  name           String
+  hashedPassword String
+  emailVerified  Boolean   @default(true)
+  businessId     String?
+  business       Business? @relation(fields: [businessId], references: [id])
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  email     String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Business {
+  id              String           @id @default(cuid())
+  name            String
+  address         String?
+  phone           String?
+  email           String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  users           User[]
+  suppliers       Supplier[]
+  products        Product[]
+  orders          Order[]
+  inventoryLots   InventoryLot[]
+  inventoryUsages InventoryUsage[]
+  ledgerEntries   LedgerEntry[]
+  aiInsights      AiInsight[]
+  chatMessages    ChatMessage[]
+}
+
+model Supplier {
+  id          String    @id @default(cuid())
+  name        String
+  contactName String?
+  email       String?
+  phone       String?
+  address     String?
+  businessId  String
+  business    Business  @relation(fields: [businessId], references: [id])
+  products    Product[]
+  orders      Order[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id              String           @id @default(cuid())
+  name            String
+  sku             String?
+  description     String?
+  unitPrice       Float            @default(0)
+  unit            String           @default("pcs")
+  reorderLevel    Int              @default(10)
+  businessId      String
+  business        Business         @relation(fields: [businessId], references: [id])
+  supplierId      String?
+  supplier        Supplier?        @relation(fields: [supplierId], references: [id])
+  orderItems      OrderItem[]
+  inventoryLots   InventoryLot[]
+  inventoryUsages InventoryUsage[]
+  ledgerEntries   LedgerEntry[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model Order {
+  id                  String               @id @default(cuid())
+  orderNumber         String               @unique
+  status              String               @default("PLACED")
+  totalAmount         Float                @default(0)
+  notes               String?
+  businessId          String
+  business            Business             @relation(fields: [businessId], references: [id])
+  supplierId          String
+  supplier            Supplier             @relation(fields: [supplierId], references: [id])
+  items               OrderItem[]
+  statusHistory       OrderStatusHistory[]
+  manufacturingStages ManufacturingStage[]
+  inventoryLots       InventoryLot[]
+  ledgerEntries       LedgerEntry[]
+  expectedDelivery    DateTime?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  quantity  Int
+  unitPrice Float
+  total     Float
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model OrderStatusHistory {
+  id        String   @id @default(cuid())
+  status    String
+  note      String?
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model ManufacturingStage {
+  id        String   @id @default(cuid())
+  stage     String
+  status    String   @default("PENDING")
+  note      String?
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model InventoryLot {
+  id           String    @id @default(cuid())
+  lotNumber    String
+  quantity     Int
+  remainingQty Int
+  costPerUnit  Float
+  businessId   String
+  business     Business  @relation(fields: [businessId], references: [id])
+  productId    String
+  product      Product   @relation(fields: [productId], references: [id])
+  orderId      String?
+  order        Order?    @relation(fields: [orderId], references: [id])
+  receivedAt   DateTime  @default(now())
+  expiresAt    DateTime?
+  createdAt    DateTime  @default(now())
+}
+
+model InventoryUsage {
+  id         String   @id @default(cuid())
+  quantity   Int
+  reason     String?
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id])
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+model LedgerEntry {
+  id          String   @id @default(cuid())
+  type        String   @default("PURCHASE")
+  quantity    Int
+  unitPrice   Float
+  totalAmount Float
+  description String?
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+  orderId     String?
+  order       Order?   @relation(fields: [orderId], references: [id])
+  supplierId  String?
+  createdAt   DateTime @default(now())
+}
+
+model AiInsight {
+  id         String   @id @default(cuid())
+  type       String
+  title      String
+  message    String
+  severity   String   @default("info")
+  productId  String?
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id])
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model ChatMessage {
+  id         String   @id @default(cuid())
+  role       String // 'user' or 'assistant'
+  content    String
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id])
+  createdAt  DateTime @default(now())
+}
