@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "target": "ES2022",
+        "esModuleInterop": true,
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
+        "strict": false,
+        "paths": {
+            "@/*": [
+                "../src/*"
+            ]
+        },
+        "baseUrl": "."
+    },
+    "include": [
+        "*.mts"
+    ]
+}

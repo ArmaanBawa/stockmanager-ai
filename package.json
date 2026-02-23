@@ -6,19 +6,44 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:seed": "npx tsx prisma/seed.mts",
+    "db:studio": "prisma studio",
+    "db:migrate": "prisma migrate dev",
+    "reset-password": "tsx scripts/reset-password.ts",
+    "setup": "bash setup.sh",
+    "postinstall": "prisma generate"
+  },
+  "prisma": {
+    "seed": "npx tsx prisma/seed.mts"
   },
   "dependencies": {
+    "@ai-sdk/openai": "1.0",
+    "@ai-sdk/react": "1.0",
+    "@libsql/client": "^0.17.0",
+    "@prisma/adapter-better-sqlite3": "^7.4.1",
+    "@prisma/adapter-libsql": "^7.4.1",
+    "@prisma/client": "^6.19.2",
+    "@types/better-sqlite3": "^7.6.13",
+    "ai": "4.0",
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.6.2",
     "next": "16.1.6",
+    "next-auth": "^4.24.13",
+    "prisma": "^6.19.2",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "resend": "^6.9.2",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
