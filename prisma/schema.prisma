@@ -30,22 +30,22 @@ model VerificationToken {
 }
 
 model Business {
-  id          String         @id @default(cuid())
-  name        String
-  address     String?
-  phone       String?
-  email       String?
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
-  users       User[]
-  suppliers   Supplier[]
-  products    Product[]
-  orders      Order[]
-  inventoryLots InventoryLot[]
+  id              String           @id @default(cuid())
+  name            String
+  address         String?
+  phone           String?
+  email           String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  users           User[]
+  suppliers       Supplier[]
+  products        Product[]
+  orders          Order[]
+  inventoryLots   InventoryLot[]
   inventoryUsages InventoryUsage[]
-  ledgerEntries LedgerEntry[]
-  aiInsights  AiInsight[]
-  chatMessages ChatMessage[]
+  ledgerEntries   LedgerEntry[]
+  aiInsights      AiInsight[]
+  chatMessages    ChatMessage[]
 }
 
 model Supplier {
@@ -79,28 +79,29 @@ model Product {
   inventoryLots   InventoryLot[]
   inventoryUsages InventoryUsage[]
   ledgerEntries   LedgerEntry[]
+  aiInsights      AiInsight[]
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
 }
 
 model Order {
-  id              String               @id @default(cuid())
-  orderNumber     String               @unique
-  status          String               @default("PLACED")
-  totalAmount     Float                @default(0)
-  notes           String?
-  businessId      String
-  business        Business             @relation(fields: [businessId], references: [id])
-  supplierId      String
-  supplier        Supplier             @relation(fields: [supplierId], references: [id])
-  items           OrderItem[]
-  statusHistory   OrderStatusHistory[]
+  id                  String               @id @default(cuid())
+  orderNumber         String               @unique
+  status              String               @default("PLACED")
+  totalAmount         Float                @default(0)
+  notes               String?
+  businessId          String
+  business            Business             @relation(fields: [businessId], references: [id])
+  supplierId          String
+  supplier            Supplier             @relation(fields: [supplierId], references: [id])
+  items               OrderItem[]
+  statusHistory       OrderStatusHistory[]
   manufacturingStages ManufacturingStage[]
-  inventoryLots   InventoryLot[]
-  ledgerEntries   LedgerEntry[]
-  expectedDelivery DateTime?
-  createdAt       DateTime             @default(now())
-  updatedAt       DateTime             @updatedAt
+  inventoryLots       InventoryLot[]
+  ledgerEntries       LedgerEntry[]
+  expectedDelivery    DateTime?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
 }
 
 model OrderItem {
@@ -111,7 +112,7 @@ model OrderItem {
   orderId   String
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   productId String
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model OrderStatusHistory {
@@ -135,20 +136,20 @@ model ManufacturingStage {
 }
 
 model InventoryLot {
-  id            String   @id @default(cuid())
-  lotNumber     String
-  quantity      Int
-  remainingQty  Int
-  costPerUnit   Float
-  businessId    String
-  business      Business @relation(fields: [businessId], references: [id])
-  productId     String
-  product       Product  @relation(fields: [productId], references: [id])
-  orderId       String?
-  order         Order?   @relation(fields: [orderId], references: [id])
-  receivedAt    DateTime @default(now())
-  expiresAt     DateTime?
-  createdAt     DateTime @default(now())
+  id           String    @id @default(cuid())
+  lotNumber    String
+  quantity     Int
+  remainingQty Int
+  costPerUnit  Float
+  businessId   String
+  business     Business  @relation(fields: [businessId], references: [id])
+  productId    String
+  product      Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  orderId      String?
+  order        Order?    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  receivedAt   DateTime  @default(now())
+  expiresAt    DateTime?
+  createdAt    DateTime  @default(now())
 }
 
 model InventoryUsage {
@@ -158,7 +159,7 @@ model InventoryUsage {
   businessId String
   business   Business @relation(fields: [businessId], references: [id])
   productId  String
-  product    Product  @relation(fields: [productId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
 }
 
@@ -172,9 +173,9 @@ model LedgerEntry {
   businessId  String
   business    Business @relation(fields: [businessId], references: [id])
   productId   String
-  product     Product  @relation(fields: [productId], references: [id])
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   orderId     String?
-  order       Order?   @relation(fields: [orderId], references: [id])
+  order       Order?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   supplierId  String?
   createdAt   DateTime @default(now())
 }
@@ -186,6 +187,7 @@ model AiInsight {
   message    String
   severity   String   @default("info")
   productId  String?
+  product    Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
   businessId String
   business   Business @relation(fields: [businessId], references: [id])
   isRead     Boolean  @default(false)
@@ -194,7 +196,7 @@ model AiInsight {
 
 model ChatMessage {
   id         String   @id @default(cuid())
-  role       String   // 'user' or 'assistant'
+  role       String // 'user' or 'assistant'
   content    String
   businessId String
   business   Business @relation(fields: [businessId], references: [id])

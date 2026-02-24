@@ -79,6 +79,7 @@ model Product {
   inventoryLots   InventoryLot[]
   inventoryUsages InventoryUsage[]
   ledgerEntries   LedgerEntry[]
+  aiInsights      AiInsight[]
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
 }
@@ -111,7 +112,7 @@ model OrderItem {
   orderId   String
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   productId String
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model OrderStatusHistory {
@@ -143,9 +144,9 @@ model InventoryLot {
   businessId   String
   business     Business  @relation(fields: [businessId], references: [id])
   productId    String
-  product      Product   @relation(fields: [productId], references: [id])
+  product      Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
   orderId      String?
-  order        Order?    @relation(fields: [orderId], references: [id])
+  order        Order?    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   receivedAt   DateTime  @default(now())
   expiresAt    DateTime?
   createdAt    DateTime  @default(now())
@@ -158,7 +159,7 @@ model InventoryUsage {
   businessId String
   business   Business @relation(fields: [businessId], references: [id])
   productId  String
-  product    Product  @relation(fields: [productId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
 }
 
@@ -172,9 +173,9 @@ model LedgerEntry {
   businessId  String
   business    Business @relation(fields: [businessId], references: [id])
   productId   String
-  product     Product  @relation(fields: [productId], references: [id])
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   orderId     String?
-  order       Order?   @relation(fields: [orderId], references: [id])
+  order       Order?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   supplierId  String?
   createdAt   DateTime @default(now())
 }
@@ -186,6 +187,7 @@ model AiInsight {
   message    String
   severity   String   @default("info")
   productId  String?
+  product    Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
   businessId String
   business   Business @relation(fields: [businessId], references: [id])
   isRead     Boolean  @default(false)

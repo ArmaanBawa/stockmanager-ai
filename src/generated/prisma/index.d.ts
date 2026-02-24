@@ -2191,6 +2191,7 @@ export namespace Prisma {
     inventoryLots: number
     inventoryUsages: number
     ledgerEntries: number
+    aiInsights: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2198,6 +2199,7 @@ export namespace Prisma {
     inventoryLots?: boolean | ProductCountOutputTypeCountInventoryLotsArgs
     inventoryUsages?: boolean | ProductCountOutputTypeCountInventoryUsagesArgs
     ledgerEntries?: boolean | ProductCountOutputTypeCountLedgerEntriesArgs
+    aiInsights?: boolean | ProductCountOutputTypeCountAiInsightsArgs
   }
 
   // Custom InputTypes
@@ -2237,6 +2239,13 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountLedgerEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LedgerEntryWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountAiInsightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiInsightWhereInput
   }
 
 
@@ -7166,6 +7175,7 @@ export namespace Prisma {
     inventoryLots?: boolean | Product$inventoryLotsArgs<ExtArgs>
     inventoryUsages?: boolean | Product$inventoryUsagesArgs<ExtArgs>
     ledgerEntries?: boolean | Product$ledgerEntriesArgs<ExtArgs>
+    aiInsights?: boolean | Product$aiInsightsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -7223,6 +7233,7 @@ export namespace Prisma {
     inventoryLots?: boolean | Product$inventoryLotsArgs<ExtArgs>
     inventoryUsages?: boolean | Product$inventoryUsagesArgs<ExtArgs>
     ledgerEntries?: boolean | Product$ledgerEntriesArgs<ExtArgs>
+    aiInsights?: boolean | Product$aiInsightsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7243,6 +7254,7 @@ export namespace Prisma {
       inventoryLots: Prisma.$InventoryLotPayload<ExtArgs>[]
       inventoryUsages: Prisma.$InventoryUsagePayload<ExtArgs>[]
       ledgerEntries: Prisma.$LedgerEntryPayload<ExtArgs>[]
+      aiInsights: Prisma.$AiInsightPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7656,6 +7668,7 @@ export namespace Prisma {
     inventoryLots<T extends Product$inventoryLotsArgs<ExtArgs> = {}>(args?: Subset<T, Product$inventoryLotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryLotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inventoryUsages<T extends Product$inventoryUsagesArgs<ExtArgs> = {}>(args?: Subset<T, Product$inventoryUsagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ledgerEntries<T extends Product$ledgerEntriesArgs<ExtArgs> = {}>(args?: Subset<T, Product$ledgerEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LedgerEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aiInsights<T extends Product$aiInsightsArgs<ExtArgs> = {}>(args?: Subset<T, Product$aiInsightsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiInsightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8204,6 +8217,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LedgerEntryScalarFieldEnum | LedgerEntryScalarFieldEnum[]
+  }
+
+  /**
+   * Product.aiInsights
+   */
+  export type Product$aiInsightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiInsight
+     */
+    select?: AiInsightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiInsight
+     */
+    omit?: AiInsightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiInsightInclude<ExtArgs> | null
+    where?: AiInsightWhereInput
+    orderBy?: AiInsightOrderByWithRelationInput | AiInsightOrderByWithRelationInput[]
+    cursor?: AiInsightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AiInsightScalarFieldEnum | AiInsightScalarFieldEnum[]
   }
 
   /**
@@ -16530,6 +16567,7 @@ export namespace Prisma {
     businessId?: boolean
     isRead?: boolean
     createdAt?: boolean
+    product?: boolean | AiInsight$productArgs<ExtArgs>
     business?: boolean | BusinessDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aiInsight"]>
 
@@ -16543,6 +16581,7 @@ export namespace Prisma {
     businessId?: boolean
     isRead?: boolean
     createdAt?: boolean
+    product?: boolean | AiInsight$productArgs<ExtArgs>
     business?: boolean | BusinessDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aiInsight"]>
 
@@ -16556,6 +16595,7 @@ export namespace Prisma {
     businessId?: boolean
     isRead?: boolean
     createdAt?: boolean
+    product?: boolean | AiInsight$productArgs<ExtArgs>
     business?: boolean | BusinessDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aiInsight"]>
 
@@ -16573,18 +16613,22 @@ export namespace Prisma {
 
   export type AiInsightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "title" | "message" | "severity" | "productId" | "businessId" | "isRead" | "createdAt", ExtArgs["result"]["aiInsight"]>
   export type AiInsightInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | AiInsight$productArgs<ExtArgs>
     business?: boolean | BusinessDefaultArgs<ExtArgs>
   }
   export type AiInsightIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | AiInsight$productArgs<ExtArgs>
     business?: boolean | BusinessDefaultArgs<ExtArgs>
   }
   export type AiInsightIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | AiInsight$productArgs<ExtArgs>
     business?: boolean | BusinessDefaultArgs<ExtArgs>
   }
 
   export type $AiInsightPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AiInsight"
     objects: {
+      product: Prisma.$ProductPayload<ExtArgs> | null
       business: Prisma.$BusinessPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -16991,6 +17035,7 @@ export namespace Prisma {
    */
   export interface Prisma__AiInsightClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    product<T extends AiInsight$productArgs<ExtArgs> = {}>(args?: Subset<T, AiInsight$productArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     business<T extends BusinessDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BusinessDefaultArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -17423,6 +17468,25 @@ export namespace Prisma {
      * Limit how many AiInsights to delete.
      */
     limit?: number
+  }
+
+  /**
+   * AiInsight.product
+   */
+  export type AiInsight$productArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    where?: ProductWhereInput
   }
 
   /**
@@ -19118,6 +19182,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotListRelationFilter
     inventoryUsages?: InventoryUsageListRelationFilter
     ledgerEntries?: LedgerEntryListRelationFilter
+    aiInsights?: AiInsightListRelationFilter
   }
 
   export type ProductOrderByWithRelationInput = {
@@ -19138,6 +19203,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotOrderByRelationAggregateInput
     inventoryUsages?: InventoryUsageOrderByRelationAggregateInput
     ledgerEntries?: LedgerEntryOrderByRelationAggregateInput
+    aiInsights?: AiInsightOrderByRelationAggregateInput
   }
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -19161,6 +19227,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotListRelationFilter
     inventoryUsages?: InventoryUsageListRelationFilter
     ledgerEntries?: LedgerEntryListRelationFilter
+    aiInsights?: AiInsightListRelationFilter
   }, "id">
 
   export type ProductOrderByWithAggregationInput = {
@@ -19748,6 +19815,7 @@ export namespace Prisma {
     businessId?: StringFilter<"AiInsight"> | string
     isRead?: BoolFilter<"AiInsight"> | boolean
     createdAt?: DateTimeFilter<"AiInsight"> | Date | string
+    product?: XOR<ProductNullableScalarRelationFilter, ProductWhereInput> | null
     business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
   }
 
@@ -19761,6 +19829,7 @@ export namespace Prisma {
     businessId?: SortOrder
     isRead?: SortOrder
     createdAt?: SortOrder
+    product?: ProductOrderByWithRelationInput
     business?: BusinessOrderByWithRelationInput
   }
 
@@ -19777,6 +19846,7 @@ export namespace Prisma {
     businessId?: StringFilter<"AiInsight"> | string
     isRead?: BoolFilter<"AiInsight"> | boolean
     createdAt?: DateTimeFilter<"AiInsight"> | Date | string
+    product?: XOR<ProductNullableScalarRelationFilter, ProductWhereInput> | null
     business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
   }, "id">
 
@@ -20210,6 +20280,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateInput = {
@@ -20228,6 +20299,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageUncheckedCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductUpdateInput = {
@@ -20246,6 +20318,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
@@ -20264,6 +20337,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUncheckedUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateManyInput = {
@@ -20857,9 +20931,9 @@ export namespace Prisma {
     title: string
     message: string
     severity?: string
-    productId?: string | null
     isRead?: boolean
     createdAt?: Date | string
+    product?: ProductCreateNestedOneWithoutAiInsightsInput
     business: BusinessCreateNestedOneWithoutAiInsightsInput
   }
 
@@ -20881,9 +20955,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     severity?: StringFieldUpdateOperationsInput | string
-    productId?: NullableStringFieldUpdateOperationsInput | string | null
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneWithoutAiInsightsNestedInput
     business?: BusinessUpdateOneRequiredWithoutAiInsightsNestedInput
   }
 
@@ -20917,7 +20991,6 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     severity?: StringFieldUpdateOperationsInput | string
-    productId?: NullableStringFieldUpdateOperationsInput | string | null
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21790,6 +21863,11 @@ export namespace Prisma {
     totalAmount?: SortOrder
   }
 
+  export type ProductNullableScalarRelationFilter = {
+    is?: ProductWhereInput | null
+    isNot?: ProductWhereInput | null
+  }
+
   export type AiInsightCountOrderByAggregateInput = {
     id?: SortOrder
     type?: SortOrder
@@ -22398,6 +22476,13 @@ export namespace Prisma {
     connect?: LedgerEntryWhereUniqueInput | LedgerEntryWhereUniqueInput[]
   }
 
+  export type AiInsightCreateNestedManyWithoutProductInput = {
+    create?: XOR<AiInsightCreateWithoutProductInput, AiInsightUncheckedCreateWithoutProductInput> | AiInsightCreateWithoutProductInput[] | AiInsightUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: AiInsightCreateOrConnectWithoutProductInput | AiInsightCreateOrConnectWithoutProductInput[]
+    createMany?: AiInsightCreateManyProductInputEnvelope
+    connect?: AiInsightWhereUniqueInput | AiInsightWhereUniqueInput[]
+  }
+
   export type OrderItemUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<OrderItemCreateWithoutProductInput, OrderItemUncheckedCreateWithoutProductInput> | OrderItemCreateWithoutProductInput[] | OrderItemUncheckedCreateWithoutProductInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutProductInput | OrderItemCreateOrConnectWithoutProductInput[]
@@ -22424,6 +22509,13 @@ export namespace Prisma {
     connectOrCreate?: LedgerEntryCreateOrConnectWithoutProductInput | LedgerEntryCreateOrConnectWithoutProductInput[]
     createMany?: LedgerEntryCreateManyProductInputEnvelope
     connect?: LedgerEntryWhereUniqueInput | LedgerEntryWhereUniqueInput[]
+  }
+
+  export type AiInsightUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<AiInsightCreateWithoutProductInput, AiInsightUncheckedCreateWithoutProductInput> | AiInsightCreateWithoutProductInput[] | AiInsightUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: AiInsightCreateOrConnectWithoutProductInput | AiInsightCreateOrConnectWithoutProductInput[]
+    createMany?: AiInsightCreateManyProductInputEnvelope
+    connect?: AiInsightWhereUniqueInput | AiInsightWhereUniqueInput[]
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -22516,6 +22608,20 @@ export namespace Prisma {
     deleteMany?: LedgerEntryScalarWhereInput | LedgerEntryScalarWhereInput[]
   }
 
+  export type AiInsightUpdateManyWithoutProductNestedInput = {
+    create?: XOR<AiInsightCreateWithoutProductInput, AiInsightUncheckedCreateWithoutProductInput> | AiInsightCreateWithoutProductInput[] | AiInsightUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: AiInsightCreateOrConnectWithoutProductInput | AiInsightCreateOrConnectWithoutProductInput[]
+    upsert?: AiInsightUpsertWithWhereUniqueWithoutProductInput | AiInsightUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: AiInsightCreateManyProductInputEnvelope
+    set?: AiInsightWhereUniqueInput | AiInsightWhereUniqueInput[]
+    disconnect?: AiInsightWhereUniqueInput | AiInsightWhereUniqueInput[]
+    delete?: AiInsightWhereUniqueInput | AiInsightWhereUniqueInput[]
+    connect?: AiInsightWhereUniqueInput | AiInsightWhereUniqueInput[]
+    update?: AiInsightUpdateWithWhereUniqueWithoutProductInput | AiInsightUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: AiInsightUpdateManyWithWhereWithoutProductInput | AiInsightUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: AiInsightScalarWhereInput | AiInsightScalarWhereInput[]
+  }
+
   export type OrderItemUncheckedUpdateManyWithoutProductNestedInput = {
     create?: XOR<OrderItemCreateWithoutProductInput, OrderItemUncheckedCreateWithoutProductInput> | OrderItemCreateWithoutProductInput[] | OrderItemUncheckedCreateWithoutProductInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutProductInput | OrderItemCreateOrConnectWithoutProductInput[]
@@ -22570,6 +22676,20 @@ export namespace Prisma {
     update?: LedgerEntryUpdateWithWhereUniqueWithoutProductInput | LedgerEntryUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: LedgerEntryUpdateManyWithWhereWithoutProductInput | LedgerEntryUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: LedgerEntryScalarWhereInput | LedgerEntryScalarWhereInput[]
+  }
+
+  export type AiInsightUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<AiInsightCreateWithoutProductInput, AiInsightUncheckedCreateWithoutProductInput> | AiInsightCreateWithoutProductInput[] | AiInsightUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: AiInsightCreateOrConnectWithoutProductInput | AiInsightCreateOrConnectWithoutProductInput[]
+    upsert?: AiInsightUpsertWithWhereUniqueWithoutProductInput | AiInsightUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: AiInsightCreateManyProductInputEnvelope
+    set?: AiInsightWhereUniqueInput | AiInsightWhereUniqueInput[]
+    disconnect?: AiInsightWhereUniqueInput | AiInsightWhereUniqueInput[]
+    delete?: AiInsightWhereUniqueInput | AiInsightWhereUniqueInput[]
+    connect?: AiInsightWhereUniqueInput | AiInsightWhereUniqueInput[]
+    update?: AiInsightUpdateWithWhereUniqueWithoutProductInput | AiInsightUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: AiInsightUpdateManyWithWhereWithoutProductInput | AiInsightUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: AiInsightScalarWhereInput | AiInsightScalarWhereInput[]
   }
 
   export type BusinessCreateNestedOneWithoutOrdersInput = {
@@ -22986,10 +23106,26 @@ export namespace Prisma {
     update?: XOR<XOR<OrderUpdateToOneWithWhereWithoutLedgerEntriesInput, OrderUpdateWithoutLedgerEntriesInput>, OrderUncheckedUpdateWithoutLedgerEntriesInput>
   }
 
+  export type ProductCreateNestedOneWithoutAiInsightsInput = {
+    create?: XOR<ProductCreateWithoutAiInsightsInput, ProductUncheckedCreateWithoutAiInsightsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutAiInsightsInput
+    connect?: ProductWhereUniqueInput
+  }
+
   export type BusinessCreateNestedOneWithoutAiInsightsInput = {
     create?: XOR<BusinessCreateWithoutAiInsightsInput, BusinessUncheckedCreateWithoutAiInsightsInput>
     connectOrCreate?: BusinessCreateOrConnectWithoutAiInsightsInput
     connect?: BusinessWhereUniqueInput
+  }
+
+  export type ProductUpdateOneWithoutAiInsightsNestedInput = {
+    create?: XOR<ProductCreateWithoutAiInsightsInput, ProductUncheckedCreateWithoutAiInsightsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutAiInsightsInput
+    upsert?: ProductUpsertWithoutAiInsightsInput
+    disconnect?: ProductWhereInput | boolean
+    delete?: ProductWhereInput | boolean
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutAiInsightsInput, ProductUpdateWithoutAiInsightsInput>, ProductUncheckedUpdateWithoutAiInsightsInput>
   }
 
   export type BusinessUpdateOneRequiredWithoutAiInsightsNestedInput = {
@@ -23373,6 +23509,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutBusinessInput = {
@@ -23390,6 +23527,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageUncheckedCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutBusinessInput = {
@@ -23550,9 +23688,9 @@ export namespace Prisma {
     title: string
     message: string
     severity?: string
-    productId?: string | null
     isRead?: boolean
     createdAt?: Date | string
+    product?: ProductCreateNestedOneWithoutAiInsightsInput
   }
 
   export type AiInsightUncheckedCreateWithoutBusinessInput = {
@@ -23934,6 +24072,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutSupplierInput = {
@@ -23951,6 +24090,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageUncheckedCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutSupplierInput = {
@@ -24282,6 +24422,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AiInsightCreateWithoutProductInput = {
+    id?: string
+    type: string
+    title: string
+    message: string
+    severity?: string
+    isRead?: boolean
+    createdAt?: Date | string
+    business: BusinessCreateNestedOneWithoutAiInsightsInput
+  }
+
+  export type AiInsightUncheckedCreateWithoutProductInput = {
+    id?: string
+    type: string
+    title: string
+    message: string
+    severity?: string
+    businessId: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type AiInsightCreateOrConnectWithoutProductInput = {
+    where: AiInsightWhereUniqueInput
+    create: XOR<AiInsightCreateWithoutProductInput, AiInsightUncheckedCreateWithoutProductInput>
+  }
+
+  export type AiInsightCreateManyProductInputEnvelope = {
+    data: AiInsightCreateManyProductInput | AiInsightCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BusinessUpsertWithoutProductsInput = {
     update: XOR<BusinessUpdateWithoutProductsInput, BusinessUncheckedUpdateWithoutProductsInput>
     create: XOR<BusinessCreateWithoutProductsInput, BusinessUncheckedCreateWithoutProductsInput>
@@ -24440,6 +24612,22 @@ export namespace Prisma {
   export type LedgerEntryUpdateManyWithWhereWithoutProductInput = {
     where: LedgerEntryScalarWhereInput
     data: XOR<LedgerEntryUpdateManyMutationInput, LedgerEntryUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type AiInsightUpsertWithWhereUniqueWithoutProductInput = {
+    where: AiInsightWhereUniqueInput
+    update: XOR<AiInsightUpdateWithoutProductInput, AiInsightUncheckedUpdateWithoutProductInput>
+    create: XOR<AiInsightCreateWithoutProductInput, AiInsightUncheckedCreateWithoutProductInput>
+  }
+
+  export type AiInsightUpdateWithWhereUniqueWithoutProductInput = {
+    where: AiInsightWhereUniqueInput
+    data: XOR<AiInsightUpdateWithoutProductInput, AiInsightUncheckedUpdateWithoutProductInput>
+  }
+
+  export type AiInsightUpdateManyWithWhereWithoutProductInput = {
+    where: AiInsightScalarWhereInput
+    data: XOR<AiInsightUpdateManyMutationInput, AiInsightUncheckedUpdateManyWithoutProductInput>
   }
 
   export type BusinessCreateWithoutOrdersInput = {
@@ -24906,6 +25094,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutOrderItemsInput = {
@@ -24923,6 +25112,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageUncheckedCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutOrderItemsInput = {
@@ -25001,6 +25191,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutOrderItemsInput = {
@@ -25018,6 +25209,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUncheckedUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type OrderCreateWithoutStatusHistoryInput = {
@@ -25244,6 +25436,7 @@ export namespace Prisma {
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutInventoryLotsInput = {
@@ -25261,6 +25454,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageUncheckedCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutInventoryLotsInput = {
@@ -25380,6 +25574,7 @@ export namespace Prisma {
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutInventoryLotsInput = {
@@ -25397,6 +25592,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUncheckedUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type OrderUpsertWithoutInventoryLotsInput = {
@@ -25500,6 +25696,7 @@ export namespace Prisma {
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutInventoryUsagesInput = {
@@ -25517,6 +25714,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutInventoryUsagesInput = {
@@ -25597,6 +25795,7 @@ export namespace Prisma {
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutInventoryUsagesInput = {
@@ -25614,6 +25813,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type BusinessCreateWithoutLedgerEntriesInput = {
@@ -25672,6 +25872,7 @@ export namespace Prisma {
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutLedgerEntriesInput = {
@@ -25689,6 +25890,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageUncheckedCreateNestedManyWithoutProductInput
+    aiInsights?: AiInsightUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutLedgerEntriesInput = {
@@ -25808,6 +26010,7 @@ export namespace Prisma {
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutLedgerEntriesInput = {
@@ -25825,6 +26028,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUncheckedUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type OrderUpsertWithoutLedgerEntriesInput = {
@@ -25872,6 +26076,47 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutOrderNestedInput
   }
 
+  export type ProductCreateWithoutAiInsightsInput = {
+    id?: string
+    name: string
+    sku?: string | null
+    description?: string | null
+    unitPrice?: number
+    unit?: string
+    reorderLevel?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    business: BusinessCreateNestedOneWithoutProductsInput
+    supplier?: SupplierCreateNestedOneWithoutProductsInput
+    orderItems?: OrderItemCreateNestedManyWithoutProductInput
+    inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
+    inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
+    ledgerEntries?: LedgerEntryCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutAiInsightsInput = {
+    id?: string
+    name: string
+    sku?: string | null
+    description?: string | null
+    unitPrice?: number
+    unit?: string
+    reorderLevel?: number
+    businessId: string
+    supplierId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
+    inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutProductInput
+    inventoryUsages?: InventoryUsageUncheckedCreateNestedManyWithoutProductInput
+    ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutAiInsightsInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutAiInsightsInput, ProductUncheckedCreateWithoutAiInsightsInput>
+  }
+
   export type BusinessCreateWithoutAiInsightsInput = {
     id?: string
     name: string
@@ -25911,6 +26156,53 @@ export namespace Prisma {
   export type BusinessCreateOrConnectWithoutAiInsightsInput = {
     where: BusinessWhereUniqueInput
     create: XOR<BusinessCreateWithoutAiInsightsInput, BusinessUncheckedCreateWithoutAiInsightsInput>
+  }
+
+  export type ProductUpsertWithoutAiInsightsInput = {
+    update: XOR<ProductUpdateWithoutAiInsightsInput, ProductUncheckedUpdateWithoutAiInsightsInput>
+    create: XOR<ProductCreateWithoutAiInsightsInput, ProductUncheckedCreateWithoutAiInsightsInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutAiInsightsInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutAiInsightsInput, ProductUncheckedUpdateWithoutAiInsightsInput>
+  }
+
+  export type ProductUpdateWithoutAiInsightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sku?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPrice?: FloatFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    reorderLevel?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    business?: BusinessUpdateOneRequiredWithoutProductsNestedInput
+    supplier?: SupplierUpdateOneWithoutProductsNestedInput
+    orderItems?: OrderItemUpdateManyWithoutProductNestedInput
+    inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
+    inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
+    ledgerEntries?: LedgerEntryUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutAiInsightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sku?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPrice?: FloatFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    reorderLevel?: IntFieldUpdateOperationsInput | number
+    businessId?: StringFieldUpdateOperationsInput | string
+    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
+    inventoryLots?: InventoryLotUncheckedUpdateManyWithoutProductNestedInput
+    inventoryUsages?: InventoryUsageUncheckedUpdateManyWithoutProductNestedInput
+    ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type BusinessUpsertWithoutAiInsightsInput = {
@@ -26228,6 +26520,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutBusinessInput = {
@@ -26245,6 +26538,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUncheckedUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutBusinessInput = {
@@ -26414,9 +26708,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     severity?: StringFieldUpdateOperationsInput | string
-    productId?: NullableStringFieldUpdateOperationsInput | string | null
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneWithoutAiInsightsNestedInput
   }
 
   export type AiInsightUncheckedUpdateWithoutBusinessInput = {
@@ -26502,6 +26796,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutSupplierInput = {
@@ -26519,6 +26814,7 @@ export namespace Prisma {
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUncheckedUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutProductNestedInput
+    aiInsights?: AiInsightUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutSupplierInput = {
@@ -26619,6 +26915,17 @@ export namespace Prisma {
     businessId: string
     orderId?: string | null
     supplierId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AiInsightCreateManyProductInput = {
+    id?: string
+    type: string
+    title: string
+    message: string
+    severity?: string
+    businessId: string
+    isRead?: boolean
     createdAt?: Date | string
   }
 
@@ -26745,6 +27052,39 @@ export namespace Prisma {
     businessId?: StringFieldUpdateOperationsInput | string
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiInsightUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    business?: BusinessUpdateOneRequiredWithoutAiInsightsNestedInput
+  }
+
+  export type AiInsightUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    businessId?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiInsightUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    businessId?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
