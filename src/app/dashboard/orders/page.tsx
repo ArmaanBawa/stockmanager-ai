@@ -35,6 +35,7 @@ export default function OrdersPage() {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const [showCreate, setShowCreate] = useState(false);
+    const [deleteId, setDeleteId] = useState<string | null>(null);
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
     const [filterStatus, setFilterStatus] = useState('');
 
@@ -63,6 +64,14 @@ export default function OrdersPage() {
     const viewOrder = async (id: string) => {
         const data = await fetch(`/api/orders/${id}`).then(r => r.json());
         setSelectedOrder(data);
+    };
+
+    const confirmDelete = async () => {
+        if (!deleteId) return;
+        await fetch(`/api/orders/${deleteId}`, { method: 'DELETE' });
+        setDeleteId(null);
+        setSelectedOrder(null);
+        fetchOrders();
     };
 
     const updateStatus = async (orderId: string, status: string) => {
@@ -128,17 +137,18 @@ export default function OrdersPage() {
             <div className="animate-in">
                 <div className="page-header">
                     <div>
-                        <button onClick={() => setSelectedOrder(null)} className="btn btn-secondary btn-sm" style={{ marginBottom: 8 }}>← Back to Orders</button>
+                        <button type="button" onClick={() => setSelectedOrder(null)} className="btn btn-secondary btn-sm" style={{ marginBottom: 8 }}>← Back to Orders</button>
                         <h1 className="page-title">{selectedOrder.orderNumber}</h1>
                         <p className="page-subtitle">{selectedOrder.supplier.name} • ₹{selectedOrder.totalAmount.toLocaleString()}</p>
                     </div>
                     <div className="flex-gap">
                         <span className={`badge badge-${selectedOrder.status.toLowerCase()}`}>{selectedOrder.status.replace('_', ' ')}</span>
                         {nextStatus && selectedOrder.status !== 'CANCELLED' && (
-                            <button className="btn btn-primary btn-sm" onClick={() => updateStatus(selectedOrder.id, nextStatus)}>
+                            <button type="button" className="btn btn-primary btn-sm" onClick={() => updateStatus(selectedOrder.id, nextStatus)}>
                                 → {nextStatus.replace('_', ' ')}
                             </button>
                         )}
+                        <button type="button" onClick={() => setDeleteId(selectedOrder.id)} className="btn btn-danger btn-sm">Delete Order</button>
                     </div>
                 </div>
 
@@ -187,10 +197,10 @@ export default function OrdersPage() {
                                         {stage.status !== 'COMPLETED' && selectedOrder.status === 'IN_MANUFACTURING' && (
                                             <div className="flex-gap">
                                                 {stage.status === 'PENDING' && (
-                                                    <button className="btn btn-secondary btn-sm" onClick={() => updateMfgStage(selectedOrder.id, stage.id, 'IN_PROGRESS')}>Start</button>
+                                                    <button type="button" className="btn btn-secondary btn-sm" onClick={() => updateMfgStage(selectedOrder.id, stage.id, 'IN_PROGRESS')}>Start</button>
                                                 )}
                                                 {stage.status === 'IN_PROGRESS' && (
-                                                    <button className="btn btn-primary btn-sm" onClick={() => updateMfgStage(selectedOrder.id, stage.id, 'COMPLETED')}>Complete</button>
+                                                    <button type="button" className="btn btn-primary btn-sm" onClick={() => updateMfgStage(selectedOrder.id, stage.id, 'COMPLETED')}>Complete</button>
                                                 )}
                                             </div>
                                         )}
@@ -231,6 +241,24 @@ export default function OrdersPage() {
                         )}
                     </div>
                 </div>
+
+                {deleteId && (
+                    <div className="modal-overlay" onClick={() => setDeleteId(null)}>
+                        <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 400 }}>
+                            <div className="modal-header">
+                                <h3 className="modal-title">Delete Order</h3>
+                                <button type="button" className="modal-close" onClick={() => setDeleteId(null)}>×</button>
+                            </div>
+                            <div style={{ padding: '20px 0', color: 'var(--text-secondary)' }}>
+                                Are you sure you want to delete this order? This action cannot be undone and will delete all associated status history and ledger records.
+                            </div>
+                            <div className="modal-actions">
+                                <button type="button" onClick={() => setDeleteId(null)} className="btn btn-secondary">Cancel</button>
+                                <button type="button" onClick={confirmDelete} className="btn btn-danger">Delete Order</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         );
     }
@@ -242,14 +270,14 @@ export default function OrdersPage() {
                     <h1 className="page-title">Orders</h1>
                     <p className="page-subtitle">Track and manage purchase orders</p>
                 </div>
-                <button onClick={() => setShowCreate(true)} className="btn btn-primary">+ New Order</button>
+                <button type="button" onClick={() => setShowCreate(true)} className="btn btn-primary">+ New Order</button>
             </div>
 
             {/* Filters */}
             <div className="flex-gap" style={{ marginBottom: 20 }}>
-                <button className={`btn ${filterStatus === '' ? 'btn-primary' : 'btn-secondary'} btn-sm`} onClick={() => setFilterStatus('')}>All</button>
+                <button type="button" className={`btn ${filterStatus === '' ? 'btn-primary' : 'btn-secondary'} btn-sm`} onClick={() => setFilterStatus('')}>All</button>
                 {STATUSES.map(s => (
-                    <button key={s} className={`btn ${filterStatus === s ? 'btn-primary' : 'btn-secondary'} btn-sm`} onClick={() => setFilterStatus(s)}>
+                    <button type="button" key={s} className={`btn ${filterStatus === s ? 'btn-primary' : 'btn-secondary'} btn-sm`} onClick={() => setFilterStatus(s)}>
                         {STATUS_EMOJI[s]} {s.replace('_', ' ')}
                     </button>
                 ))}
@@ -278,7 +306,12 @@ export default function OrdersPage() {
                                     <td>₹{order.totalAmount.toLocaleString()}</td>
                                     <td><span className={`badge badge-${order.status.toLowerCase()}`}>{order.status.replace('_', ' ')}</span></td>
                                     <td style={{ fontSize: 13, color: 'var(--text-muted)' }}>{new Date(order.createdAt).toLocaleDateString()}</td>
-                                    <td><button onClick={() => viewOrder(order.id)} className="btn btn-secondary btn-sm">View</button></td>
+                                    <td>
+                                        <div className="flex-gap">
+                                            <button type="button" onClick={() => viewOrder(order.id)} className="btn btn-secondary btn-sm">View</button>
+                                            <button type="button" onClick={() => setDeleteId(order.id)} className="btn btn-danger btn-sm">Delete</button>
+                                        </div>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -288,7 +321,25 @@ export default function OrdersPage() {
                 <div className="card empty-state">
                     <p>📋 No orders yet</p>
                     <p style={{ fontSize: 13, marginBottom: 16 }}>Place your first order to get started</p>
-                    <button onClick={() => setShowCreate(true)} className="btn btn-primary">Create Order</button>
+                    <button type="button" onClick={() => setShowCreate(true)} className="btn btn-primary">Create Order</button>
+                </div>
+            )}
+
+            {deleteId && (
+                <div className="modal-overlay" onClick={() => setDeleteId(null)}>
+                    <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 400 }}>
+                        <div className="modal-header">
+                            <h3 className="modal-title">Delete Order</h3>
+                            <button type="button" className="modal-close" onClick={() => setDeleteId(null)}>×</button>
+                        </div>
+                        <div style={{ padding: '20px 0', color: 'var(--text-secondary)' }}>
+                            Are you sure you want to delete this order? This action cannot be undone and will delete all associated status history and ledger records.
+                        </div>
+                        <div className="modal-actions">
+                            <button type="button" onClick={() => setDeleteId(null)} className="btn btn-secondary">Cancel</button>
+                            <button type="button" onClick={confirmDelete} className="btn btn-danger">Delete Order</button>
+                        </div>
+                    </div>
                 </div>
             )}
 

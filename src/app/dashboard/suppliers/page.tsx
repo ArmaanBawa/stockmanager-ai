@@ -16,6 +16,7 @@ export default function SuppliersPage() {
     const [suppliers, setSuppliers] = useState<Supplier[]>([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [deleteId, setDeleteId] = useState<string | null>(null);
     const [editId, setEditId] = useState<string | null>(null);
     const [form, setForm] = useState({ name: '', contactName: '', email: '', phone: '', address: '' });
 
@@ -53,9 +54,10 @@ export default function SuppliersPage() {
         fetchSuppliers();
     };
 
-    const handleDelete = async (id: string) => {
-        if (!confirm('Delete this supplier?')) return;
-        await fetch(`/api/suppliers/${id}`, { method: 'DELETE' });
+    const confirmDelete = async () => {
+        if (!deleteId) return;
+        await fetch(`/api/suppliers/${deleteId}`, { method: 'DELETE' });
+        setDeleteId(null);
         fetchSuppliers();
     };
 
@@ -70,7 +72,7 @@ export default function SuppliersPage() {
                     <h1 className="page-title">Suppliers</h1>
                     <p className="page-subtitle">Manage your manufacturers and vendors</p>
                 </div>
-                <button onClick={openAdd} className="btn btn-primary">+ Add Supplier</button>
+                <button type="button" onClick={openAdd} className="btn btn-primary">+ Add Supplier</button>
             </div>
 
             {suppliers.length > 0 ? (
@@ -98,8 +100,8 @@ export default function SuppliersPage() {
                                     <td>{s._count.orders}</td>
                                     <td>
                                         <div className="flex-gap">
-                                            <button onClick={() => openEdit(s)} className="btn btn-secondary btn-sm">Edit</button>
-                                            <button onClick={() => handleDelete(s.id)} className="btn btn-danger btn-sm">Delete</button>
+                                            <button type="button" onClick={() => openEdit(s)} className="btn btn-secondary btn-sm">Edit</button>
+                                            <button type="button" onClick={() => setDeleteId(s.id)} className="btn btn-danger btn-sm">Delete</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -111,7 +113,7 @@ export default function SuppliersPage() {
                 <div className="card empty-state">
                     <p>🏭 No suppliers yet</p>
                     <p style={{ fontSize: 13, marginBottom: 16 }}>Add your first supplier to start managing orders</p>
-                    <button onClick={openAdd} className="btn btn-primary">Add Supplier</button>
+                    <button type="button" onClick={openAdd} className="btn btn-primary">Add Supplier</button>
                 </div>
             )}
 
@@ -120,7 +122,7 @@ export default function SuppliersPage() {
                     <div className="modal" onClick={e => e.stopPropagation()}>
                         <div className="modal-header">
                             <h3 className="modal-title">{editId ? 'Edit Supplier' : 'Add Supplier'}</h3>
-                            <button className="modal-close" onClick={() => setShowModal(false)}>×</button>
+                            <button type="button" className="modal-close" onClick={() => setShowModal(false)}>×</button>
                         </div>
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
@@ -150,6 +152,24 @@ export default function SuppliersPage() {
                                 <button type="submit" className="btn btn-primary">{editId ? 'Update' : 'Add Supplier'}</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {deleteId && (
+                <div className="modal-overlay" onClick={() => setDeleteId(null)}>
+                    <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 400 }}>
+                        <div className="modal-header">
+                            <h3 className="modal-title">Delete Supplier</h3>
+                            <button type="button" className="modal-close" onClick={() => setDeleteId(null)}>×</button>
+                        </div>
+                        <div style={{ padding: '20px 0', color: 'var(--text-secondary)' }}>
+                            Are you sure you want to delete this supplier? This action cannot be undone and will delete all associated products and orders.
+                        </div>
+                        <div className="modal-actions">
+                            <button type="button" onClick={() => setDeleteId(null)} className="btn btn-secondary">Cancel</button>
+                            <button type="button" onClick={confirmDelete} className="btn btn-danger">Delete Supplier</button>
+                        </div>
                     </div>
                 </div>
             )}

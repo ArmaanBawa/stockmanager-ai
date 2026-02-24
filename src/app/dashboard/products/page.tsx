@@ -20,6 +20,7 @@ export default function ProductsPage() {
     const [suppliers, setSuppliers] = useState<Supplier[]>([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [deleteId, setDeleteId] = useState<string | null>(null);
     const [editId, setEditId] = useState<string | null>(null);
     const [form, setForm] = useState({ name: '', sku: '', description: '', unitPrice: 0, unit: 'pcs', reorderLevel: 10, supplierId: '' });
 
@@ -63,9 +64,10 @@ export default function ProductsPage() {
         fetchData();
     };
 
-    const handleDelete = async (id: string) => {
-        if (!confirm('Delete this product?')) return;
-        await fetch(`/api/products/${id}`, { method: 'DELETE' });
+    const confirmDelete = async () => {
+        if (!deleteId) return;
+        await fetch(`/api/products/${deleteId}`, { method: 'DELETE' });
+        setDeleteId(null);
         fetchData();
     };
 
@@ -80,7 +82,7 @@ export default function ProductsPage() {
                     <h1 className="page-title">Products</h1>
                     <p className="page-subtitle">Manage products you purchase from suppliers</p>
                 </div>
-                <button onClick={openAdd} className="btn btn-primary">+ Add Product</button>
+                <button type="button" onClick={openAdd} className="btn btn-primary">+ Add Product</button>
             </div>
 
             {products.length > 0 ? (
@@ -111,8 +113,8 @@ export default function ProductsPage() {
                                     <td>{p.supplier?.name || '—'}</td>
                                     <td>
                                         <div className="flex-gap">
-                                            <button onClick={() => openEdit(p)} className="btn btn-secondary btn-sm">Edit</button>
-                                            <button onClick={() => handleDelete(p.id)} className="btn btn-danger btn-sm">Delete</button>
+                                            <button type="button" onClick={() => openEdit(p)} className="btn btn-secondary btn-sm">Edit</button>
+                                            <button type="button" onClick={() => setDeleteId(p.id)} className="btn btn-danger btn-sm">Delete</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -124,7 +126,7 @@ export default function ProductsPage() {
                 <div className="card empty-state">
                     <p>🏷️ No products yet</p>
                     <p style={{ fontSize: 13, marginBottom: 16 }}>Add products to start tracking inventory and orders</p>
-                    <button onClick={openAdd} className="btn btn-primary">Add Product</button>
+                    <button type="button" onClick={openAdd} className="btn btn-primary">Add Product</button>
                 </div>
             )}
 
@@ -133,7 +135,7 @@ export default function ProductsPage() {
                     <div className="modal" onClick={e => e.stopPropagation()}>
                         <div className="modal-header">
                             <h3 className="modal-title">{editId ? 'Edit Product' : 'Add Product'}</h3>
-                            <button className="modal-close" onClick={() => setShowModal(false)}>×</button>
+                            <button type="button" className="modal-close" onClick={() => setShowModal(false)}>×</button>
                         </div>
                         <form onSubmit={handleSubmit}>
                             <div className="grid-2">
@@ -185,6 +187,24 @@ export default function ProductsPage() {
                                 <button type="submit" className="btn btn-primary">{editId ? 'Update' : 'Add Product'}</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {deleteId && (
+                <div className="modal-overlay" onClick={() => setDeleteId(null)}>
+                    <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 400 }}>
+                        <div className="modal-header">
+                            <h3 className="modal-title">Delete Product</h3>
+                            <button type="button" className="modal-close" onClick={() => setDeleteId(null)}>×</button>
+                        </div>
+                        <div style={{ padding: '20px 0', color: 'var(--text-secondary)' }}>
+                            Are you sure you want to delete this product? This action cannot be undone and will delete all associated records.
+                        </div>
+                        <div className="modal-actions">
+                            <button type="button" onClick={() => setDeleteId(null)} className="btn btn-secondary">Cancel</button>
+                            <button type="button" onClick={confirmDelete} className="btn btn-danger">Delete Product</button>
+                        </div>
                     </div>
                 </div>
             )}
