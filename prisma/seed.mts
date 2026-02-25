@@ -21,7 +21,7 @@ async function main() {
     await prisma.orderItem.deleteMany();
     await prisma.order.deleteMany();
     await prisma.product.deleteMany();
-    await prisma.supplier.deleteMany();
+    await prisma.customer.deleteMany();
     await prisma.user.deleteMany();
     await prisma.business.deleteMany();
 
@@ -46,8 +46,8 @@ async function main() {
         },
     });
 
-    // Create suppliers
-    const supplier1 = await prisma.supplier.create({
+    // Create customers
+    const customer1 = await prisma.customer.create({
         data: {
             name: 'TechParts Manufacturing',
             contactName: 'Amit Kumar',
@@ -58,7 +58,7 @@ async function main() {
         },
     });
 
-    const supplier2 = await prisma.supplier.create({
+    const customer2 = await prisma.customer.create({
         data: {
             name: 'GlobalChip Solutions',
             contactName: 'Priya Patel',
@@ -69,7 +69,7 @@ async function main() {
         },
     });
 
-    const supplier3 = await prisma.supplier.create({
+    const customer3 = await prisma.customer.create({
         data: {
             name: 'PackRight Industries',
             contactName: 'Sanjay Mehta',
@@ -90,7 +90,7 @@ async function main() {
             unit: 'pcs',
             reorderLevel: 50,
             businessId: business.id,
-            supplierId: supplier1.id,
+            customerId: customer1.id,
         },
     });
 
@@ -103,7 +103,7 @@ async function main() {
             unit: 'pcs',
             reorderLevel: 100,
             businessId: business.id,
-            supplierId: supplier2.id,
+            customerId: customer2.id,
         },
     });
 
@@ -116,7 +116,7 @@ async function main() {
             unit: 'pcs',
             reorderLevel: 30,
             businessId: business.id,
-            supplierId: supplier1.id,
+            customerId: customer1.id,
         },
     });
 
@@ -129,7 +129,7 @@ async function main() {
             unit: 'box',
             reorderLevel: 200,
             businessId: business.id,
-            supplierId: supplier3.id,
+            customerId: customer3.id,
         },
     });
 
@@ -142,7 +142,7 @@ async function main() {
             unit: 'pack',
             reorderLevel: 500,
             businessId: business.id,
-            supplierId: supplier2.id,
+            customerId: customer2.id,
         },
     });
 
@@ -153,7 +153,7 @@ async function main() {
             status: 'DELIVERED',
             totalAmount: 42500,
             businessId: business.id,
-            supplierId: supplier1.id,
+            customerId: customer1.id,
             items: {
                 create: [
                     { productId: product1.id, quantity: 50, unitPrice: 850, total: 42500 },
@@ -162,7 +162,7 @@ async function main() {
             statusHistory: {
                 create: [
                     { status: 'PLACED', note: 'Order placed', createdAt: new Date('2026-01-15') },
-                    { status: 'ACCEPTED', note: 'Accepted by supplier', createdAt: new Date('2026-01-16') },
+                    { status: 'ACCEPTED', note: 'Accepted by customer', createdAt: new Date('2026-01-16') },
                     { status: 'IN_MANUFACTURING', note: 'Production started', createdAt: new Date('2026-01-18') },
                     { status: 'DISPATCHED', note: 'Shipped via BlueDart', createdAt: new Date('2026-02-01') },
                     { status: 'DELIVERED', note: 'Received at warehouse', createdAt: new Date('2026-02-05') },
@@ -186,7 +186,7 @@ async function main() {
         data: {
             type: 'PURCHASE', quantity: 50, unitPrice: 850, totalAmount: 42500,
             description: 'Purchase of Circuit Board PCB-X200 via order PO-DEMO-001',
-            businessId: business.id, productId: product1.id, orderId: order1.id, supplierId: supplier1.id, createdAt: new Date('2026-02-05'),
+            businessId: business.id, productId: product1.id, orderId: order1.id, customerId: customer1.id, createdAt: new Date('2026-02-05'),
         },
     });
 
@@ -194,7 +194,7 @@ async function main() {
     await prisma.order.create({
         data: {
             orderNumber: 'PO-DEMO-002', status: 'IN_MANUFACTURING', totalAmount: 64000,
-            businessId: business.id, supplierId: supplier2.id,
+            businessId: business.id, customerId: customer2.id,
             items: { create: [{ productId: product2.id, quantity: 200, unitPrice: 320, total: 64000 }] },
             statusHistory: {
                 create: [
@@ -218,7 +218,7 @@ async function main() {
     await prisma.order.create({
         data: {
             orderNumber: 'PO-DEMO-003', status: 'DISPATCHED', totalAmount: 36000,
-            businessId: business.id, supplierId: supplier1.id,
+            businessId: business.id, customerId: customer1.id,
             items: { create: [{ productId: product3.id, quantity: 30, unitPrice: 1200, total: 36000 }] },
             statusHistory: {
                 create: [
@@ -235,7 +235,7 @@ async function main() {
     await prisma.order.create({
         data: {
             orderNumber: 'PO-DEMO-004', status: 'PLACED', totalAmount: 9000,
-            businessId: business.id, supplierId: supplier3.id,
+            businessId: business.id, customerId: customer3.id,
             items: { create: [{ productId: product4.id, quantity: 200, unitPrice: 45, total: 9000 }] },
             statusHistory: { create: [{ status: 'PLACED', note: 'Packaging order placed', createdAt: new Date('2026-02-22') }] },
         },
@@ -255,7 +255,7 @@ async function main() {
     });
 
     await prisma.ledgerEntry.create({
-        data: { type: 'PURCHASE', quantity: 300, unitPrice: 320, totalAmount: 96000, description: 'Purchase of ARM Cortex M4 Chips', businessId: business.id, productId: product2.id, supplierId: supplier2.id, createdAt: new Date('2026-01-20') },
+        data: { type: 'PURCHASE', quantity: 300, unitPrice: 320, totalAmount: 96000, description: 'Purchase of ARM Cortex M4 Chips', businessId: business.id, productId: product2.id, customerId: customer2.id, createdAt: new Date('2026-01-20') },
     });
 
     await prisma.inventoryLot.create({

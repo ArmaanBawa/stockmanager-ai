@@ -29,10 +29,10 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  */
 export type Business = $Result.DefaultSelection<Prisma.$BusinessPayload>
 /**
- * Model Supplier
+ * Model Customer
  * 
  */
-export type Supplier = $Result.DefaultSelection<Prisma.$SupplierPayload>
+export type Customer = $Result.DefaultSelection<Prisma.$CustomerPayload>
 /**
  * Model Product
  * 
@@ -233,14 +233,14 @@ export class PrismaClient<
   get business(): Prisma.BusinessDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.supplier`: Exposes CRUD operations for the **Supplier** model.
+   * `prisma.customer`: Exposes CRUD operations for the **Customer** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Suppliers
-    * const suppliers = await prisma.supplier.findMany()
+    * // Fetch zero or more Customers
+    * const customers = await prisma.customer.findMany()
     * ```
     */
-  get supplier(): Prisma.SupplierDelegate<ExtArgs, ClientOptions>;
+  get customer(): Prisma.CustomerDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.product`: Exposes CRUD operations for the **Product** model.
@@ -785,7 +785,7 @@ export namespace Prisma {
     User: 'User',
     VerificationToken: 'VerificationToken',
     Business: 'Business',
-    Supplier: 'Supplier',
+    Customer: 'Customer',
     Product: 'Product',
     Order: 'Order',
     OrderItem: 'OrderItem',
@@ -814,7 +814,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "verificationToken" | "business" | "supplier" | "product" | "order" | "orderItem" | "orderStatusHistory" | "manufacturingStage" | "inventoryLot" | "inventoryUsage" | "ledgerEntry" | "aiInsight" | "chatMessage"
+      modelProps: "user" | "verificationToken" | "business" | "customer" | "product" | "order" | "orderItem" | "orderStatusHistory" | "manufacturingStage" | "inventoryLot" | "inventoryUsage" | "ledgerEntry" | "aiInsight" | "chatMessage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1040,77 +1040,77 @@ export namespace Prisma {
           }
         }
       }
-      Supplier: {
-        payload: Prisma.$SupplierPayload<ExtArgs>
-        fields: Prisma.SupplierFieldRefs
+      Customer: {
+        payload: Prisma.$CustomerPayload<ExtArgs>
+        fields: Prisma.CustomerFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.SupplierFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SupplierPayload> | null
+            args: Prisma.CustomerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.SupplierFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SupplierPayload>
+            args: Prisma.CustomerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>
           }
           findFirst: {
-            args: Prisma.SupplierFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SupplierPayload> | null
+            args: Prisma.CustomerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.SupplierFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SupplierPayload>
+            args: Prisma.CustomerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>
           }
           findMany: {
-            args: Prisma.SupplierFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SupplierPayload>[]
+            args: Prisma.CustomerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>[]
           }
           create: {
-            args: Prisma.SupplierCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SupplierPayload>
+            args: Prisma.CustomerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>
           }
           createMany: {
-            args: Prisma.SupplierCreateManyArgs<ExtArgs>
+            args: Prisma.CustomerCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.SupplierCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SupplierPayload>[]
+            args: Prisma.CustomerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>[]
           }
           delete: {
-            args: Prisma.SupplierDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SupplierPayload>
+            args: Prisma.CustomerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>
           }
           update: {
-            args: Prisma.SupplierUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SupplierPayload>
+            args: Prisma.CustomerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>
           }
           deleteMany: {
-            args: Prisma.SupplierDeleteManyArgs<ExtArgs>
+            args: Prisma.CustomerDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.SupplierUpdateManyArgs<ExtArgs>
+            args: Prisma.CustomerUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.SupplierUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SupplierPayload>[]
+            args: Prisma.CustomerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>[]
           }
           upsert: {
-            args: Prisma.SupplierUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SupplierPayload>
+            args: Prisma.CustomerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>
           }
           aggregate: {
-            args: Prisma.SupplierAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSupplier>
+            args: Prisma.CustomerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomer>
           }
           groupBy: {
-            args: Prisma.SupplierGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SupplierGroupByOutputType>[]
+            args: Prisma.CustomerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomerGroupByOutputType>[]
           }
           count: {
-            args: Prisma.SupplierCountArgs<ExtArgs>
-            result: $Utils.Optional<SupplierCountAggregateOutputType> | number
+            args: Prisma.CustomerCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomerCountAggregateOutputType> | number
           }
         }
       }
@@ -1953,7 +1953,7 @@ export namespace Prisma {
     user?: UserOmit
     verificationToken?: VerificationTokenOmit
     business?: BusinessOmit
-    supplier?: SupplierOmit
+    customer?: CustomerOmit
     product?: ProductOmit
     order?: OrderOmit
     orderItem?: OrderItemOmit
@@ -2045,7 +2045,7 @@ export namespace Prisma {
 
   export type BusinessCountOutputType = {
     users: number
-    suppliers: number
+    customers: number
     products: number
     orders: number
     inventoryLots: number
@@ -2057,7 +2057,7 @@ export namespace Prisma {
 
   export type BusinessCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | BusinessCountOutputTypeCountUsersArgs
-    suppliers?: boolean | BusinessCountOutputTypeCountSuppliersArgs
+    customers?: boolean | BusinessCountOutputTypeCountCustomersArgs
     products?: boolean | BusinessCountOutputTypeCountProductsArgs
     orders?: boolean | BusinessCountOutputTypeCountOrdersArgs
     inventoryLots?: boolean | BusinessCountOutputTypeCountInventoryLotsArgs
@@ -2088,8 +2088,8 @@ export namespace Prisma {
   /**
    * BusinessCountOutputType without action
    */
-  export type BusinessCountOutputTypeCountSuppliersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SupplierWhereInput
+  export type BusinessCountOutputTypeCountCustomersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerWhereInput
   }
 
   /**
@@ -2143,41 +2143,41 @@ export namespace Prisma {
 
 
   /**
-   * Count Type SupplierCountOutputType
+   * Count Type CustomerCountOutputType
    */
 
-  export type SupplierCountOutputType = {
+  export type CustomerCountOutputType = {
     products: number
     orders: number
   }
 
-  export type SupplierCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    products?: boolean | SupplierCountOutputTypeCountProductsArgs
-    orders?: boolean | SupplierCountOutputTypeCountOrdersArgs
+  export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    products?: boolean | CustomerCountOutputTypeCountProductsArgs
+    orders?: boolean | CustomerCountOutputTypeCountOrdersArgs
   }
 
   // Custom InputTypes
   /**
-   * SupplierCountOutputType without action
+   * CustomerCountOutputType without action
    */
-  export type SupplierCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SupplierCountOutputType
+     * Select specific fields to fetch from the CustomerCountOutputType
      */
-    select?: SupplierCountOutputTypeSelect<ExtArgs> | null
+    select?: CustomerCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * SupplierCountOutputType without action
+   * CustomerCountOutputType without action
    */
-  export type SupplierCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProductWhereInput
   }
 
   /**
-   * SupplierCountOutputType without action
+   * CustomerCountOutputType without action
    */
-  export type SupplierCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrderWhereInput
   }
 
@@ -4612,7 +4612,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     users?: boolean | Business$usersArgs<ExtArgs>
-    suppliers?: boolean | Business$suppliersArgs<ExtArgs>
+    customers?: boolean | Business$customersArgs<ExtArgs>
     products?: boolean | Business$productsArgs<ExtArgs>
     orders?: boolean | Business$ordersArgs<ExtArgs>
     inventoryLots?: boolean | Business$inventoryLotsArgs<ExtArgs>
@@ -4656,7 +4656,7 @@ export namespace Prisma {
   export type BusinessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "phone" | "email" | "createdAt" | "updatedAt", ExtArgs["result"]["business"]>
   export type BusinessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Business$usersArgs<ExtArgs>
-    suppliers?: boolean | Business$suppliersArgs<ExtArgs>
+    customers?: boolean | Business$customersArgs<ExtArgs>
     products?: boolean | Business$productsArgs<ExtArgs>
     orders?: boolean | Business$ordersArgs<ExtArgs>
     inventoryLots?: boolean | Business$inventoryLotsArgs<ExtArgs>
@@ -4673,7 +4673,7 @@ export namespace Prisma {
     name: "Business"
     objects: {
       users: Prisma.$UserPayload<ExtArgs>[]
-      suppliers: Prisma.$SupplierPayload<ExtArgs>[]
+      customers: Prisma.$CustomerPayload<ExtArgs>[]
       products: Prisma.$ProductPayload<ExtArgs>[]
       orders: Prisma.$OrderPayload<ExtArgs>[]
       inventoryLots: Prisma.$InventoryLotPayload<ExtArgs>[]
@@ -5085,7 +5085,7 @@ export namespace Prisma {
   export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     users<T extends Business$usersArgs<ExtArgs> = {}>(args?: Subset<T, Business$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    suppliers<T extends Business$suppliersArgs<ExtArgs> = {}>(args?: Subset<T, Business$suppliersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customers<T extends Business$customersArgs<ExtArgs> = {}>(args?: Subset<T, Business$customersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     products<T extends Business$productsArgs<ExtArgs> = {}>(args?: Subset<T, Business$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orders<T extends Business$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Business$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inventoryLots<T extends Business$inventoryLotsArgs<ExtArgs> = {}>(args?: Subset<T, Business$inventoryLotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryLotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5541,27 +5541,27 @@ export namespace Prisma {
   }
 
   /**
-   * Business.suppliers
+   * Business.customers
    */
-  export type Business$suppliersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Business$customersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
-    where?: SupplierWhereInput
-    orderBy?: SupplierOrderByWithRelationInput | SupplierOrderByWithRelationInput[]
-    cursor?: SupplierWhereUniqueInput
+    include?: CustomerInclude<ExtArgs> | null
+    where?: CustomerWhereInput
+    orderBy?: CustomerOrderByWithRelationInput | CustomerOrderByWithRelationInput[]
+    cursor?: CustomerWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: SupplierScalarFieldEnum | SupplierScalarFieldEnum[]
+    distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[]
   }
 
   /**
@@ -5752,16 +5752,16 @@ export namespace Prisma {
 
 
   /**
-   * Model Supplier
+   * Model Customer
    */
 
-  export type AggregateSupplier = {
-    _count: SupplierCountAggregateOutputType | null
-    _min: SupplierMinAggregateOutputType | null
-    _max: SupplierMaxAggregateOutputType | null
+  export type AggregateCustomer = {
+    _count: CustomerCountAggregateOutputType | null
+    _min: CustomerMinAggregateOutputType | null
+    _max: CustomerMaxAggregateOutputType | null
   }
 
-  export type SupplierMinAggregateOutputType = {
+  export type CustomerMinAggregateOutputType = {
     id: string | null
     name: string | null
     contactName: string | null
@@ -5773,7 +5773,7 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type SupplierMaxAggregateOutputType = {
+  export type CustomerMaxAggregateOutputType = {
     id: string | null
     name: string | null
     contactName: string | null
@@ -5785,7 +5785,7 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type SupplierCountAggregateOutputType = {
+  export type CustomerCountAggregateOutputType = {
     id: number
     name: number
     contactName: number
@@ -5799,7 +5799,7 @@ export namespace Prisma {
   }
 
 
-  export type SupplierMinAggregateInputType = {
+  export type CustomerMinAggregateInputType = {
     id?: true
     name?: true
     contactName?: true
@@ -5811,7 +5811,7 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type SupplierMaxAggregateInputType = {
+  export type CustomerMaxAggregateInputType = {
     id?: true
     name?: true
     contactName?: true
@@ -5823,7 +5823,7 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type SupplierCountAggregateInputType = {
+  export type CustomerCountAggregateInputType = {
     id?: true
     name?: true
     contactName?: true
@@ -5836,79 +5836,79 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type SupplierAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Supplier to aggregate.
+     * Filter which Customer to aggregate.
      */
-    where?: SupplierWhereInput
+    where?: CustomerWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Suppliers to fetch.
+     * Determine the order of Customers to fetch.
      */
-    orderBy?: SupplierOrderByWithRelationInput | SupplierOrderByWithRelationInput[]
+    orderBy?: CustomerOrderByWithRelationInput | CustomerOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: SupplierWhereUniqueInput
+    cursor?: CustomerWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Suppliers from the position of the cursor.
+     * Take `±n` Customers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Suppliers.
+     * Skip the first `n` Customers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Suppliers
+     * Count returned Customers
     **/
-    _count?: true | SupplierCountAggregateInputType
+    _count?: true | CustomerCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: SupplierMinAggregateInputType
+    _min?: CustomerMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: SupplierMaxAggregateInputType
+    _max?: CustomerMaxAggregateInputType
   }
 
-  export type GetSupplierAggregateType<T extends SupplierAggregateArgs> = {
-        [P in keyof T & keyof AggregateSupplier]: P extends '_count' | 'count'
+  export type GetCustomerAggregateType<T extends CustomerAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomer]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateSupplier[P]>
-      : GetScalarType<T[P], AggregateSupplier[P]>
+        : GetScalarType<T[P], AggregateCustomer[P]>
+      : GetScalarType<T[P], AggregateCustomer[P]>
   }
 
 
 
 
-  export type SupplierGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SupplierWhereInput
-    orderBy?: SupplierOrderByWithAggregationInput | SupplierOrderByWithAggregationInput[]
-    by: SupplierScalarFieldEnum[] | SupplierScalarFieldEnum
-    having?: SupplierScalarWhereWithAggregatesInput
+  export type CustomerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerWhereInput
+    orderBy?: CustomerOrderByWithAggregationInput | CustomerOrderByWithAggregationInput[]
+    by: CustomerScalarFieldEnum[] | CustomerScalarFieldEnum
+    having?: CustomerScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: SupplierCountAggregateInputType | true
-    _min?: SupplierMinAggregateInputType
-    _max?: SupplierMaxAggregateInputType
+    _count?: CustomerCountAggregateInputType | true
+    _min?: CustomerMinAggregateInputType
+    _max?: CustomerMaxAggregateInputType
   }
 
-  export type SupplierGroupByOutputType = {
+  export type CustomerGroupByOutputType = {
     id: string
     name: string
     contactName: string | null
@@ -5918,26 +5918,26 @@ export namespace Prisma {
     businessId: string
     createdAt: Date
     updatedAt: Date
-    _count: SupplierCountAggregateOutputType | null
-    _min: SupplierMinAggregateOutputType | null
-    _max: SupplierMaxAggregateOutputType | null
+    _count: CustomerCountAggregateOutputType | null
+    _min: CustomerMinAggregateOutputType | null
+    _max: CustomerMaxAggregateOutputType | null
   }
 
-  type GetSupplierGroupByPayload<T extends SupplierGroupByArgs> = Prisma.PrismaPromise<
+  type GetCustomerGroupByPayload<T extends CustomerGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<SupplierGroupByOutputType, T['by']> &
+      PickEnumerable<CustomerGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof SupplierGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof CustomerGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], SupplierGroupByOutputType[P]>
-            : GetScalarType<T[P], SupplierGroupByOutputType[P]>
+              : GetScalarType<T[P], CustomerGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type SupplierSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CustomerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     contactName?: boolean
@@ -5948,12 +5948,12 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    products?: boolean | Supplier$productsArgs<ExtArgs>
-    orders?: boolean | Supplier$ordersArgs<ExtArgs>
-    _count?: boolean | SupplierCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["supplier"]>
+    products?: boolean | Customer$productsArgs<ExtArgs>
+    orders?: boolean | Customer$ordersArgs<ExtArgs>
+    _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customer"]>
 
-  export type SupplierSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CustomerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     contactName?: boolean
@@ -5964,9 +5964,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["supplier"]>
+  }, ExtArgs["result"]["customer"]>
 
-  export type SupplierSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CustomerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     contactName?: boolean
@@ -5977,9 +5977,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["supplier"]>
+  }, ExtArgs["result"]["customer"]>
 
-  export type SupplierSelectScalar = {
+  export type CustomerSelectScalar = {
     id?: boolean
     name?: boolean
     contactName?: boolean
@@ -5991,22 +5991,22 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type SupplierOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "contactName" | "email" | "phone" | "address" | "businessId" | "createdAt" | "updatedAt", ExtArgs["result"]["supplier"]>
-  export type SupplierInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "contactName" | "email" | "phone" | "address" | "businessId" | "createdAt" | "updatedAt", ExtArgs["result"]["customer"]>
+  export type CustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    products?: boolean | Supplier$productsArgs<ExtArgs>
-    orders?: boolean | Supplier$ordersArgs<ExtArgs>
-    _count?: boolean | SupplierCountOutputTypeDefaultArgs<ExtArgs>
+    products?: boolean | Customer$productsArgs<ExtArgs>
+    orders?: boolean | Customer$ordersArgs<ExtArgs>
+    _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type SupplierIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>
   }
-  export type SupplierIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>
   }
 
-  export type $SupplierPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Supplier"
+  export type $CustomerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Customer"
     objects: {
       business: Prisma.$BusinessPayload<ExtArgs>
       products: Prisma.$ProductPayload<ExtArgs>[]
@@ -6022,136 +6022,136 @@ export namespace Prisma {
       businessId: string
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["supplier"]>
+    }, ExtArgs["result"]["customer"]>
     composites: {}
   }
 
-  type SupplierGetPayload<S extends boolean | null | undefined | SupplierDefaultArgs> = $Result.GetResult<Prisma.$SupplierPayload, S>
+  type CustomerGetPayload<S extends boolean | null | undefined | CustomerDefaultArgs> = $Result.GetResult<Prisma.$CustomerPayload, S>
 
-  type SupplierCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<SupplierFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SupplierCountAggregateInputType | true
+  type CustomerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CustomerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CustomerCountAggregateInputType | true
     }
 
-  export interface SupplierDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Supplier'], meta: { name: 'Supplier' } }
+  export interface CustomerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Customer'], meta: { name: 'Customer' } }
     /**
-     * Find zero or one Supplier that matches the filter.
-     * @param {SupplierFindUniqueArgs} args - Arguments to find a Supplier
+     * Find zero or one Customer that matches the filter.
+     * @param {CustomerFindUniqueArgs} args - Arguments to find a Customer
      * @example
-     * // Get one Supplier
-     * const supplier = await prisma.supplier.findUnique({
+     * // Get one Customer
+     * const customer = await prisma.customer.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends SupplierFindUniqueArgs>(args: SelectSubset<T, SupplierFindUniqueArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends CustomerFindUniqueArgs>(args: SelectSubset<T, CustomerFindUniqueArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Supplier that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Customer that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {SupplierFindUniqueOrThrowArgs} args - Arguments to find a Supplier
+     * @param {CustomerFindUniqueOrThrowArgs} args - Arguments to find a Customer
      * @example
-     * // Get one Supplier
-     * const supplier = await prisma.supplier.findUniqueOrThrow({
+     * // Get one Customer
+     * const customer = await prisma.customer.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends SupplierFindUniqueOrThrowArgs>(args: SelectSubset<T, SupplierFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends CustomerFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Supplier that matches the filter.
+     * Find the first Customer that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SupplierFindFirstArgs} args - Arguments to find a Supplier
+     * @param {CustomerFindFirstArgs} args - Arguments to find a Customer
      * @example
-     * // Get one Supplier
-     * const supplier = await prisma.supplier.findFirst({
+     * // Get one Customer
+     * const customer = await prisma.customer.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends SupplierFindFirstArgs>(args?: SelectSubset<T, SupplierFindFirstArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends CustomerFindFirstArgs>(args?: SelectSubset<T, CustomerFindFirstArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Supplier that matches the filter or
+     * Find the first Customer that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SupplierFindFirstOrThrowArgs} args - Arguments to find a Supplier
+     * @param {CustomerFindFirstOrThrowArgs} args - Arguments to find a Customer
      * @example
-     * // Get one Supplier
-     * const supplier = await prisma.supplier.findFirstOrThrow({
+     * // Get one Customer
+     * const customer = await prisma.customer.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends SupplierFindFirstOrThrowArgs>(args?: SelectSubset<T, SupplierFindFirstOrThrowArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends CustomerFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomerFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Suppliers that matches the filter.
+     * Find zero or more Customers that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SupplierFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {CustomerFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Suppliers
-     * const suppliers = await prisma.supplier.findMany()
+     * // Get all Customers
+     * const customers = await prisma.customer.findMany()
      * 
-     * // Get first 10 Suppliers
-     * const suppliers = await prisma.supplier.findMany({ take: 10 })
+     * // Get first 10 Customers
+     * const customers = await prisma.customer.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const supplierWithIdOnly = await prisma.supplier.findMany({ select: { id: true } })
+     * const customerWithIdOnly = await prisma.customer.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends SupplierFindManyArgs>(args?: SelectSubset<T, SupplierFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends CustomerFindManyArgs>(args?: SelectSubset<T, CustomerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Supplier.
-     * @param {SupplierCreateArgs} args - Arguments to create a Supplier.
+     * Create a Customer.
+     * @param {CustomerCreateArgs} args - Arguments to create a Customer.
      * @example
-     * // Create one Supplier
-     * const Supplier = await prisma.supplier.create({
+     * // Create one Customer
+     * const Customer = await prisma.customer.create({
      *   data: {
-     *     // ... data to create a Supplier
+     *     // ... data to create a Customer
      *   }
      * })
      * 
      */
-    create<T extends SupplierCreateArgs>(args: SelectSubset<T, SupplierCreateArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends CustomerCreateArgs>(args: SelectSubset<T, CustomerCreateArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Suppliers.
-     * @param {SupplierCreateManyArgs} args - Arguments to create many Suppliers.
+     * Create many Customers.
+     * @param {CustomerCreateManyArgs} args - Arguments to create many Customers.
      * @example
-     * // Create many Suppliers
-     * const supplier = await prisma.supplier.createMany({
+     * // Create many Customers
+     * const customer = await prisma.customer.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends SupplierCreateManyArgs>(args?: SelectSubset<T, SupplierCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends CustomerCreateManyArgs>(args?: SelectSubset<T, CustomerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Suppliers and returns the data saved in the database.
-     * @param {SupplierCreateManyAndReturnArgs} args - Arguments to create many Suppliers.
+     * Create many Customers and returns the data saved in the database.
+     * @param {CustomerCreateManyAndReturnArgs} args - Arguments to create many Customers.
      * @example
-     * // Create many Suppliers
-     * const supplier = await prisma.supplier.createManyAndReturn({
+     * // Create many Customers
+     * const customer = await prisma.customer.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Suppliers and only return the `id`
-     * const supplierWithIdOnly = await prisma.supplier.createManyAndReturn({
+     * // Create many Customers and only return the `id`
+     * const customerWithIdOnly = await prisma.customer.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -6161,28 +6161,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends SupplierCreateManyAndReturnArgs>(args?: SelectSubset<T, SupplierCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends CustomerCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Supplier.
-     * @param {SupplierDeleteArgs} args - Arguments to delete one Supplier.
+     * Delete a Customer.
+     * @param {CustomerDeleteArgs} args - Arguments to delete one Customer.
      * @example
-     * // Delete one Supplier
-     * const Supplier = await prisma.supplier.delete({
+     * // Delete one Customer
+     * const Customer = await prisma.customer.delete({
      *   where: {
-     *     // ... filter to delete one Supplier
+     *     // ... filter to delete one Customer
      *   }
      * })
      * 
      */
-    delete<T extends SupplierDeleteArgs>(args: SelectSubset<T, SupplierDeleteArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends CustomerDeleteArgs>(args: SelectSubset<T, CustomerDeleteArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Supplier.
-     * @param {SupplierUpdateArgs} args - Arguments to update one Supplier.
+     * Update one Customer.
+     * @param {CustomerUpdateArgs} args - Arguments to update one Customer.
      * @example
-     * // Update one Supplier
-     * const supplier = await prisma.supplier.update({
+     * // Update one Customer
+     * const customer = await prisma.customer.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6192,30 +6192,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends SupplierUpdateArgs>(args: SelectSubset<T, SupplierUpdateArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends CustomerUpdateArgs>(args: SelectSubset<T, CustomerUpdateArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Suppliers.
-     * @param {SupplierDeleteManyArgs} args - Arguments to filter Suppliers to delete.
+     * Delete zero or more Customers.
+     * @param {CustomerDeleteManyArgs} args - Arguments to filter Customers to delete.
      * @example
-     * // Delete a few Suppliers
-     * const { count } = await prisma.supplier.deleteMany({
+     * // Delete a few Customers
+     * const { count } = await prisma.customer.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends SupplierDeleteManyArgs>(args?: SelectSubset<T, SupplierDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends CustomerDeleteManyArgs>(args?: SelectSubset<T, CustomerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Suppliers.
+     * Update zero or more Customers.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SupplierUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {CustomerUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Suppliers
-     * const supplier = await prisma.supplier.updateMany({
+     * // Update many Customers
+     * const customer = await prisma.customer.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6225,14 +6225,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends SupplierUpdateManyArgs>(args: SelectSubset<T, SupplierUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends CustomerUpdateManyArgs>(args: SelectSubset<T, CustomerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Suppliers and returns the data updated in the database.
-     * @param {SupplierUpdateManyAndReturnArgs} args - Arguments to update many Suppliers.
+     * Update zero or more Customers and returns the data updated in the database.
+     * @param {CustomerUpdateManyAndReturnArgs} args - Arguments to update many Customers.
      * @example
-     * // Update many Suppliers
-     * const supplier = await prisma.supplier.updateManyAndReturn({
+     * // Update many Customers
+     * const customer = await prisma.customer.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6241,8 +6241,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Suppliers and only return the `id`
-     * const supplierWithIdOnly = await prisma.supplier.updateManyAndReturn({
+     * // Update zero or more Customers and only return the `id`
+     * const customerWithIdOnly = await prisma.customer.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -6255,56 +6255,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends SupplierUpdateManyAndReturnArgs>(args: SelectSubset<T, SupplierUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends CustomerUpdateManyAndReturnArgs>(args: SelectSubset<T, CustomerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Supplier.
-     * @param {SupplierUpsertArgs} args - Arguments to update or create a Supplier.
+     * Create or update one Customer.
+     * @param {CustomerUpsertArgs} args - Arguments to update or create a Customer.
      * @example
-     * // Update or create a Supplier
-     * const supplier = await prisma.supplier.upsert({
+     * // Update or create a Customer
+     * const customer = await prisma.customer.upsert({
      *   create: {
-     *     // ... data to create a Supplier
+     *     // ... data to create a Customer
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Supplier we want to update
+     *     // ... the filter for the Customer we want to update
      *   }
      * })
      */
-    upsert<T extends SupplierUpsertArgs>(args: SelectSubset<T, SupplierUpsertArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends CustomerUpsertArgs>(args: SelectSubset<T, CustomerUpsertArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Suppliers.
+     * Count the number of Customers.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SupplierCountArgs} args - Arguments to filter Suppliers to count.
+     * @param {CustomerCountArgs} args - Arguments to filter Customers to count.
      * @example
-     * // Count the number of Suppliers
-     * const count = await prisma.supplier.count({
+     * // Count the number of Customers
+     * const count = await prisma.customer.count({
      *   where: {
-     *     // ... the filter for the Suppliers we want to count
+     *     // ... the filter for the Customers we want to count
      *   }
      * })
     **/
-    count<T extends SupplierCountArgs>(
-      args?: Subset<T, SupplierCountArgs>,
+    count<T extends CustomerCountArgs>(
+      args?: Subset<T, CustomerCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], SupplierCountAggregateOutputType>
+          : GetScalarType<T['select'], CustomerCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Supplier.
+     * Allows you to perform aggregations operations on a Customer.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SupplierAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {CustomerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -6324,13 +6324,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends SupplierAggregateArgs>(args: Subset<T, SupplierAggregateArgs>): Prisma.PrismaPromise<GetSupplierAggregateType<T>>
+    aggregate<T extends CustomerAggregateArgs>(args: Subset<T, CustomerAggregateArgs>): Prisma.PrismaPromise<GetCustomerAggregateType<T>>
 
     /**
-     * Group by Supplier.
+     * Group by Customer.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SupplierGroupByArgs} args - Group by arguments.
+     * @param {CustomerGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -6345,14 +6345,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends SupplierGroupByArgs,
+      T extends CustomerGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SupplierGroupByArgs['orderBy'] }
-        : { orderBy?: SupplierGroupByArgs['orderBy'] },
+        ? { orderBy: CustomerGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -6401,24 +6401,24 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, SupplierGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSupplierGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, CustomerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Supplier model
+   * Fields of the Customer model
    */
-  readonly fields: SupplierFieldRefs;
+  readonly fields: CustomerFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Supplier.
+   * The delegate class that acts as a "Promise-like" for Customer.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__SupplierClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     business<T extends BusinessDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BusinessDefaultArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    products<T extends Supplier$productsArgs<ExtArgs> = {}>(args?: Subset<T, Supplier$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    orders<T extends Supplier$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Supplier$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    products<T extends Customer$productsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orders<T extends Customer$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Customer$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6445,417 +6445,417 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Supplier model
+   * Fields of the Customer model
    */
-  interface SupplierFieldRefs {
-    readonly id: FieldRef<"Supplier", 'String'>
-    readonly name: FieldRef<"Supplier", 'String'>
-    readonly contactName: FieldRef<"Supplier", 'String'>
-    readonly email: FieldRef<"Supplier", 'String'>
-    readonly phone: FieldRef<"Supplier", 'String'>
-    readonly address: FieldRef<"Supplier", 'String'>
-    readonly businessId: FieldRef<"Supplier", 'String'>
-    readonly createdAt: FieldRef<"Supplier", 'DateTime'>
-    readonly updatedAt: FieldRef<"Supplier", 'DateTime'>
+  interface CustomerFieldRefs {
+    readonly id: FieldRef<"Customer", 'String'>
+    readonly name: FieldRef<"Customer", 'String'>
+    readonly contactName: FieldRef<"Customer", 'String'>
+    readonly email: FieldRef<"Customer", 'String'>
+    readonly phone: FieldRef<"Customer", 'String'>
+    readonly address: FieldRef<"Customer", 'String'>
+    readonly businessId: FieldRef<"Customer", 'String'>
+    readonly createdAt: FieldRef<"Customer", 'DateTime'>
+    readonly updatedAt: FieldRef<"Customer", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Supplier findUnique
+   * Customer findUnique
    */
-  export type SupplierFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
+    include?: CustomerInclude<ExtArgs> | null
     /**
-     * Filter, which Supplier to fetch.
+     * Filter, which Customer to fetch.
      */
-    where: SupplierWhereUniqueInput
+    where: CustomerWhereUniqueInput
   }
 
   /**
-   * Supplier findUniqueOrThrow
+   * Customer findUniqueOrThrow
    */
-  export type SupplierFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
+    include?: CustomerInclude<ExtArgs> | null
     /**
-     * Filter, which Supplier to fetch.
+     * Filter, which Customer to fetch.
      */
-    where: SupplierWhereUniqueInput
+    where: CustomerWhereUniqueInput
   }
 
   /**
-   * Supplier findFirst
+   * Customer findFirst
    */
-  export type SupplierFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
+    include?: CustomerInclude<ExtArgs> | null
     /**
-     * Filter, which Supplier to fetch.
+     * Filter, which Customer to fetch.
      */
-    where?: SupplierWhereInput
+    where?: CustomerWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Suppliers to fetch.
+     * Determine the order of Customers to fetch.
      */
-    orderBy?: SupplierOrderByWithRelationInput | SupplierOrderByWithRelationInput[]
+    orderBy?: CustomerOrderByWithRelationInput | CustomerOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Suppliers.
+     * Sets the position for searching for Customers.
      */
-    cursor?: SupplierWhereUniqueInput
+    cursor?: CustomerWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Suppliers from the position of the cursor.
+     * Take `±n` Customers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Suppliers.
+     * Skip the first `n` Customers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Suppliers.
+     * Filter by unique combinations of Customers.
      */
-    distinct?: SupplierScalarFieldEnum | SupplierScalarFieldEnum[]
+    distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[]
   }
 
   /**
-   * Supplier findFirstOrThrow
+   * Customer findFirstOrThrow
    */
-  export type SupplierFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
+    include?: CustomerInclude<ExtArgs> | null
     /**
-     * Filter, which Supplier to fetch.
+     * Filter, which Customer to fetch.
      */
-    where?: SupplierWhereInput
+    where?: CustomerWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Suppliers to fetch.
+     * Determine the order of Customers to fetch.
      */
-    orderBy?: SupplierOrderByWithRelationInput | SupplierOrderByWithRelationInput[]
+    orderBy?: CustomerOrderByWithRelationInput | CustomerOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Suppliers.
+     * Sets the position for searching for Customers.
      */
-    cursor?: SupplierWhereUniqueInput
+    cursor?: CustomerWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Suppliers from the position of the cursor.
+     * Take `±n` Customers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Suppliers.
+     * Skip the first `n` Customers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Suppliers.
+     * Filter by unique combinations of Customers.
      */
-    distinct?: SupplierScalarFieldEnum | SupplierScalarFieldEnum[]
+    distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[]
   }
 
   /**
-   * Supplier findMany
+   * Customer findMany
    */
-  export type SupplierFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
+    include?: CustomerInclude<ExtArgs> | null
     /**
-     * Filter, which Suppliers to fetch.
+     * Filter, which Customers to fetch.
      */
-    where?: SupplierWhereInput
+    where?: CustomerWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Suppliers to fetch.
+     * Determine the order of Customers to fetch.
      */
-    orderBy?: SupplierOrderByWithRelationInput | SupplierOrderByWithRelationInput[]
+    orderBy?: CustomerOrderByWithRelationInput | CustomerOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Suppliers.
+     * Sets the position for listing Customers.
      */
-    cursor?: SupplierWhereUniqueInput
+    cursor?: CustomerWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Suppliers from the position of the cursor.
+     * Take `±n` Customers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Suppliers.
+     * Skip the first `n` Customers.
      */
     skip?: number
-    distinct?: SupplierScalarFieldEnum | SupplierScalarFieldEnum[]
+    distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[]
   }
 
   /**
-   * Supplier create
+   * Customer create
    */
-  export type SupplierCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
+    include?: CustomerInclude<ExtArgs> | null
     /**
-     * The data needed to create a Supplier.
+     * The data needed to create a Customer.
      */
-    data: XOR<SupplierCreateInput, SupplierUncheckedCreateInput>
+    data: XOR<CustomerCreateInput, CustomerUncheckedCreateInput>
   }
 
   /**
-   * Supplier createMany
+   * Customer createMany
    */
-  export type SupplierCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Suppliers.
+     * The data used to create many Customers.
      */
-    data: SupplierCreateManyInput | SupplierCreateManyInput[]
+    data: CustomerCreateManyInput | CustomerCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Supplier createManyAndReturn
+   * Customer createManyAndReturn
    */
-  export type SupplierCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelectCreateManyAndReturn<ExtArgs> | null
+    select?: CustomerSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
-     * The data used to create many Suppliers.
+     * The data used to create many Customers.
      */
-    data: SupplierCreateManyInput | SupplierCreateManyInput[]
+    data: CustomerCreateManyInput | CustomerCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: CustomerIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Supplier update
+   * Customer update
    */
-  export type SupplierUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
+    include?: CustomerInclude<ExtArgs> | null
     /**
-     * The data needed to update a Supplier.
+     * The data needed to update a Customer.
      */
-    data: XOR<SupplierUpdateInput, SupplierUncheckedUpdateInput>
+    data: XOR<CustomerUpdateInput, CustomerUncheckedUpdateInput>
     /**
-     * Choose, which Supplier to update.
+     * Choose, which Customer to update.
      */
-    where: SupplierWhereUniqueInput
+    where: CustomerWhereUniqueInput
   }
 
   /**
-   * Supplier updateMany
+   * Customer updateMany
    */
-  export type SupplierUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Suppliers.
+     * The data used to update Customers.
      */
-    data: XOR<SupplierUpdateManyMutationInput, SupplierUncheckedUpdateManyInput>
+    data: XOR<CustomerUpdateManyMutationInput, CustomerUncheckedUpdateManyInput>
     /**
-     * Filter which Suppliers to update
+     * Filter which Customers to update
      */
-    where?: SupplierWhereInput
+    where?: CustomerWhereInput
     /**
-     * Limit how many Suppliers to update.
+     * Limit how many Customers to update.
      */
     limit?: number
   }
 
   /**
-   * Supplier updateManyAndReturn
+   * Customer updateManyAndReturn
    */
-  export type SupplierUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: CustomerSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
-     * The data used to update Suppliers.
+     * The data used to update Customers.
      */
-    data: XOR<SupplierUpdateManyMutationInput, SupplierUncheckedUpdateManyInput>
+    data: XOR<CustomerUpdateManyMutationInput, CustomerUncheckedUpdateManyInput>
     /**
-     * Filter which Suppliers to update
+     * Filter which Customers to update
      */
-    where?: SupplierWhereInput
+    where?: CustomerWhereInput
     /**
-     * Limit how many Suppliers to update.
+     * Limit how many Customers to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: CustomerIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Supplier upsert
+   * Customer upsert
    */
-  export type SupplierUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
+    include?: CustomerInclude<ExtArgs> | null
     /**
-     * The filter to search for the Supplier to update in case it exists.
+     * The filter to search for the Customer to update in case it exists.
      */
-    where: SupplierWhereUniqueInput
+    where: CustomerWhereUniqueInput
     /**
-     * In case the Supplier found by the `where` argument doesn't exist, create a new Supplier with this data.
+     * In case the Customer found by the `where` argument doesn't exist, create a new Customer with this data.
      */
-    create: XOR<SupplierCreateInput, SupplierUncheckedCreateInput>
+    create: XOR<CustomerCreateInput, CustomerUncheckedCreateInput>
     /**
-     * In case the Supplier was found with the provided `where` argument, update it with this data.
+     * In case the Customer was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<SupplierUpdateInput, SupplierUncheckedUpdateInput>
+    update: XOR<CustomerUpdateInput, CustomerUncheckedUpdateInput>
   }
 
   /**
-   * Supplier delete
+   * Customer delete
    */
-  export type SupplierDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
+    include?: CustomerInclude<ExtArgs> | null
     /**
-     * Filter which Supplier to delete.
+     * Filter which Customer to delete.
      */
-    where: SupplierWhereUniqueInput
+    where: CustomerWhereUniqueInput
   }
 
   /**
-   * Supplier deleteMany
+   * Customer deleteMany
    */
-  export type SupplierDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Suppliers to delete
+     * Filter which Customers to delete
      */
-    where?: SupplierWhereInput
+    where?: CustomerWhereInput
     /**
-     * Limit how many Suppliers to delete.
+     * Limit how many Customers to delete.
      */
     limit?: number
   }
 
   /**
-   * Supplier.products
+   * Customer.products
    */
-  export type Supplier$productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Customer$productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Product
      */
@@ -6877,9 +6877,9 @@ export namespace Prisma {
   }
 
   /**
-   * Supplier.orders
+   * Customer.orders
    */
-  export type Supplier$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Customer$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Order
      */
@@ -6901,21 +6901,21 @@ export namespace Prisma {
   }
 
   /**
-   * Supplier without action
+   * Customer without action
    */
-  export type SupplierDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
+    include?: CustomerInclude<ExtArgs> | null
   }
 
 
@@ -6950,7 +6950,7 @@ export namespace Prisma {
     unit: string | null
     reorderLevel: number | null
     businessId: string | null
-    supplierId: string | null
+    customerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6964,7 +6964,7 @@ export namespace Prisma {
     unit: string | null
     reorderLevel: number | null
     businessId: string | null
-    supplierId: string | null
+    customerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6978,7 +6978,7 @@ export namespace Prisma {
     unit: number
     reorderLevel: number
     businessId: number
-    supplierId: number
+    customerId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7004,7 +7004,7 @@ export namespace Prisma {
     unit?: true
     reorderLevel?: true
     businessId?: true
-    supplierId?: true
+    customerId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7018,7 +7018,7 @@ export namespace Prisma {
     unit?: true
     reorderLevel?: true
     businessId?: true
-    supplierId?: true
+    customerId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7032,7 +7032,7 @@ export namespace Prisma {
     unit?: true
     reorderLevel?: true
     businessId?: true
-    supplierId?: true
+    customerId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7133,7 +7133,7 @@ export namespace Prisma {
     unit: string
     reorderLevel: number
     businessId: string
-    supplierId: string | null
+    customerId: string | null
     createdAt: Date
     updatedAt: Date
     _count: ProductCountAggregateOutputType | null
@@ -7166,11 +7166,11 @@ export namespace Prisma {
     unit?: boolean
     reorderLevel?: boolean
     businessId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | Product$supplierArgs<ExtArgs>
+    customer?: boolean | Product$customerArgs<ExtArgs>
     orderItems?: boolean | Product$orderItemsArgs<ExtArgs>
     inventoryLots?: boolean | Product$inventoryLotsArgs<ExtArgs>
     inventoryUsages?: boolean | Product$inventoryUsagesArgs<ExtArgs>
@@ -7188,11 +7188,11 @@ export namespace Prisma {
     unit?: boolean
     reorderLevel?: boolean
     businessId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | Product$supplierArgs<ExtArgs>
+    customer?: boolean | Product$customerArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7204,11 +7204,11 @@ export namespace Prisma {
     unit?: boolean
     reorderLevel?: boolean
     businessId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | Product$supplierArgs<ExtArgs>
+    customer?: boolean | Product$customerArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectScalar = {
@@ -7220,15 +7220,15 @@ export namespace Prisma {
     unit?: boolean
     reorderLevel?: boolean
     businessId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "sku" | "description" | "unitPrice" | "unit" | "reorderLevel" | "businessId" | "supplierId" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "sku" | "description" | "unitPrice" | "unit" | "reorderLevel" | "businessId" | "customerId" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | Product$supplierArgs<ExtArgs>
+    customer?: boolean | Product$customerArgs<ExtArgs>
     orderItems?: boolean | Product$orderItemsArgs<ExtArgs>
     inventoryLots?: boolean | Product$inventoryLotsArgs<ExtArgs>
     inventoryUsages?: boolean | Product$inventoryUsagesArgs<ExtArgs>
@@ -7238,18 +7238,18 @@ export namespace Prisma {
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | Product$supplierArgs<ExtArgs>
+    customer?: boolean | Product$customerArgs<ExtArgs>
   }
   export type ProductIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | Product$supplierArgs<ExtArgs>
+    customer?: boolean | Product$customerArgs<ExtArgs>
   }
 
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Product"
     objects: {
       business: Prisma.$BusinessPayload<ExtArgs>
-      supplier: Prisma.$SupplierPayload<ExtArgs> | null
+      customer: Prisma.$CustomerPayload<ExtArgs> | null
       orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
       inventoryLots: Prisma.$InventoryLotPayload<ExtArgs>[]
       inventoryUsages: Prisma.$InventoryUsagePayload<ExtArgs>[]
@@ -7265,7 +7265,7 @@ export namespace Prisma {
       unit: string
       reorderLevel: number
       businessId: string
-      supplierId: string | null
+      customerId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["product"]>
@@ -7663,7 +7663,7 @@ export namespace Prisma {
   export interface Prisma__ProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     business<T extends BusinessDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BusinessDefaultArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    supplier<T extends Product$supplierArgs<ExtArgs> = {}>(args?: Subset<T, Product$supplierArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    customer<T extends Product$customerArgs<ExtArgs> = {}>(args?: Subset<T, Product$customerArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     orderItems<T extends Product$orderItemsArgs<ExtArgs> = {}>(args?: Subset<T, Product$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inventoryLots<T extends Product$inventoryLotsArgs<ExtArgs> = {}>(args?: Subset<T, Product$inventoryLotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryLotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inventoryUsages<T extends Product$inventoryUsagesArgs<ExtArgs> = {}>(args?: Subset<T, Product$inventoryUsagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7706,7 +7706,7 @@ export namespace Prisma {
     readonly unit: FieldRef<"Product", 'String'>
     readonly reorderLevel: FieldRef<"Product", 'Int'>
     readonly businessId: FieldRef<"Product", 'String'>
-    readonly supplierId: FieldRef<"Product", 'String'>
+    readonly customerId: FieldRef<"Product", 'String'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
   }
@@ -8105,22 +8105,22 @@ export namespace Prisma {
   }
 
   /**
-   * Product.supplier
+   * Product.customer
    */
-  export type Product$supplierArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Product$customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Supplier
+     * Select specific fields to fetch from the Customer
      */
-    select?: SupplierSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Supplier
+     * Omit specific fields from the Customer
      */
-    omit?: SupplierOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SupplierInclude<ExtArgs> | null
-    where?: SupplierWhereInput
+    include?: CustomerInclude<ExtArgs> | null
+    where?: CustomerWhereInput
   }
 
   /**
@@ -8289,7 +8289,7 @@ export namespace Prisma {
     totalAmount: number | null
     notes: string | null
     businessId: string | null
-    supplierId: string | null
+    customerId: string | null
     expectedDelivery: Date | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -8302,7 +8302,7 @@ export namespace Prisma {
     totalAmount: number | null
     notes: string | null
     businessId: string | null
-    supplierId: string | null
+    customerId: string | null
     expectedDelivery: Date | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -8315,7 +8315,7 @@ export namespace Prisma {
     totalAmount: number
     notes: number
     businessId: number
-    supplierId: number
+    customerId: number
     expectedDelivery: number
     createdAt: number
     updatedAt: number
@@ -8338,7 +8338,7 @@ export namespace Prisma {
     totalAmount?: true
     notes?: true
     businessId?: true
-    supplierId?: true
+    customerId?: true
     expectedDelivery?: true
     createdAt?: true
     updatedAt?: true
@@ -8351,7 +8351,7 @@ export namespace Prisma {
     totalAmount?: true
     notes?: true
     businessId?: true
-    supplierId?: true
+    customerId?: true
     expectedDelivery?: true
     createdAt?: true
     updatedAt?: true
@@ -8364,7 +8364,7 @@ export namespace Prisma {
     totalAmount?: true
     notes?: true
     businessId?: true
-    supplierId?: true
+    customerId?: true
     expectedDelivery?: true
     createdAt?: true
     updatedAt?: true
@@ -8464,7 +8464,7 @@ export namespace Prisma {
     totalAmount: number
     notes: string | null
     businessId: string
-    supplierId: string
+    customerId: string
     expectedDelivery: Date | null
     createdAt: Date
     updatedAt: Date
@@ -8496,12 +8496,12 @@ export namespace Prisma {
     totalAmount?: boolean
     notes?: boolean
     businessId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     expectedDelivery?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | SupplierDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
     items?: boolean | Order$itemsArgs<ExtArgs>
     statusHistory?: boolean | Order$statusHistoryArgs<ExtArgs>
     manufacturingStages?: boolean | Order$manufacturingStagesArgs<ExtArgs>
@@ -8517,12 +8517,12 @@ export namespace Prisma {
     totalAmount?: boolean
     notes?: boolean
     businessId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     expectedDelivery?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | SupplierDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8532,12 +8532,12 @@ export namespace Prisma {
     totalAmount?: boolean
     notes?: boolean
     businessId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     expectedDelivery?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | SupplierDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectScalar = {
@@ -8547,16 +8547,16 @@ export namespace Prisma {
     totalAmount?: boolean
     notes?: boolean
     businessId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     expectedDelivery?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderNumber" | "status" | "totalAmount" | "notes" | "businessId" | "supplierId" | "expectedDelivery" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderNumber" | "status" | "totalAmount" | "notes" | "businessId" | "customerId" | "expectedDelivery" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | SupplierDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
     items?: boolean | Order$itemsArgs<ExtArgs>
     statusHistory?: boolean | Order$statusHistoryArgs<ExtArgs>
     manufacturingStages?: boolean | Order$manufacturingStagesArgs<ExtArgs>
@@ -8566,18 +8566,18 @@ export namespace Prisma {
   }
   export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | SupplierDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
   }
   export type OrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>
-    supplier?: boolean | SupplierDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
   }
 
   export type $OrderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Order"
     objects: {
       business: Prisma.$BusinessPayload<ExtArgs>
-      supplier: Prisma.$SupplierPayload<ExtArgs>
+      customer: Prisma.$CustomerPayload<ExtArgs>
       items: Prisma.$OrderItemPayload<ExtArgs>[]
       statusHistory: Prisma.$OrderStatusHistoryPayload<ExtArgs>[]
       manufacturingStages: Prisma.$ManufacturingStagePayload<ExtArgs>[]
@@ -8591,7 +8591,7 @@ export namespace Prisma {
       totalAmount: number
       notes: string | null
       businessId: string
-      supplierId: string
+      customerId: string
       expectedDelivery: Date | null
       createdAt: Date
       updatedAt: Date
@@ -8990,7 +8990,7 @@ export namespace Prisma {
   export interface Prisma__OrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     business<T extends BusinessDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BusinessDefaultArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    supplier<T extends SupplierDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SupplierDefaultArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     items<T extends Order$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Order$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     statusHistory<T extends Order$statusHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Order$statusHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     manufacturingStages<T extends Order$manufacturingStagesArgs<ExtArgs> = {}>(args?: Subset<T, Order$manufacturingStagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManufacturingStagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9031,7 +9031,7 @@ export namespace Prisma {
     readonly totalAmount: FieldRef<"Order", 'Float'>
     readonly notes: FieldRef<"Order", 'String'>
     readonly businessId: FieldRef<"Order", 'String'>
-    readonly supplierId: FieldRef<"Order", 'String'>
+    readonly customerId: FieldRef<"Order", 'String'>
     readonly expectedDelivery: FieldRef<"Order", 'DateTime'>
     readonly createdAt: FieldRef<"Order", 'DateTime'>
     readonly updatedAt: FieldRef<"Order", 'DateTime'>
@@ -15192,7 +15192,7 @@ export namespace Prisma {
     businessId: string | null
     productId: string | null
     orderId: string | null
-    supplierId: string | null
+    customerId: string | null
     createdAt: Date | null
   }
 
@@ -15206,7 +15206,7 @@ export namespace Prisma {
     businessId: string | null
     productId: string | null
     orderId: string | null
-    supplierId: string | null
+    customerId: string | null
     createdAt: Date | null
   }
 
@@ -15220,7 +15220,7 @@ export namespace Prisma {
     businessId: number
     productId: number
     orderId: number
-    supplierId: number
+    customerId: number
     createdAt: number
     _all: number
   }
@@ -15248,7 +15248,7 @@ export namespace Prisma {
     businessId?: true
     productId?: true
     orderId?: true
-    supplierId?: true
+    customerId?: true
     createdAt?: true
   }
 
@@ -15262,7 +15262,7 @@ export namespace Prisma {
     businessId?: true
     productId?: true
     orderId?: true
-    supplierId?: true
+    customerId?: true
     createdAt?: true
   }
 
@@ -15276,7 +15276,7 @@ export namespace Prisma {
     businessId?: true
     productId?: true
     orderId?: true
-    supplierId?: true
+    customerId?: true
     createdAt?: true
     _all?: true
   }
@@ -15377,7 +15377,7 @@ export namespace Prisma {
     businessId: string
     productId: string
     orderId: string | null
-    supplierId: string | null
+    customerId: string | null
     createdAt: Date
     _count: LedgerEntryCountAggregateOutputType | null
     _avg: LedgerEntryAvgAggregateOutputType | null
@@ -15410,7 +15410,7 @@ export namespace Prisma {
     businessId?: boolean
     productId?: boolean
     orderId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     createdAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
@@ -15427,7 +15427,7 @@ export namespace Prisma {
     businessId?: boolean
     productId?: boolean
     orderId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     createdAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
@@ -15444,7 +15444,7 @@ export namespace Prisma {
     businessId?: boolean
     productId?: boolean
     orderId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     createdAt?: boolean
     business?: boolean | BusinessDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
@@ -15461,11 +15461,11 @@ export namespace Prisma {
     businessId?: boolean
     productId?: boolean
     orderId?: boolean
-    supplierId?: boolean
+    customerId?: boolean
     createdAt?: boolean
   }
 
-  export type LedgerEntryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "quantity" | "unitPrice" | "totalAmount" | "description" | "businessId" | "productId" | "orderId" | "supplierId" | "createdAt", ExtArgs["result"]["ledgerEntry"]>
+  export type LedgerEntryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "quantity" | "unitPrice" | "totalAmount" | "description" | "businessId" | "productId" | "orderId" | "customerId" | "createdAt", ExtArgs["result"]["ledgerEntry"]>
   export type LedgerEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
@@ -15499,7 +15499,7 @@ export namespace Prisma {
       businessId: string
       productId: string
       orderId: string | null
-      supplierId: string | null
+      customerId: string | null
       createdAt: Date
     }, ExtArgs["result"]["ledgerEntry"]>
     composites: {}
@@ -15936,7 +15936,7 @@ export namespace Prisma {
     readonly businessId: FieldRef<"LedgerEntry", 'String'>
     readonly productId: FieldRef<"LedgerEntry", 'String'>
     readonly orderId: FieldRef<"LedgerEntry", 'String'>
-    readonly supplierId: FieldRef<"LedgerEntry", 'String'>
+    readonly customerId: FieldRef<"LedgerEntry", 'String'>
     readonly createdAt: FieldRef<"LedgerEntry", 'DateTime'>
   }
     
@@ -18618,7 +18618,7 @@ export namespace Prisma {
   export type BusinessScalarFieldEnum = (typeof BusinessScalarFieldEnum)[keyof typeof BusinessScalarFieldEnum]
 
 
-  export const SupplierScalarFieldEnum: {
+  export const CustomerScalarFieldEnum: {
     id: 'id',
     name: 'name',
     contactName: 'contactName',
@@ -18630,7 +18630,7 @@ export namespace Prisma {
     updatedAt: 'updatedAt'
   };
 
-  export type SupplierScalarFieldEnum = (typeof SupplierScalarFieldEnum)[keyof typeof SupplierScalarFieldEnum]
+  export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
 
 
   export const ProductScalarFieldEnum: {
@@ -18642,7 +18642,7 @@ export namespace Prisma {
     unit: 'unit',
     reorderLevel: 'reorderLevel',
     businessId: 'businessId',
-    supplierId: 'supplierId',
+    customerId: 'customerId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -18657,7 +18657,7 @@ export namespace Prisma {
     totalAmount: 'totalAmount',
     notes: 'notes',
     businessId: 'businessId',
-    supplierId: 'supplierId',
+    customerId: 'customerId',
     expectedDelivery: 'expectedDelivery',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -18741,7 +18741,7 @@ export namespace Prisma {
     businessId: 'businessId',
     productId: 'productId',
     orderId: 'orderId',
-    supplierId: 'supplierId',
+    customerId: 'customerId',
     createdAt: 'createdAt'
   };
 
@@ -19003,7 +19003,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Business"> | Date | string
     updatedAt?: DateTimeFilter<"Business"> | Date | string
     users?: UserListRelationFilter
-    suppliers?: SupplierListRelationFilter
+    customers?: CustomerListRelationFilter
     products?: ProductListRelationFilter
     orders?: OrderListRelationFilter
     inventoryLots?: InventoryLotListRelationFilter
@@ -19022,7 +19022,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     users?: UserOrderByRelationAggregateInput
-    suppliers?: SupplierOrderByRelationAggregateInput
+    customers?: CustomerOrderByRelationAggregateInput
     products?: ProductOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
     inventoryLots?: InventoryLotOrderByRelationAggregateInput
@@ -19044,7 +19044,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Business"> | Date | string
     updatedAt?: DateTimeFilter<"Business"> | Date | string
     users?: UserListRelationFilter
-    suppliers?: SupplierListRelationFilter
+    customers?: CustomerListRelationFilter
     products?: ProductListRelationFilter
     orders?: OrderListRelationFilter
     inventoryLots?: InventoryLotListRelationFilter
@@ -19080,25 +19080,25 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Business"> | Date | string
   }
 
-  export type SupplierWhereInput = {
-    AND?: SupplierWhereInput | SupplierWhereInput[]
-    OR?: SupplierWhereInput[]
-    NOT?: SupplierWhereInput | SupplierWhereInput[]
-    id?: StringFilter<"Supplier"> | string
-    name?: StringFilter<"Supplier"> | string
-    contactName?: StringNullableFilter<"Supplier"> | string | null
-    email?: StringNullableFilter<"Supplier"> | string | null
-    phone?: StringNullableFilter<"Supplier"> | string | null
-    address?: StringNullableFilter<"Supplier"> | string | null
-    businessId?: StringFilter<"Supplier"> | string
-    createdAt?: DateTimeFilter<"Supplier"> | Date | string
-    updatedAt?: DateTimeFilter<"Supplier"> | Date | string
+  export type CustomerWhereInput = {
+    AND?: CustomerWhereInput | CustomerWhereInput[]
+    OR?: CustomerWhereInput[]
+    NOT?: CustomerWhereInput | CustomerWhereInput[]
+    id?: StringFilter<"Customer"> | string
+    name?: StringFilter<"Customer"> | string
+    contactName?: StringNullableFilter<"Customer"> | string | null
+    email?: StringNullableFilter<"Customer"> | string | null
+    phone?: StringNullableFilter<"Customer"> | string | null
+    address?: StringNullableFilter<"Customer"> | string | null
+    businessId?: StringFilter<"Customer"> | string
+    createdAt?: DateTimeFilter<"Customer"> | Date | string
+    updatedAt?: DateTimeFilter<"Customer"> | Date | string
     business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
     products?: ProductListRelationFilter
     orders?: OrderListRelationFilter
   }
 
-  export type SupplierOrderByWithRelationInput = {
+  export type CustomerOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     contactName?: SortOrderInput | SortOrder
@@ -19113,25 +19113,25 @@ export namespace Prisma {
     orders?: OrderOrderByRelationAggregateInput
   }
 
-  export type SupplierWhereUniqueInput = Prisma.AtLeast<{
+  export type CustomerWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: SupplierWhereInput | SupplierWhereInput[]
-    OR?: SupplierWhereInput[]
-    NOT?: SupplierWhereInput | SupplierWhereInput[]
-    name?: StringFilter<"Supplier"> | string
-    contactName?: StringNullableFilter<"Supplier"> | string | null
-    email?: StringNullableFilter<"Supplier"> | string | null
-    phone?: StringNullableFilter<"Supplier"> | string | null
-    address?: StringNullableFilter<"Supplier"> | string | null
-    businessId?: StringFilter<"Supplier"> | string
-    createdAt?: DateTimeFilter<"Supplier"> | Date | string
-    updatedAt?: DateTimeFilter<"Supplier"> | Date | string
+    AND?: CustomerWhereInput | CustomerWhereInput[]
+    OR?: CustomerWhereInput[]
+    NOT?: CustomerWhereInput | CustomerWhereInput[]
+    name?: StringFilter<"Customer"> | string
+    contactName?: StringNullableFilter<"Customer"> | string | null
+    email?: StringNullableFilter<"Customer"> | string | null
+    phone?: StringNullableFilter<"Customer"> | string | null
+    address?: StringNullableFilter<"Customer"> | string | null
+    businessId?: StringFilter<"Customer"> | string
+    createdAt?: DateTimeFilter<"Customer"> | Date | string
+    updatedAt?: DateTimeFilter<"Customer"> | Date | string
     business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
     products?: ProductListRelationFilter
     orders?: OrderListRelationFilter
   }, "id">
 
-  export type SupplierOrderByWithAggregationInput = {
+  export type CustomerOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     contactName?: SortOrderInput | SortOrder
@@ -19141,24 +19141,24 @@ export namespace Prisma {
     businessId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: SupplierCountOrderByAggregateInput
-    _max?: SupplierMaxOrderByAggregateInput
-    _min?: SupplierMinOrderByAggregateInput
+    _count?: CustomerCountOrderByAggregateInput
+    _max?: CustomerMaxOrderByAggregateInput
+    _min?: CustomerMinOrderByAggregateInput
   }
 
-  export type SupplierScalarWhereWithAggregatesInput = {
-    AND?: SupplierScalarWhereWithAggregatesInput | SupplierScalarWhereWithAggregatesInput[]
-    OR?: SupplierScalarWhereWithAggregatesInput[]
-    NOT?: SupplierScalarWhereWithAggregatesInput | SupplierScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Supplier"> | string
-    name?: StringWithAggregatesFilter<"Supplier"> | string
-    contactName?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
-    email?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
-    phone?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
-    address?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
-    businessId?: StringWithAggregatesFilter<"Supplier"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Supplier"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Supplier"> | Date | string
+  export type CustomerScalarWhereWithAggregatesInput = {
+    AND?: CustomerScalarWhereWithAggregatesInput | CustomerScalarWhereWithAggregatesInput[]
+    OR?: CustomerScalarWhereWithAggregatesInput[]
+    NOT?: CustomerScalarWhereWithAggregatesInput | CustomerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Customer"> | string
+    name?: StringWithAggregatesFilter<"Customer"> | string
+    contactName?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    email?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    address?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    businessId?: StringWithAggregatesFilter<"Customer"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
   }
 
   export type ProductWhereInput = {
@@ -19173,11 +19173,11 @@ export namespace Prisma {
     unit?: StringFilter<"Product"> | string
     reorderLevel?: IntFilter<"Product"> | number
     businessId?: StringFilter<"Product"> | string
-    supplierId?: StringNullableFilter<"Product"> | string | null
+    customerId?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
-    supplier?: XOR<SupplierNullableScalarRelationFilter, SupplierWhereInput> | null
+    customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
     orderItems?: OrderItemListRelationFilter
     inventoryLots?: InventoryLotListRelationFilter
     inventoryUsages?: InventoryUsageListRelationFilter
@@ -19194,11 +19194,11 @@ export namespace Prisma {
     unit?: SortOrder
     reorderLevel?: SortOrder
     businessId?: SortOrder
-    supplierId?: SortOrderInput | SortOrder
+    customerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     business?: BusinessOrderByWithRelationInput
-    supplier?: SupplierOrderByWithRelationInput
+    customer?: CustomerOrderByWithRelationInput
     orderItems?: OrderItemOrderByRelationAggregateInput
     inventoryLots?: InventoryLotOrderByRelationAggregateInput
     inventoryUsages?: InventoryUsageOrderByRelationAggregateInput
@@ -19218,11 +19218,11 @@ export namespace Prisma {
     unit?: StringFilter<"Product"> | string
     reorderLevel?: IntFilter<"Product"> | number
     businessId?: StringFilter<"Product"> | string
-    supplierId?: StringNullableFilter<"Product"> | string | null
+    customerId?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
-    supplier?: XOR<SupplierNullableScalarRelationFilter, SupplierWhereInput> | null
+    customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
     orderItems?: OrderItemListRelationFilter
     inventoryLots?: InventoryLotListRelationFilter
     inventoryUsages?: InventoryUsageListRelationFilter
@@ -19239,7 +19239,7 @@ export namespace Prisma {
     unit?: SortOrder
     reorderLevel?: SortOrder
     businessId?: SortOrder
-    supplierId?: SortOrderInput | SortOrder
+    customerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProductCountOrderByAggregateInput
@@ -19261,7 +19261,7 @@ export namespace Prisma {
     unit?: StringWithAggregatesFilter<"Product"> | string
     reorderLevel?: IntWithAggregatesFilter<"Product"> | number
     businessId?: StringWithAggregatesFilter<"Product"> | string
-    supplierId?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    customerId?: StringNullableWithAggregatesFilter<"Product"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
   }
@@ -19276,12 +19276,12 @@ export namespace Prisma {
     totalAmount?: FloatFilter<"Order"> | number
     notes?: StringNullableFilter<"Order"> | string | null
     businessId?: StringFilter<"Order"> | string
-    supplierId?: StringFilter<"Order"> | string
+    customerId?: StringFilter<"Order"> | string
     expectedDelivery?: DateTimeNullableFilter<"Order"> | Date | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
-    supplier?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
     items?: OrderItemListRelationFilter
     statusHistory?: OrderStatusHistoryListRelationFilter
     manufacturingStages?: ManufacturingStageListRelationFilter
@@ -19296,12 +19296,12 @@ export namespace Prisma {
     totalAmount?: SortOrder
     notes?: SortOrderInput | SortOrder
     businessId?: SortOrder
-    supplierId?: SortOrder
+    customerId?: SortOrder
     expectedDelivery?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     business?: BusinessOrderByWithRelationInput
-    supplier?: SupplierOrderByWithRelationInput
+    customer?: CustomerOrderByWithRelationInput
     items?: OrderItemOrderByRelationAggregateInput
     statusHistory?: OrderStatusHistoryOrderByRelationAggregateInput
     manufacturingStages?: ManufacturingStageOrderByRelationAggregateInput
@@ -19319,12 +19319,12 @@ export namespace Prisma {
     totalAmount?: FloatFilter<"Order"> | number
     notes?: StringNullableFilter<"Order"> | string | null
     businessId?: StringFilter<"Order"> | string
-    supplierId?: StringFilter<"Order"> | string
+    customerId?: StringFilter<"Order"> | string
     expectedDelivery?: DateTimeNullableFilter<"Order"> | Date | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
-    supplier?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
     items?: OrderItemListRelationFilter
     statusHistory?: OrderStatusHistoryListRelationFilter
     manufacturingStages?: ManufacturingStageListRelationFilter
@@ -19339,7 +19339,7 @@ export namespace Prisma {
     totalAmount?: SortOrder
     notes?: SortOrderInput | SortOrder
     businessId?: SortOrder
-    supplierId?: SortOrder
+    customerId?: SortOrder
     expectedDelivery?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -19360,7 +19360,7 @@ export namespace Prisma {
     totalAmount?: FloatWithAggregatesFilter<"Order"> | number
     notes?: StringNullableWithAggregatesFilter<"Order"> | string | null
     businessId?: StringWithAggregatesFilter<"Order"> | string
-    supplierId?: StringWithAggregatesFilter<"Order"> | string
+    customerId?: StringWithAggregatesFilter<"Order"> | string
     expectedDelivery?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -19722,7 +19722,7 @@ export namespace Prisma {
     businessId?: StringFilter<"LedgerEntry"> | string
     productId?: StringFilter<"LedgerEntry"> | string
     orderId?: StringNullableFilter<"LedgerEntry"> | string | null
-    supplierId?: StringNullableFilter<"LedgerEntry"> | string | null
+    customerId?: StringNullableFilter<"LedgerEntry"> | string | null
     createdAt?: DateTimeFilter<"LedgerEntry"> | Date | string
     business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
@@ -19739,7 +19739,7 @@ export namespace Prisma {
     businessId?: SortOrder
     productId?: SortOrder
     orderId?: SortOrderInput | SortOrder
-    supplierId?: SortOrderInput | SortOrder
+    customerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     business?: BusinessOrderByWithRelationInput
     product?: ProductOrderByWithRelationInput
@@ -19759,7 +19759,7 @@ export namespace Prisma {
     businessId?: StringFilter<"LedgerEntry"> | string
     productId?: StringFilter<"LedgerEntry"> | string
     orderId?: StringNullableFilter<"LedgerEntry"> | string | null
-    supplierId?: StringNullableFilter<"LedgerEntry"> | string | null
+    customerId?: StringNullableFilter<"LedgerEntry"> | string | null
     createdAt?: DateTimeFilter<"LedgerEntry"> | Date | string
     business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
@@ -19776,7 +19776,7 @@ export namespace Prisma {
     businessId?: SortOrder
     productId?: SortOrder
     orderId?: SortOrderInput | SortOrder
-    supplierId?: SortOrderInput | SortOrder
+    customerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: LedgerEntryCountOrderByAggregateInput
     _avg?: LedgerEntryAvgOrderByAggregateInput
@@ -19798,7 +19798,7 @@ export namespace Prisma {
     businessId?: StringWithAggregatesFilter<"LedgerEntry"> | string
     productId?: StringWithAggregatesFilter<"LedgerEntry"> | string
     orderId?: StringNullableWithAggregatesFilter<"LedgerEntry"> | string | null
-    supplierId?: StringNullableWithAggregatesFilter<"LedgerEntry"> | string | null
+    customerId?: StringNullableWithAggregatesFilter<"LedgerEntry"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"LedgerEntry"> | Date | string
   }
 
@@ -20076,7 +20076,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierCreateNestedManyWithoutBusinessInput
+    customers?: CustomerCreateNestedManyWithoutBusinessInput
     products?: ProductCreateNestedManyWithoutBusinessInput
     orders?: OrderCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutBusinessInput
@@ -20095,7 +20095,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierUncheckedCreateNestedManyWithoutBusinessInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutBusinessInput
@@ -20114,7 +20114,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput
     products?: ProductUpdateManyWithoutBusinessNestedInput
     orders?: OrderUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutBusinessNestedInput
@@ -20133,7 +20133,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUncheckedUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutBusinessNestedInput
@@ -20173,7 +20173,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SupplierCreateInput = {
+  export type CustomerCreateInput = {
     id?: string
     name: string
     contactName?: string | null
@@ -20182,12 +20182,12 @@ export namespace Prisma {
     address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    business: BusinessCreateNestedOneWithoutSuppliersInput
-    products?: ProductCreateNestedManyWithoutSupplierInput
-    orders?: OrderCreateNestedManyWithoutSupplierInput
+    business: BusinessCreateNestedOneWithoutCustomersInput
+    products?: ProductCreateNestedManyWithoutCustomerInput
+    orders?: OrderCreateNestedManyWithoutCustomerInput
   }
 
-  export type SupplierUncheckedCreateInput = {
+  export type CustomerUncheckedCreateInput = {
     id?: string
     name: string
     contactName?: string | null
@@ -20197,11 +20197,11 @@ export namespace Prisma {
     businessId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    products?: ProductUncheckedCreateNestedManyWithoutSupplierInput
-    orders?: OrderUncheckedCreateNestedManyWithoutSupplierInput
+    products?: ProductUncheckedCreateNestedManyWithoutCustomerInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
-  export type SupplierUpdateInput = {
+  export type CustomerUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contactName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20210,12 +20210,12 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    business?: BusinessUpdateOneRequiredWithoutSuppliersNestedInput
-    products?: ProductUpdateManyWithoutSupplierNestedInput
-    orders?: OrderUpdateManyWithoutSupplierNestedInput
+    business?: BusinessUpdateOneRequiredWithoutCustomersNestedInput
+    products?: ProductUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUpdateManyWithoutCustomerNestedInput
   }
 
-  export type SupplierUncheckedUpdateInput = {
+  export type CustomerUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contactName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20225,11 +20225,11 @@ export namespace Prisma {
     businessId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductUncheckedUpdateManyWithoutSupplierNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutSupplierNestedInput
+    products?: ProductUncheckedUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
-  export type SupplierCreateManyInput = {
+  export type CustomerCreateManyInput = {
     id?: string
     name: string
     contactName?: string | null
@@ -20241,7 +20241,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type SupplierUpdateManyMutationInput = {
+  export type CustomerUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contactName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20252,7 +20252,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SupplierUncheckedUpdateManyInput = {
+  export type CustomerUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contactName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20275,7 +20275,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutProductsInput
-    supplier?: SupplierCreateNestedOneWithoutProductsInput
+    customer?: CustomerCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
@@ -20292,7 +20292,7 @@ export namespace Prisma {
     unit?: string
     reorderLevel?: number
     businessId: string
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -20313,7 +20313,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput
-    supplier?: SupplierUpdateOneWithoutProductsNestedInput
+    customer?: CustomerUpdateOneWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
@@ -20330,7 +20330,7 @@ export namespace Prisma {
     unit?: StringFieldUpdateOperationsInput | string
     reorderLevel?: IntFieldUpdateOperationsInput | number
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -20349,7 +20349,7 @@ export namespace Prisma {
     unit?: string
     reorderLevel?: number
     businessId: string
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20375,7 +20375,7 @@ export namespace Prisma {
     unit?: StringFieldUpdateOperationsInput | string
     reorderLevel?: IntFieldUpdateOperationsInput | number
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20390,7 +20390,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutOrdersInput
-    supplier: SupplierCreateNestedOneWithoutOrdersInput
+    customer: CustomerCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
     statusHistory?: OrderStatusHistoryCreateNestedManyWithoutOrderInput
     manufacturingStages?: ManufacturingStageCreateNestedManyWithoutOrderInput
@@ -20405,7 +20405,7 @@ export namespace Prisma {
     totalAmount?: number
     notes?: string | null
     businessId: string
-    supplierId: string
+    customerId: string
     expectedDelivery?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20426,7 +20426,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutOrdersNestedInput
-    supplier?: SupplierUpdateOneRequiredWithoutOrdersNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     statusHistory?: OrderStatusHistoryUpdateManyWithoutOrderNestedInput
     manufacturingStages?: ManufacturingStageUpdateManyWithoutOrderNestedInput
@@ -20441,7 +20441,7 @@ export namespace Prisma {
     totalAmount?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
     expectedDelivery?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20459,7 +20459,7 @@ export namespace Prisma {
     totalAmount?: number
     notes?: string | null
     businessId: string
-    supplierId: string
+    customerId: string
     expectedDelivery?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20483,7 +20483,7 @@ export namespace Prisma {
     totalAmount?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
     expectedDelivery?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20837,7 +20837,7 @@ export namespace Prisma {
     unitPrice: number
     totalAmount: number
     description?: string | null
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     business: BusinessCreateNestedOneWithoutLedgerEntriesInput
     product: ProductCreateNestedOneWithoutLedgerEntriesInput
@@ -20854,7 +20854,7 @@ export namespace Prisma {
     businessId: string
     productId: string
     orderId?: string | null
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
   }
 
@@ -20865,7 +20865,7 @@ export namespace Prisma {
     unitPrice?: FloatFieldUpdateOperationsInput | number
     totalAmount?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutLedgerEntriesNestedInput
     product?: ProductUpdateOneRequiredWithoutLedgerEntriesNestedInput
@@ -20882,7 +20882,7 @@ export namespace Prisma {
     businessId?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20896,7 +20896,7 @@ export namespace Prisma {
     businessId: string
     productId: string
     orderId?: string | null
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
   }
 
@@ -20907,7 +20907,7 @@ export namespace Prisma {
     unitPrice?: FloatFieldUpdateOperationsInput | number
     totalAmount?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20921,7 +20921,7 @@ export namespace Prisma {
     businessId?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21239,10 +21239,10 @@ export namespace Prisma {
     none?: UserWhereInput
   }
 
-  export type SupplierListRelationFilter = {
-    every?: SupplierWhereInput
-    some?: SupplierWhereInput
-    none?: SupplierWhereInput
+  export type CustomerListRelationFilter = {
+    every?: CustomerWhereInput
+    some?: CustomerWhereInput
+    none?: CustomerWhereInput
   }
 
   export type ProductListRelationFilter = {
@@ -21291,7 +21291,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type SupplierOrderByRelationAggregateInput = {
+  export type CustomerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21358,7 +21358,7 @@ export namespace Prisma {
     isNot?: BusinessWhereInput
   }
 
-  export type SupplierCountOrderByAggregateInput = {
+  export type CustomerCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     contactName?: SortOrder
@@ -21370,7 +21370,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type SupplierMaxOrderByAggregateInput = {
+  export type CustomerMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     contactName?: SortOrder
@@ -21382,7 +21382,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type SupplierMinOrderByAggregateInput = {
+  export type CustomerMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     contactName?: SortOrder
@@ -21416,9 +21416,9 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type SupplierNullableScalarRelationFilter = {
-    is?: SupplierWhereInput | null
-    isNot?: SupplierWhereInput | null
+  export type CustomerNullableScalarRelationFilter = {
+    is?: CustomerWhereInput | null
+    isNot?: CustomerWhereInput | null
   }
 
   export type OrderItemListRelationFilter = {
@@ -21440,7 +21440,7 @@ export namespace Prisma {
     unit?: SortOrder
     reorderLevel?: SortOrder
     businessId?: SortOrder
-    supplierId?: SortOrder
+    customerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -21459,7 +21459,7 @@ export namespace Prisma {
     unit?: SortOrder
     reorderLevel?: SortOrder
     businessId?: SortOrder
-    supplierId?: SortOrder
+    customerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -21473,7 +21473,7 @@ export namespace Prisma {
     unit?: SortOrder
     reorderLevel?: SortOrder
     businessId?: SortOrder
-    supplierId?: SortOrder
+    customerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -21526,9 +21526,9 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type SupplierScalarRelationFilter = {
-    is?: SupplierWhereInput
-    isNot?: SupplierWhereInput
+  export type CustomerScalarRelationFilter = {
+    is?: CustomerWhereInput
+    isNot?: CustomerWhereInput
   }
 
   export type OrderStatusHistoryListRelationFilter = {
@@ -21558,7 +21558,7 @@ export namespace Prisma {
     totalAmount?: SortOrder
     notes?: SortOrder
     businessId?: SortOrder
-    supplierId?: SortOrder
+    customerId?: SortOrder
     expectedDelivery?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21575,7 +21575,7 @@ export namespace Prisma {
     totalAmount?: SortOrder
     notes?: SortOrder
     businessId?: SortOrder
-    supplierId?: SortOrder
+    customerId?: SortOrder
     expectedDelivery?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21588,7 +21588,7 @@ export namespace Prisma {
     totalAmount?: SortOrder
     notes?: SortOrder
     businessId?: SortOrder
-    supplierId?: SortOrder
+    customerId?: SortOrder
     expectedDelivery?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21819,7 +21819,7 @@ export namespace Prisma {
     businessId?: SortOrder
     productId?: SortOrder
     orderId?: SortOrder
-    supplierId?: SortOrder
+    customerId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -21839,7 +21839,7 @@ export namespace Prisma {
     businessId?: SortOrder
     productId?: SortOrder
     orderId?: SortOrder
-    supplierId?: SortOrder
+    customerId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -21853,7 +21853,7 @@ export namespace Prisma {
     businessId?: SortOrder
     productId?: SortOrder
     orderId?: SortOrder
-    supplierId?: SortOrder
+    customerId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -21967,11 +21967,11 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
-  export type SupplierCreateNestedManyWithoutBusinessInput = {
-    create?: XOR<SupplierCreateWithoutBusinessInput, SupplierUncheckedCreateWithoutBusinessInput> | SupplierCreateWithoutBusinessInput[] | SupplierUncheckedCreateWithoutBusinessInput[]
-    connectOrCreate?: SupplierCreateOrConnectWithoutBusinessInput | SupplierCreateOrConnectWithoutBusinessInput[]
-    createMany?: SupplierCreateManyBusinessInputEnvelope
-    connect?: SupplierWhereUniqueInput | SupplierWhereUniqueInput[]
+  export type CustomerCreateNestedManyWithoutBusinessInput = {
+    create?: XOR<CustomerCreateWithoutBusinessInput, CustomerUncheckedCreateWithoutBusinessInput> | CustomerCreateWithoutBusinessInput[] | CustomerUncheckedCreateWithoutBusinessInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutBusinessInput | CustomerCreateOrConnectWithoutBusinessInput[]
+    createMany?: CustomerCreateManyBusinessInputEnvelope
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
   }
 
   export type ProductCreateNestedManyWithoutBusinessInput = {
@@ -22030,11 +22030,11 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
-  export type SupplierUncheckedCreateNestedManyWithoutBusinessInput = {
-    create?: XOR<SupplierCreateWithoutBusinessInput, SupplierUncheckedCreateWithoutBusinessInput> | SupplierCreateWithoutBusinessInput[] | SupplierUncheckedCreateWithoutBusinessInput[]
-    connectOrCreate?: SupplierCreateOrConnectWithoutBusinessInput | SupplierCreateOrConnectWithoutBusinessInput[]
-    createMany?: SupplierCreateManyBusinessInputEnvelope
-    connect?: SupplierWhereUniqueInput | SupplierWhereUniqueInput[]
+  export type CustomerUncheckedCreateNestedManyWithoutBusinessInput = {
+    create?: XOR<CustomerCreateWithoutBusinessInput, CustomerUncheckedCreateWithoutBusinessInput> | CustomerCreateWithoutBusinessInput[] | CustomerUncheckedCreateWithoutBusinessInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutBusinessInput | CustomerCreateOrConnectWithoutBusinessInput[]
+    createMany?: CustomerCreateManyBusinessInputEnvelope
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
   }
 
   export type ProductUncheckedCreateNestedManyWithoutBusinessInput = {
@@ -22100,18 +22100,18 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
-  export type SupplierUpdateManyWithoutBusinessNestedInput = {
-    create?: XOR<SupplierCreateWithoutBusinessInput, SupplierUncheckedCreateWithoutBusinessInput> | SupplierCreateWithoutBusinessInput[] | SupplierUncheckedCreateWithoutBusinessInput[]
-    connectOrCreate?: SupplierCreateOrConnectWithoutBusinessInput | SupplierCreateOrConnectWithoutBusinessInput[]
-    upsert?: SupplierUpsertWithWhereUniqueWithoutBusinessInput | SupplierUpsertWithWhereUniqueWithoutBusinessInput[]
-    createMany?: SupplierCreateManyBusinessInputEnvelope
-    set?: SupplierWhereUniqueInput | SupplierWhereUniqueInput[]
-    disconnect?: SupplierWhereUniqueInput | SupplierWhereUniqueInput[]
-    delete?: SupplierWhereUniqueInput | SupplierWhereUniqueInput[]
-    connect?: SupplierWhereUniqueInput | SupplierWhereUniqueInput[]
-    update?: SupplierUpdateWithWhereUniqueWithoutBusinessInput | SupplierUpdateWithWhereUniqueWithoutBusinessInput[]
-    updateMany?: SupplierUpdateManyWithWhereWithoutBusinessInput | SupplierUpdateManyWithWhereWithoutBusinessInput[]
-    deleteMany?: SupplierScalarWhereInput | SupplierScalarWhereInput[]
+  export type CustomerUpdateManyWithoutBusinessNestedInput = {
+    create?: XOR<CustomerCreateWithoutBusinessInput, CustomerUncheckedCreateWithoutBusinessInput> | CustomerCreateWithoutBusinessInput[] | CustomerUncheckedCreateWithoutBusinessInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutBusinessInput | CustomerCreateOrConnectWithoutBusinessInput[]
+    upsert?: CustomerUpsertWithWhereUniqueWithoutBusinessInput | CustomerUpsertWithWhereUniqueWithoutBusinessInput[]
+    createMany?: CustomerCreateManyBusinessInputEnvelope
+    set?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    disconnect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    delete?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    update?: CustomerUpdateWithWhereUniqueWithoutBusinessInput | CustomerUpdateWithWhereUniqueWithoutBusinessInput[]
+    updateMany?: CustomerUpdateManyWithWhereWithoutBusinessInput | CustomerUpdateManyWithWhereWithoutBusinessInput[]
+    deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
   }
 
   export type ProductUpdateManyWithoutBusinessNestedInput = {
@@ -22226,18 +22226,18 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
-  export type SupplierUncheckedUpdateManyWithoutBusinessNestedInput = {
-    create?: XOR<SupplierCreateWithoutBusinessInput, SupplierUncheckedCreateWithoutBusinessInput> | SupplierCreateWithoutBusinessInput[] | SupplierUncheckedCreateWithoutBusinessInput[]
-    connectOrCreate?: SupplierCreateOrConnectWithoutBusinessInput | SupplierCreateOrConnectWithoutBusinessInput[]
-    upsert?: SupplierUpsertWithWhereUniqueWithoutBusinessInput | SupplierUpsertWithWhereUniqueWithoutBusinessInput[]
-    createMany?: SupplierCreateManyBusinessInputEnvelope
-    set?: SupplierWhereUniqueInput | SupplierWhereUniqueInput[]
-    disconnect?: SupplierWhereUniqueInput | SupplierWhereUniqueInput[]
-    delete?: SupplierWhereUniqueInput | SupplierWhereUniqueInput[]
-    connect?: SupplierWhereUniqueInput | SupplierWhereUniqueInput[]
-    update?: SupplierUpdateWithWhereUniqueWithoutBusinessInput | SupplierUpdateWithWhereUniqueWithoutBusinessInput[]
-    updateMany?: SupplierUpdateManyWithWhereWithoutBusinessInput | SupplierUpdateManyWithWhereWithoutBusinessInput[]
-    deleteMany?: SupplierScalarWhereInput | SupplierScalarWhereInput[]
+  export type CustomerUncheckedUpdateManyWithoutBusinessNestedInput = {
+    create?: XOR<CustomerCreateWithoutBusinessInput, CustomerUncheckedCreateWithoutBusinessInput> | CustomerCreateWithoutBusinessInput[] | CustomerUncheckedCreateWithoutBusinessInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutBusinessInput | CustomerCreateOrConnectWithoutBusinessInput[]
+    upsert?: CustomerUpsertWithWhereUniqueWithoutBusinessInput | CustomerUpsertWithWhereUniqueWithoutBusinessInput[]
+    createMany?: CustomerCreateManyBusinessInputEnvelope
+    set?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    disconnect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    delete?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    update?: CustomerUpdateWithWhereUniqueWithoutBusinessInput | CustomerUpdateWithWhereUniqueWithoutBusinessInput[]
+    updateMany?: CustomerUpdateManyWithWhereWithoutBusinessInput | CustomerUpdateManyWithWhereWithoutBusinessInput[]
+    deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
   }
 
   export type ProductUncheckedUpdateManyWithoutBusinessNestedInput = {
@@ -22338,101 +22338,101 @@ export namespace Prisma {
     deleteMany?: ChatMessageScalarWhereInput | ChatMessageScalarWhereInput[]
   }
 
-  export type BusinessCreateNestedOneWithoutSuppliersInput = {
-    create?: XOR<BusinessCreateWithoutSuppliersInput, BusinessUncheckedCreateWithoutSuppliersInput>
-    connectOrCreate?: BusinessCreateOrConnectWithoutSuppliersInput
+  export type BusinessCreateNestedOneWithoutCustomersInput = {
+    create?: XOR<BusinessCreateWithoutCustomersInput, BusinessUncheckedCreateWithoutCustomersInput>
+    connectOrCreate?: BusinessCreateOrConnectWithoutCustomersInput
     connect?: BusinessWhereUniqueInput
   }
 
-  export type ProductCreateNestedManyWithoutSupplierInput = {
-    create?: XOR<ProductCreateWithoutSupplierInput, ProductUncheckedCreateWithoutSupplierInput> | ProductCreateWithoutSupplierInput[] | ProductUncheckedCreateWithoutSupplierInput[]
-    connectOrCreate?: ProductCreateOrConnectWithoutSupplierInput | ProductCreateOrConnectWithoutSupplierInput[]
-    createMany?: ProductCreateManySupplierInputEnvelope
+  export type ProductCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<ProductCreateWithoutCustomerInput, ProductUncheckedCreateWithoutCustomerInput> | ProductCreateWithoutCustomerInput[] | ProductUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCustomerInput | ProductCreateOrConnectWithoutCustomerInput[]
+    createMany?: ProductCreateManyCustomerInputEnvelope
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
-  export type OrderCreateNestedManyWithoutSupplierInput = {
-    create?: XOR<OrderCreateWithoutSupplierInput, OrderUncheckedCreateWithoutSupplierInput> | OrderCreateWithoutSupplierInput[] | OrderUncheckedCreateWithoutSupplierInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutSupplierInput | OrderCreateOrConnectWithoutSupplierInput[]
-    createMany?: OrderCreateManySupplierInputEnvelope
+  export type OrderCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<OrderCreateWithoutCustomerInput, OrderUncheckedCreateWithoutCustomerInput> | OrderCreateWithoutCustomerInput[] | OrderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutCustomerInput | OrderCreateOrConnectWithoutCustomerInput[]
+    createMany?: OrderCreateManyCustomerInputEnvelope
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
-  export type ProductUncheckedCreateNestedManyWithoutSupplierInput = {
-    create?: XOR<ProductCreateWithoutSupplierInput, ProductUncheckedCreateWithoutSupplierInput> | ProductCreateWithoutSupplierInput[] | ProductUncheckedCreateWithoutSupplierInput[]
-    connectOrCreate?: ProductCreateOrConnectWithoutSupplierInput | ProductCreateOrConnectWithoutSupplierInput[]
-    createMany?: ProductCreateManySupplierInputEnvelope
+  export type ProductUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<ProductCreateWithoutCustomerInput, ProductUncheckedCreateWithoutCustomerInput> | ProductCreateWithoutCustomerInput[] | ProductUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCustomerInput | ProductCreateOrConnectWithoutCustomerInput[]
+    createMany?: ProductCreateManyCustomerInputEnvelope
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
-  export type OrderUncheckedCreateNestedManyWithoutSupplierInput = {
-    create?: XOR<OrderCreateWithoutSupplierInput, OrderUncheckedCreateWithoutSupplierInput> | OrderCreateWithoutSupplierInput[] | OrderUncheckedCreateWithoutSupplierInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutSupplierInput | OrderCreateOrConnectWithoutSupplierInput[]
-    createMany?: OrderCreateManySupplierInputEnvelope
+  export type OrderUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<OrderCreateWithoutCustomerInput, OrderUncheckedCreateWithoutCustomerInput> | OrderCreateWithoutCustomerInput[] | OrderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutCustomerInput | OrderCreateOrConnectWithoutCustomerInput[]
+    createMany?: OrderCreateManyCustomerInputEnvelope
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
-  export type BusinessUpdateOneRequiredWithoutSuppliersNestedInput = {
-    create?: XOR<BusinessCreateWithoutSuppliersInput, BusinessUncheckedCreateWithoutSuppliersInput>
-    connectOrCreate?: BusinessCreateOrConnectWithoutSuppliersInput
-    upsert?: BusinessUpsertWithoutSuppliersInput
+  export type BusinessUpdateOneRequiredWithoutCustomersNestedInput = {
+    create?: XOR<BusinessCreateWithoutCustomersInput, BusinessUncheckedCreateWithoutCustomersInput>
+    connectOrCreate?: BusinessCreateOrConnectWithoutCustomersInput
+    upsert?: BusinessUpsertWithoutCustomersInput
     connect?: BusinessWhereUniqueInput
-    update?: XOR<XOR<BusinessUpdateToOneWithWhereWithoutSuppliersInput, BusinessUpdateWithoutSuppliersInput>, BusinessUncheckedUpdateWithoutSuppliersInput>
+    update?: XOR<XOR<BusinessUpdateToOneWithWhereWithoutCustomersInput, BusinessUpdateWithoutCustomersInput>, BusinessUncheckedUpdateWithoutCustomersInput>
   }
 
-  export type ProductUpdateManyWithoutSupplierNestedInput = {
-    create?: XOR<ProductCreateWithoutSupplierInput, ProductUncheckedCreateWithoutSupplierInput> | ProductCreateWithoutSupplierInput[] | ProductUncheckedCreateWithoutSupplierInput[]
-    connectOrCreate?: ProductCreateOrConnectWithoutSupplierInput | ProductCreateOrConnectWithoutSupplierInput[]
-    upsert?: ProductUpsertWithWhereUniqueWithoutSupplierInput | ProductUpsertWithWhereUniqueWithoutSupplierInput[]
-    createMany?: ProductCreateManySupplierInputEnvelope
+  export type ProductUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<ProductCreateWithoutCustomerInput, ProductUncheckedCreateWithoutCustomerInput> | ProductCreateWithoutCustomerInput[] | ProductUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCustomerInput | ProductCreateOrConnectWithoutCustomerInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutCustomerInput | ProductUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: ProductCreateManyCustomerInputEnvelope
     set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
     disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
     delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-    update?: ProductUpdateWithWhereUniqueWithoutSupplierInput | ProductUpdateWithWhereUniqueWithoutSupplierInput[]
-    updateMany?: ProductUpdateManyWithWhereWithoutSupplierInput | ProductUpdateManyWithWhereWithoutSupplierInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutCustomerInput | ProductUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutCustomerInput | ProductUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
-  export type OrderUpdateManyWithoutSupplierNestedInput = {
-    create?: XOR<OrderCreateWithoutSupplierInput, OrderUncheckedCreateWithoutSupplierInput> | OrderCreateWithoutSupplierInput[] | OrderUncheckedCreateWithoutSupplierInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutSupplierInput | OrderCreateOrConnectWithoutSupplierInput[]
-    upsert?: OrderUpsertWithWhereUniqueWithoutSupplierInput | OrderUpsertWithWhereUniqueWithoutSupplierInput[]
-    createMany?: OrderCreateManySupplierInputEnvelope
+  export type OrderUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<OrderCreateWithoutCustomerInput, OrderUncheckedCreateWithoutCustomerInput> | OrderCreateWithoutCustomerInput[] | OrderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutCustomerInput | OrderCreateOrConnectWithoutCustomerInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutCustomerInput | OrderUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: OrderCreateManyCustomerInputEnvelope
     set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    update?: OrderUpdateWithWhereUniqueWithoutSupplierInput | OrderUpdateWithWhereUniqueWithoutSupplierInput[]
-    updateMany?: OrderUpdateManyWithWhereWithoutSupplierInput | OrderUpdateManyWithWhereWithoutSupplierInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutCustomerInput | OrderUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutCustomerInput | OrderUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
-  export type ProductUncheckedUpdateManyWithoutSupplierNestedInput = {
-    create?: XOR<ProductCreateWithoutSupplierInput, ProductUncheckedCreateWithoutSupplierInput> | ProductCreateWithoutSupplierInput[] | ProductUncheckedCreateWithoutSupplierInput[]
-    connectOrCreate?: ProductCreateOrConnectWithoutSupplierInput | ProductCreateOrConnectWithoutSupplierInput[]
-    upsert?: ProductUpsertWithWhereUniqueWithoutSupplierInput | ProductUpsertWithWhereUniqueWithoutSupplierInput[]
-    createMany?: ProductCreateManySupplierInputEnvelope
+  export type ProductUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<ProductCreateWithoutCustomerInput, ProductUncheckedCreateWithoutCustomerInput> | ProductCreateWithoutCustomerInput[] | ProductUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCustomerInput | ProductCreateOrConnectWithoutCustomerInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutCustomerInput | ProductUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: ProductCreateManyCustomerInputEnvelope
     set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
     disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
     delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-    update?: ProductUpdateWithWhereUniqueWithoutSupplierInput | ProductUpdateWithWhereUniqueWithoutSupplierInput[]
-    updateMany?: ProductUpdateManyWithWhereWithoutSupplierInput | ProductUpdateManyWithWhereWithoutSupplierInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutCustomerInput | ProductUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutCustomerInput | ProductUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
-  export type OrderUncheckedUpdateManyWithoutSupplierNestedInput = {
-    create?: XOR<OrderCreateWithoutSupplierInput, OrderUncheckedCreateWithoutSupplierInput> | OrderCreateWithoutSupplierInput[] | OrderUncheckedCreateWithoutSupplierInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutSupplierInput | OrderCreateOrConnectWithoutSupplierInput[]
-    upsert?: OrderUpsertWithWhereUniqueWithoutSupplierInput | OrderUpsertWithWhereUniqueWithoutSupplierInput[]
-    createMany?: OrderCreateManySupplierInputEnvelope
+  export type OrderUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<OrderCreateWithoutCustomerInput, OrderUncheckedCreateWithoutCustomerInput> | OrderCreateWithoutCustomerInput[] | OrderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutCustomerInput | OrderCreateOrConnectWithoutCustomerInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutCustomerInput | OrderUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: OrderCreateManyCustomerInputEnvelope
     set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    update?: OrderUpdateWithWhereUniqueWithoutSupplierInput | OrderUpdateWithWhereUniqueWithoutSupplierInput[]
-    updateMany?: OrderUpdateManyWithWhereWithoutSupplierInput | OrderUpdateManyWithWhereWithoutSupplierInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutCustomerInput | OrderUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutCustomerInput | OrderUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
@@ -22442,10 +22442,10 @@ export namespace Prisma {
     connect?: BusinessWhereUniqueInput
   }
 
-  export type SupplierCreateNestedOneWithoutProductsInput = {
-    create?: XOR<SupplierCreateWithoutProductsInput, SupplierUncheckedCreateWithoutProductsInput>
-    connectOrCreate?: SupplierCreateOrConnectWithoutProductsInput
-    connect?: SupplierWhereUniqueInput
+  export type CustomerCreateNestedOneWithoutProductsInput = {
+    create?: XOR<CustomerCreateWithoutProductsInput, CustomerUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutProductsInput
+    connect?: CustomerWhereUniqueInput
   }
 
   export type OrderItemCreateNestedManyWithoutProductInput = {
@@ -22542,14 +22542,14 @@ export namespace Prisma {
     update?: XOR<XOR<BusinessUpdateToOneWithWhereWithoutProductsInput, BusinessUpdateWithoutProductsInput>, BusinessUncheckedUpdateWithoutProductsInput>
   }
 
-  export type SupplierUpdateOneWithoutProductsNestedInput = {
-    create?: XOR<SupplierCreateWithoutProductsInput, SupplierUncheckedCreateWithoutProductsInput>
-    connectOrCreate?: SupplierCreateOrConnectWithoutProductsInput
-    upsert?: SupplierUpsertWithoutProductsInput
-    disconnect?: SupplierWhereInput | boolean
-    delete?: SupplierWhereInput | boolean
-    connect?: SupplierWhereUniqueInput
-    update?: XOR<XOR<SupplierUpdateToOneWithWhereWithoutProductsInput, SupplierUpdateWithoutProductsInput>, SupplierUncheckedUpdateWithoutProductsInput>
+  export type CustomerUpdateOneWithoutProductsNestedInput = {
+    create?: XOR<CustomerCreateWithoutProductsInput, CustomerUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutProductsInput
+    upsert?: CustomerUpsertWithoutProductsInput
+    disconnect?: CustomerWhereInput | boolean
+    delete?: CustomerWhereInput | boolean
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutProductsInput, CustomerUpdateWithoutProductsInput>, CustomerUncheckedUpdateWithoutProductsInput>
   }
 
   export type OrderItemUpdateManyWithoutProductNestedInput = {
@@ -22698,10 +22698,10 @@ export namespace Prisma {
     connect?: BusinessWhereUniqueInput
   }
 
-  export type SupplierCreateNestedOneWithoutOrdersInput = {
-    create?: XOR<SupplierCreateWithoutOrdersInput, SupplierUncheckedCreateWithoutOrdersInput>
-    connectOrCreate?: SupplierCreateOrConnectWithoutOrdersInput
-    connect?: SupplierWhereUniqueInput
+  export type CustomerCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<CustomerCreateWithoutOrdersInput, CustomerUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutOrdersInput
+    connect?: CustomerWhereUniqueInput
   }
 
   export type OrderItemCreateNestedManyWithoutOrderInput = {
@@ -22786,12 +22786,12 @@ export namespace Prisma {
     update?: XOR<XOR<BusinessUpdateToOneWithWhereWithoutOrdersInput, BusinessUpdateWithoutOrdersInput>, BusinessUncheckedUpdateWithoutOrdersInput>
   }
 
-  export type SupplierUpdateOneRequiredWithoutOrdersNestedInput = {
-    create?: XOR<SupplierCreateWithoutOrdersInput, SupplierUncheckedCreateWithoutOrdersInput>
-    connectOrCreate?: SupplierCreateOrConnectWithoutOrdersInput
-    upsert?: SupplierUpsertWithoutOrdersInput
-    connect?: SupplierWhereUniqueInput
-    update?: XOR<XOR<SupplierUpdateToOneWithWhereWithoutOrdersInput, SupplierUpdateWithoutOrdersInput>, SupplierUncheckedUpdateWithoutOrdersInput>
+  export type CustomerUpdateOneRequiredWithoutOrdersNestedInput = {
+    create?: XOR<CustomerCreateWithoutOrdersInput, CustomerUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutOrdersInput
+    upsert?: CustomerUpsertWithoutOrdersInput
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutOrdersInput, CustomerUpdateWithoutOrdersInput>, CustomerUncheckedUpdateWithoutOrdersInput>
   }
 
   export type OrderItemUpdateManyWithoutOrderNestedInput = {
@@ -23348,7 +23348,7 @@ export namespace Prisma {
     email?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    suppliers?: SupplierCreateNestedManyWithoutBusinessInput
+    customers?: CustomerCreateNestedManyWithoutBusinessInput
     products?: ProductCreateNestedManyWithoutBusinessInput
     orders?: OrderCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutBusinessInput
@@ -23366,7 +23366,7 @@ export namespace Prisma {
     email?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    suppliers?: SupplierUncheckedCreateNestedManyWithoutBusinessInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutBusinessInput
@@ -23400,7 +23400,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    suppliers?: SupplierUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput
     products?: ProductUpdateManyWithoutBusinessNestedInput
     orders?: OrderUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutBusinessNestedInput
@@ -23418,7 +23418,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    suppliers?: SupplierUncheckedUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutBusinessNestedInput
@@ -23458,7 +23458,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type SupplierCreateWithoutBusinessInput = {
+  export type CustomerCreateWithoutBusinessInput = {
     id?: string
     name: string
     contactName?: string | null
@@ -23467,11 +23467,11 @@ export namespace Prisma {
     address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    products?: ProductCreateNestedManyWithoutSupplierInput
-    orders?: OrderCreateNestedManyWithoutSupplierInput
+    products?: ProductCreateNestedManyWithoutCustomerInput
+    orders?: OrderCreateNestedManyWithoutCustomerInput
   }
 
-  export type SupplierUncheckedCreateWithoutBusinessInput = {
+  export type CustomerUncheckedCreateWithoutBusinessInput = {
     id?: string
     name: string
     contactName?: string | null
@@ -23480,17 +23480,17 @@ export namespace Prisma {
     address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    products?: ProductUncheckedCreateNestedManyWithoutSupplierInput
-    orders?: OrderUncheckedCreateNestedManyWithoutSupplierInput
+    products?: ProductUncheckedCreateNestedManyWithoutCustomerInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
-  export type SupplierCreateOrConnectWithoutBusinessInput = {
-    where: SupplierWhereUniqueInput
-    create: XOR<SupplierCreateWithoutBusinessInput, SupplierUncheckedCreateWithoutBusinessInput>
+  export type CustomerCreateOrConnectWithoutBusinessInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutBusinessInput, CustomerUncheckedCreateWithoutBusinessInput>
   }
 
-  export type SupplierCreateManyBusinessInputEnvelope = {
-    data: SupplierCreateManyBusinessInput | SupplierCreateManyBusinessInput[]
+  export type CustomerCreateManyBusinessInputEnvelope = {
+    data: CustomerCreateManyBusinessInput | CustomerCreateManyBusinessInput[]
     skipDuplicates?: boolean
   }
 
@@ -23504,7 +23504,7 @@ export namespace Prisma {
     reorderLevel?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    supplier?: SupplierCreateNestedOneWithoutProductsInput
+    customer?: CustomerCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
@@ -23520,7 +23520,7 @@ export namespace Prisma {
     unitPrice?: number
     unit?: string
     reorderLevel?: number
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -23549,7 +23549,7 @@ export namespace Prisma {
     expectedDelivery?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    supplier: SupplierCreateNestedOneWithoutOrdersInput
+    customer: CustomerCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
     statusHistory?: OrderStatusHistoryCreateNestedManyWithoutOrderInput
     manufacturingStages?: ManufacturingStageCreateNestedManyWithoutOrderInput
@@ -23563,7 +23563,7 @@ export namespace Prisma {
     status?: string
     totalAmount?: number
     notes?: string | null
-    supplierId: string
+    customerId: string
     expectedDelivery?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23653,7 +23653,7 @@ export namespace Prisma {
     unitPrice: number
     totalAmount: number
     description?: string | null
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     product: ProductCreateNestedOneWithoutLedgerEntriesInput
     order?: OrderCreateNestedOneWithoutLedgerEntriesInput
@@ -23668,7 +23668,7 @@ export namespace Prisma {
     description?: string | null
     productId: string
     orderId?: string | null
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
   }
 
@@ -23768,35 +23768,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
   }
 
-  export type SupplierUpsertWithWhereUniqueWithoutBusinessInput = {
-    where: SupplierWhereUniqueInput
-    update: XOR<SupplierUpdateWithoutBusinessInput, SupplierUncheckedUpdateWithoutBusinessInput>
-    create: XOR<SupplierCreateWithoutBusinessInput, SupplierUncheckedCreateWithoutBusinessInput>
+  export type CustomerUpsertWithWhereUniqueWithoutBusinessInput = {
+    where: CustomerWhereUniqueInput
+    update: XOR<CustomerUpdateWithoutBusinessInput, CustomerUncheckedUpdateWithoutBusinessInput>
+    create: XOR<CustomerCreateWithoutBusinessInput, CustomerUncheckedCreateWithoutBusinessInput>
   }
 
-  export type SupplierUpdateWithWhereUniqueWithoutBusinessInput = {
-    where: SupplierWhereUniqueInput
-    data: XOR<SupplierUpdateWithoutBusinessInput, SupplierUncheckedUpdateWithoutBusinessInput>
+  export type CustomerUpdateWithWhereUniqueWithoutBusinessInput = {
+    where: CustomerWhereUniqueInput
+    data: XOR<CustomerUpdateWithoutBusinessInput, CustomerUncheckedUpdateWithoutBusinessInput>
   }
 
-  export type SupplierUpdateManyWithWhereWithoutBusinessInput = {
-    where: SupplierScalarWhereInput
-    data: XOR<SupplierUpdateManyMutationInput, SupplierUncheckedUpdateManyWithoutBusinessInput>
+  export type CustomerUpdateManyWithWhereWithoutBusinessInput = {
+    where: CustomerScalarWhereInput
+    data: XOR<CustomerUpdateManyMutationInput, CustomerUncheckedUpdateManyWithoutBusinessInput>
   }
 
-  export type SupplierScalarWhereInput = {
-    AND?: SupplierScalarWhereInput | SupplierScalarWhereInput[]
-    OR?: SupplierScalarWhereInput[]
-    NOT?: SupplierScalarWhereInput | SupplierScalarWhereInput[]
-    id?: StringFilter<"Supplier"> | string
-    name?: StringFilter<"Supplier"> | string
-    contactName?: StringNullableFilter<"Supplier"> | string | null
-    email?: StringNullableFilter<"Supplier"> | string | null
-    phone?: StringNullableFilter<"Supplier"> | string | null
-    address?: StringNullableFilter<"Supplier"> | string | null
-    businessId?: StringFilter<"Supplier"> | string
-    createdAt?: DateTimeFilter<"Supplier"> | Date | string
-    updatedAt?: DateTimeFilter<"Supplier"> | Date | string
+  export type CustomerScalarWhereInput = {
+    AND?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
+    OR?: CustomerScalarWhereInput[]
+    NOT?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
+    id?: StringFilter<"Customer"> | string
+    name?: StringFilter<"Customer"> | string
+    contactName?: StringNullableFilter<"Customer"> | string | null
+    email?: StringNullableFilter<"Customer"> | string | null
+    phone?: StringNullableFilter<"Customer"> | string | null
+    address?: StringNullableFilter<"Customer"> | string | null
+    businessId?: StringFilter<"Customer"> | string
+    createdAt?: DateTimeFilter<"Customer"> | Date | string
+    updatedAt?: DateTimeFilter<"Customer"> | Date | string
   }
 
   export type ProductUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -23827,7 +23827,7 @@ export namespace Prisma {
     unit?: StringFilter<"Product"> | string
     reorderLevel?: IntFilter<"Product"> | number
     businessId?: StringFilter<"Product"> | string
-    supplierId?: StringNullableFilter<"Product"> | string | null
+    customerId?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
   }
@@ -23858,7 +23858,7 @@ export namespace Prisma {
     totalAmount?: FloatFilter<"Order"> | number
     notes?: StringNullableFilter<"Order"> | string | null
     businessId?: StringFilter<"Order"> | string
-    supplierId?: StringFilter<"Order"> | string
+    customerId?: StringFilter<"Order"> | string
     expectedDelivery?: DateTimeNullableFilter<"Order"> | Date | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
@@ -23954,7 +23954,7 @@ export namespace Prisma {
     businessId?: StringFilter<"LedgerEntry"> | string
     productId?: StringFilter<"LedgerEntry"> | string
     orderId?: StringNullableFilter<"LedgerEntry"> | string | null
-    supplierId?: StringNullableFilter<"LedgerEntry"> | string | null
+    customerId?: StringNullableFilter<"LedgerEntry"> | string | null
     createdAt?: DateTimeFilter<"LedgerEntry"> | Date | string
   }
 
@@ -24016,7 +24016,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ChatMessage"> | Date | string
   }
 
-  export type BusinessCreateWithoutSuppliersInput = {
+  export type BusinessCreateWithoutCustomersInput = {
     id?: string
     name: string
     address?: string | null
@@ -24034,7 +24034,7 @@ export namespace Prisma {
     chatMessages?: ChatMessageCreateNestedManyWithoutBusinessInput
   }
 
-  export type BusinessUncheckedCreateWithoutSuppliersInput = {
+  export type BusinessUncheckedCreateWithoutCustomersInput = {
     id?: string
     name: string
     address?: string | null
@@ -24052,12 +24052,12 @@ export namespace Prisma {
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutBusinessInput
   }
 
-  export type BusinessCreateOrConnectWithoutSuppliersInput = {
+  export type BusinessCreateOrConnectWithoutCustomersInput = {
     where: BusinessWhereUniqueInput
-    create: XOR<BusinessCreateWithoutSuppliersInput, BusinessUncheckedCreateWithoutSuppliersInput>
+    create: XOR<BusinessCreateWithoutCustomersInput, BusinessUncheckedCreateWithoutCustomersInput>
   }
 
-  export type ProductCreateWithoutSupplierInput = {
+  export type ProductCreateWithoutCustomerInput = {
     id?: string
     name: string
     sku?: string | null
@@ -24075,7 +24075,7 @@ export namespace Prisma {
     aiInsights?: AiInsightCreateNestedManyWithoutProductInput
   }
 
-  export type ProductUncheckedCreateWithoutSupplierInput = {
+  export type ProductUncheckedCreateWithoutCustomerInput = {
     id?: string
     name: string
     sku?: string | null
@@ -24093,17 +24093,17 @@ export namespace Prisma {
     aiInsights?: AiInsightUncheckedCreateNestedManyWithoutProductInput
   }
 
-  export type ProductCreateOrConnectWithoutSupplierInput = {
+  export type ProductCreateOrConnectWithoutCustomerInput = {
     where: ProductWhereUniqueInput
-    create: XOR<ProductCreateWithoutSupplierInput, ProductUncheckedCreateWithoutSupplierInput>
+    create: XOR<ProductCreateWithoutCustomerInput, ProductUncheckedCreateWithoutCustomerInput>
   }
 
-  export type ProductCreateManySupplierInputEnvelope = {
-    data: ProductCreateManySupplierInput | ProductCreateManySupplierInput[]
+  export type ProductCreateManyCustomerInputEnvelope = {
+    data: ProductCreateManyCustomerInput | ProductCreateManyCustomerInput[]
     skipDuplicates?: boolean
   }
 
-  export type OrderCreateWithoutSupplierInput = {
+  export type OrderCreateWithoutCustomerInput = {
     id?: string
     orderNumber: string
     status?: string
@@ -24120,7 +24120,7 @@ export namespace Prisma {
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutOrderInput
   }
 
-  export type OrderUncheckedCreateWithoutSupplierInput = {
+  export type OrderUncheckedCreateWithoutCustomerInput = {
     id?: string
     orderNumber: string
     status?: string
@@ -24137,28 +24137,28 @@ export namespace Prisma {
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutOrderInput
   }
 
-  export type OrderCreateOrConnectWithoutSupplierInput = {
+  export type OrderCreateOrConnectWithoutCustomerInput = {
     where: OrderWhereUniqueInput
-    create: XOR<OrderCreateWithoutSupplierInput, OrderUncheckedCreateWithoutSupplierInput>
+    create: XOR<OrderCreateWithoutCustomerInput, OrderUncheckedCreateWithoutCustomerInput>
   }
 
-  export type OrderCreateManySupplierInputEnvelope = {
-    data: OrderCreateManySupplierInput | OrderCreateManySupplierInput[]
+  export type OrderCreateManyCustomerInputEnvelope = {
+    data: OrderCreateManyCustomerInput | OrderCreateManyCustomerInput[]
     skipDuplicates?: boolean
   }
 
-  export type BusinessUpsertWithoutSuppliersInput = {
-    update: XOR<BusinessUpdateWithoutSuppliersInput, BusinessUncheckedUpdateWithoutSuppliersInput>
-    create: XOR<BusinessCreateWithoutSuppliersInput, BusinessUncheckedCreateWithoutSuppliersInput>
+  export type BusinessUpsertWithoutCustomersInput = {
+    update: XOR<BusinessUpdateWithoutCustomersInput, BusinessUncheckedUpdateWithoutCustomersInput>
+    create: XOR<BusinessCreateWithoutCustomersInput, BusinessUncheckedCreateWithoutCustomersInput>
     where?: BusinessWhereInput
   }
 
-  export type BusinessUpdateToOneWithWhereWithoutSuppliersInput = {
+  export type BusinessUpdateToOneWithWhereWithoutCustomersInput = {
     where?: BusinessWhereInput
-    data: XOR<BusinessUpdateWithoutSuppliersInput, BusinessUncheckedUpdateWithoutSuppliersInput>
+    data: XOR<BusinessUpdateWithoutCustomersInput, BusinessUncheckedUpdateWithoutCustomersInput>
   }
 
-  export type BusinessUpdateWithoutSuppliersInput = {
+  export type BusinessUpdateWithoutCustomersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24176,7 +24176,7 @@ export namespace Prisma {
     chatMessages?: ChatMessageUpdateManyWithoutBusinessNestedInput
   }
 
-  export type BusinessUncheckedUpdateWithoutSuppliersInput = {
+  export type BusinessUncheckedUpdateWithoutCustomersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24194,36 +24194,36 @@ export namespace Prisma {
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutBusinessNestedInput
   }
 
-  export type ProductUpsertWithWhereUniqueWithoutSupplierInput = {
+  export type ProductUpsertWithWhereUniqueWithoutCustomerInput = {
     where: ProductWhereUniqueInput
-    update: XOR<ProductUpdateWithoutSupplierInput, ProductUncheckedUpdateWithoutSupplierInput>
-    create: XOR<ProductCreateWithoutSupplierInput, ProductUncheckedCreateWithoutSupplierInput>
+    update: XOR<ProductUpdateWithoutCustomerInput, ProductUncheckedUpdateWithoutCustomerInput>
+    create: XOR<ProductCreateWithoutCustomerInput, ProductUncheckedCreateWithoutCustomerInput>
   }
 
-  export type ProductUpdateWithWhereUniqueWithoutSupplierInput = {
+  export type ProductUpdateWithWhereUniqueWithoutCustomerInput = {
     where: ProductWhereUniqueInput
-    data: XOR<ProductUpdateWithoutSupplierInput, ProductUncheckedUpdateWithoutSupplierInput>
+    data: XOR<ProductUpdateWithoutCustomerInput, ProductUncheckedUpdateWithoutCustomerInput>
   }
 
-  export type ProductUpdateManyWithWhereWithoutSupplierInput = {
+  export type ProductUpdateManyWithWhereWithoutCustomerInput = {
     where: ProductScalarWhereInput
-    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutSupplierInput>
+    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutCustomerInput>
   }
 
-  export type OrderUpsertWithWhereUniqueWithoutSupplierInput = {
+  export type OrderUpsertWithWhereUniqueWithoutCustomerInput = {
     where: OrderWhereUniqueInput
-    update: XOR<OrderUpdateWithoutSupplierInput, OrderUncheckedUpdateWithoutSupplierInput>
-    create: XOR<OrderCreateWithoutSupplierInput, OrderUncheckedCreateWithoutSupplierInput>
+    update: XOR<OrderUpdateWithoutCustomerInput, OrderUncheckedUpdateWithoutCustomerInput>
+    create: XOR<OrderCreateWithoutCustomerInput, OrderUncheckedCreateWithoutCustomerInput>
   }
 
-  export type OrderUpdateWithWhereUniqueWithoutSupplierInput = {
+  export type OrderUpdateWithWhereUniqueWithoutCustomerInput = {
     where: OrderWhereUniqueInput
-    data: XOR<OrderUpdateWithoutSupplierInput, OrderUncheckedUpdateWithoutSupplierInput>
+    data: XOR<OrderUpdateWithoutCustomerInput, OrderUncheckedUpdateWithoutCustomerInput>
   }
 
-  export type OrderUpdateManyWithWhereWithoutSupplierInput = {
+  export type OrderUpdateManyWithWhereWithoutCustomerInput = {
     where: OrderScalarWhereInput
-    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutSupplierInput>
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutCustomerInput>
   }
 
   export type BusinessCreateWithoutProductsInput = {
@@ -24235,7 +24235,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierCreateNestedManyWithoutBusinessInput
+    customers?: CustomerCreateNestedManyWithoutBusinessInput
     orders?: OrderCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutBusinessInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutBusinessInput
@@ -24253,7 +24253,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierUncheckedCreateNestedManyWithoutBusinessInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutBusinessInput
     inventoryUsages?: InventoryUsageUncheckedCreateNestedManyWithoutBusinessInput
@@ -24267,7 +24267,7 @@ export namespace Prisma {
     create: XOR<BusinessCreateWithoutProductsInput, BusinessUncheckedCreateWithoutProductsInput>
   }
 
-  export type SupplierCreateWithoutProductsInput = {
+  export type CustomerCreateWithoutProductsInput = {
     id?: string
     name: string
     contactName?: string | null
@@ -24276,11 +24276,11 @@ export namespace Prisma {
     address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    business: BusinessCreateNestedOneWithoutSuppliersInput
-    orders?: OrderCreateNestedManyWithoutSupplierInput
+    business: BusinessCreateNestedOneWithoutCustomersInput
+    orders?: OrderCreateNestedManyWithoutCustomerInput
   }
 
-  export type SupplierUncheckedCreateWithoutProductsInput = {
+  export type CustomerUncheckedCreateWithoutProductsInput = {
     id?: string
     name: string
     contactName?: string | null
@@ -24290,12 +24290,12 @@ export namespace Prisma {
     businessId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    orders?: OrderUncheckedCreateNestedManyWithoutSupplierInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
-  export type SupplierCreateOrConnectWithoutProductsInput = {
-    where: SupplierWhereUniqueInput
-    create: XOR<SupplierCreateWithoutProductsInput, SupplierUncheckedCreateWithoutProductsInput>
+  export type CustomerCreateOrConnectWithoutProductsInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutProductsInput, CustomerUncheckedCreateWithoutProductsInput>
   }
 
   export type OrderItemCreateWithoutProductInput = {
@@ -24393,7 +24393,7 @@ export namespace Prisma {
     unitPrice: number
     totalAmount: number
     description?: string | null
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     business: BusinessCreateNestedOneWithoutLedgerEntriesInput
     order?: OrderCreateNestedOneWithoutLedgerEntriesInput
@@ -24408,7 +24408,7 @@ export namespace Prisma {
     description?: string | null
     businessId: string
     orderId?: string | null
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
   }
 
@@ -24474,7 +24474,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput
     orders?: OrderUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutBusinessNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutBusinessNestedInput
@@ -24492,7 +24492,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUncheckedUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutBusinessNestedInput
     inventoryUsages?: InventoryUsageUncheckedUpdateManyWithoutBusinessNestedInput
@@ -24501,18 +24501,18 @@ export namespace Prisma {
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutBusinessNestedInput
   }
 
-  export type SupplierUpsertWithoutProductsInput = {
-    update: XOR<SupplierUpdateWithoutProductsInput, SupplierUncheckedUpdateWithoutProductsInput>
-    create: XOR<SupplierCreateWithoutProductsInput, SupplierUncheckedCreateWithoutProductsInput>
-    where?: SupplierWhereInput
+  export type CustomerUpsertWithoutProductsInput = {
+    update: XOR<CustomerUpdateWithoutProductsInput, CustomerUncheckedUpdateWithoutProductsInput>
+    create: XOR<CustomerCreateWithoutProductsInput, CustomerUncheckedCreateWithoutProductsInput>
+    where?: CustomerWhereInput
   }
 
-  export type SupplierUpdateToOneWithWhereWithoutProductsInput = {
-    where?: SupplierWhereInput
-    data: XOR<SupplierUpdateWithoutProductsInput, SupplierUncheckedUpdateWithoutProductsInput>
+  export type CustomerUpdateToOneWithWhereWithoutProductsInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutProductsInput, CustomerUncheckedUpdateWithoutProductsInput>
   }
 
-  export type SupplierUpdateWithoutProductsInput = {
+  export type CustomerUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contactName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24521,11 +24521,11 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    business?: BusinessUpdateOneRequiredWithoutSuppliersNestedInput
-    orders?: OrderUpdateManyWithoutSupplierNestedInput
+    business?: BusinessUpdateOneRequiredWithoutCustomersNestedInput
+    orders?: OrderUpdateManyWithoutCustomerNestedInput
   }
 
-  export type SupplierUncheckedUpdateWithoutProductsInput = {
+  export type CustomerUncheckedUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contactName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24535,7 +24535,7 @@ export namespace Prisma {
     businessId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    orders?: OrderUncheckedUpdateManyWithoutSupplierNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutProductInput = {
@@ -24639,7 +24639,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierCreateNestedManyWithoutBusinessInput
+    customers?: CustomerCreateNestedManyWithoutBusinessInput
     products?: ProductCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutBusinessInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutBusinessInput
@@ -24657,7 +24657,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierUncheckedCreateNestedManyWithoutBusinessInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutBusinessInput
     inventoryUsages?: InventoryUsageUncheckedCreateNestedManyWithoutBusinessInput
@@ -24671,7 +24671,7 @@ export namespace Prisma {
     create: XOR<BusinessCreateWithoutOrdersInput, BusinessUncheckedCreateWithoutOrdersInput>
   }
 
-  export type SupplierCreateWithoutOrdersInput = {
+  export type CustomerCreateWithoutOrdersInput = {
     id?: string
     name: string
     contactName?: string | null
@@ -24680,11 +24680,11 @@ export namespace Prisma {
     address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    business: BusinessCreateNestedOneWithoutSuppliersInput
-    products?: ProductCreateNestedManyWithoutSupplierInput
+    business: BusinessCreateNestedOneWithoutCustomersInput
+    products?: ProductCreateNestedManyWithoutCustomerInput
   }
 
-  export type SupplierUncheckedCreateWithoutOrdersInput = {
+  export type CustomerUncheckedCreateWithoutOrdersInput = {
     id?: string
     name: string
     contactName?: string | null
@@ -24694,12 +24694,12 @@ export namespace Prisma {
     businessId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    products?: ProductUncheckedCreateNestedManyWithoutSupplierInput
+    products?: ProductUncheckedCreateNestedManyWithoutCustomerInput
   }
 
-  export type SupplierCreateOrConnectWithoutOrdersInput = {
-    where: SupplierWhereUniqueInput
-    create: XOR<SupplierCreateWithoutOrdersInput, SupplierUncheckedCreateWithoutOrdersInput>
+  export type CustomerCreateOrConnectWithoutOrdersInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutOrdersInput, CustomerUncheckedCreateWithoutOrdersInput>
   }
 
   export type OrderItemCreateWithoutOrderInput = {
@@ -24823,7 +24823,7 @@ export namespace Prisma {
     unitPrice: number
     totalAmount: number
     description?: string | null
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     business: BusinessCreateNestedOneWithoutLedgerEntriesInput
     product: ProductCreateNestedOneWithoutLedgerEntriesInput
@@ -24838,7 +24838,7 @@ export namespace Prisma {
     description?: string | null
     businessId: string
     productId: string
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
   }
 
@@ -24872,7 +24872,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput
     products?: ProductUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutBusinessNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutBusinessNestedInput
@@ -24890,7 +24890,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUncheckedUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutBusinessNestedInput
     inventoryUsages?: InventoryUsageUncheckedUpdateManyWithoutBusinessNestedInput
@@ -24899,18 +24899,18 @@ export namespace Prisma {
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutBusinessNestedInput
   }
 
-  export type SupplierUpsertWithoutOrdersInput = {
-    update: XOR<SupplierUpdateWithoutOrdersInput, SupplierUncheckedUpdateWithoutOrdersInput>
-    create: XOR<SupplierCreateWithoutOrdersInput, SupplierUncheckedCreateWithoutOrdersInput>
-    where?: SupplierWhereInput
+  export type CustomerUpsertWithoutOrdersInput = {
+    update: XOR<CustomerUpdateWithoutOrdersInput, CustomerUncheckedUpdateWithoutOrdersInput>
+    create: XOR<CustomerCreateWithoutOrdersInput, CustomerUncheckedCreateWithoutOrdersInput>
+    where?: CustomerWhereInput
   }
 
-  export type SupplierUpdateToOneWithWhereWithoutOrdersInput = {
-    where?: SupplierWhereInput
-    data: XOR<SupplierUpdateWithoutOrdersInput, SupplierUncheckedUpdateWithoutOrdersInput>
+  export type CustomerUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutOrdersInput, CustomerUncheckedUpdateWithoutOrdersInput>
   }
 
-  export type SupplierUpdateWithoutOrdersInput = {
+  export type CustomerUpdateWithoutOrdersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contactName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24919,11 +24919,11 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    business?: BusinessUpdateOneRequiredWithoutSuppliersNestedInput
-    products?: ProductUpdateManyWithoutSupplierNestedInput
+    business?: BusinessUpdateOneRequiredWithoutCustomersNestedInput
+    products?: ProductUpdateManyWithoutCustomerNestedInput
   }
 
-  export type SupplierUncheckedUpdateWithoutOrdersInput = {
+  export type CustomerUncheckedUpdateWithoutOrdersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contactName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24933,7 +24933,7 @@ export namespace Prisma {
     businessId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductUncheckedUpdateManyWithoutSupplierNestedInput
+    products?: ProductUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
@@ -25050,7 +25050,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutOrdersInput
-    supplier: SupplierCreateNestedOneWithoutOrdersInput
+    customer: CustomerCreateNestedOneWithoutOrdersInput
     statusHistory?: OrderStatusHistoryCreateNestedManyWithoutOrderInput
     manufacturingStages?: ManufacturingStageCreateNestedManyWithoutOrderInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutOrderInput
@@ -25064,7 +25064,7 @@ export namespace Prisma {
     totalAmount?: number
     notes?: string | null
     businessId: string
-    supplierId: string
+    customerId: string
     expectedDelivery?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25090,7 +25090,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutProductsInput
-    supplier?: SupplierCreateNestedOneWithoutProductsInput
+    customer?: CustomerCreateNestedOneWithoutProductsInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutProductInput
@@ -25106,7 +25106,7 @@ export namespace Prisma {
     unit?: string
     reorderLevel?: number
     businessId: string
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutProductInput
@@ -25141,7 +25141,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutOrdersNestedInput
-    supplier?: SupplierUpdateOneRequiredWithoutOrdersNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
     statusHistory?: OrderStatusHistoryUpdateManyWithoutOrderNestedInput
     manufacturingStages?: ManufacturingStageUpdateManyWithoutOrderNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutOrderNestedInput
@@ -25155,7 +25155,7 @@ export namespace Prisma {
     totalAmount?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
     expectedDelivery?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25187,7 +25187,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput
-    supplier?: SupplierUpdateOneWithoutProductsNestedInput
+    customer?: CustomerUpdateOneWithoutProductsNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutProductNestedInput
@@ -25203,7 +25203,7 @@ export namespace Prisma {
     unit?: StringFieldUpdateOperationsInput | string
     reorderLevel?: IntFieldUpdateOperationsInput | number
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutProductNestedInput
@@ -25222,7 +25222,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutOrdersInput
-    supplier: SupplierCreateNestedOneWithoutOrdersInput
+    customer: CustomerCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
     manufacturingStages?: ManufacturingStageCreateNestedManyWithoutOrderInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutOrderInput
@@ -25236,7 +25236,7 @@ export namespace Prisma {
     totalAmount?: number
     notes?: string | null
     businessId: string
-    supplierId: string
+    customerId: string
     expectedDelivery?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25272,7 +25272,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutOrdersNestedInput
-    supplier?: SupplierUpdateOneRequiredWithoutOrdersNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     manufacturingStages?: ManufacturingStageUpdateManyWithoutOrderNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutOrderNestedInput
@@ -25286,7 +25286,7 @@ export namespace Prisma {
     totalAmount?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
     expectedDelivery?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25306,7 +25306,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutOrdersInput
-    supplier: SupplierCreateNestedOneWithoutOrdersInput
+    customer: CustomerCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
     statusHistory?: OrderStatusHistoryCreateNestedManyWithoutOrderInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutOrderInput
@@ -25320,7 +25320,7 @@ export namespace Prisma {
     totalAmount?: number
     notes?: string | null
     businessId: string
-    supplierId: string
+    customerId: string
     expectedDelivery?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25356,7 +25356,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutOrdersNestedInput
-    supplier?: SupplierUpdateOneRequiredWithoutOrdersNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     statusHistory?: OrderStatusHistoryUpdateManyWithoutOrderNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutOrderNestedInput
@@ -25370,7 +25370,7 @@ export namespace Prisma {
     totalAmount?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
     expectedDelivery?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25389,7 +25389,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierCreateNestedManyWithoutBusinessInput
+    customers?: CustomerCreateNestedManyWithoutBusinessInput
     products?: ProductCreateNestedManyWithoutBusinessInput
     orders?: OrderCreateNestedManyWithoutBusinessInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutBusinessInput
@@ -25407,7 +25407,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierUncheckedCreateNestedManyWithoutBusinessInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput
     inventoryUsages?: InventoryUsageUncheckedCreateNestedManyWithoutBusinessInput
@@ -25432,7 +25432,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutProductsInput
-    supplier?: SupplierCreateNestedOneWithoutProductsInput
+    customer?: CustomerCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutProductInput
@@ -25448,7 +25448,7 @@ export namespace Prisma {
     unit?: string
     reorderLevel?: number
     businessId: string
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -25472,7 +25472,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutOrdersInput
-    supplier: SupplierCreateNestedOneWithoutOrdersInput
+    customer: CustomerCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
     statusHistory?: OrderStatusHistoryCreateNestedManyWithoutOrderInput
     manufacturingStages?: ManufacturingStageCreateNestedManyWithoutOrderInput
@@ -25486,7 +25486,7 @@ export namespace Prisma {
     totalAmount?: number
     notes?: string | null
     businessId: string
-    supplierId: string
+    customerId: string
     expectedDelivery?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25521,7 +25521,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput
     products?: ProductUpdateManyWithoutBusinessNestedInput
     orders?: OrderUpdateManyWithoutBusinessNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutBusinessNestedInput
@@ -25539,7 +25539,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUncheckedUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput
     inventoryUsages?: InventoryUsageUncheckedUpdateManyWithoutBusinessNestedInput
@@ -25570,7 +25570,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput
-    supplier?: SupplierUpdateOneWithoutProductsNestedInput
+    customer?: CustomerUpdateOneWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutProductNestedInput
@@ -25586,7 +25586,7 @@ export namespace Prisma {
     unit?: StringFieldUpdateOperationsInput | string
     reorderLevel?: IntFieldUpdateOperationsInput | number
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -25616,7 +25616,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutOrdersNestedInput
-    supplier?: SupplierUpdateOneRequiredWithoutOrdersNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     statusHistory?: OrderStatusHistoryUpdateManyWithoutOrderNestedInput
     manufacturingStages?: ManufacturingStageUpdateManyWithoutOrderNestedInput
@@ -25630,7 +25630,7 @@ export namespace Prisma {
     totalAmount?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
     expectedDelivery?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25649,7 +25649,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierCreateNestedManyWithoutBusinessInput
+    customers?: CustomerCreateNestedManyWithoutBusinessInput
     products?: ProductCreateNestedManyWithoutBusinessInput
     orders?: OrderCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutBusinessInput
@@ -25667,7 +25667,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierUncheckedCreateNestedManyWithoutBusinessInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutBusinessInput
@@ -25692,7 +25692,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutProductsInput
-    supplier?: SupplierCreateNestedOneWithoutProductsInput
+    customer?: CustomerCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutProductInput
@@ -25708,7 +25708,7 @@ export namespace Prisma {
     unit?: string
     reorderLevel?: number
     businessId: string
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -25742,7 +25742,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput
     products?: ProductUpdateManyWithoutBusinessNestedInput
     orders?: OrderUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutBusinessNestedInput
@@ -25760,7 +25760,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUncheckedUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutBusinessNestedInput
@@ -25791,7 +25791,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput
-    supplier?: SupplierUpdateOneWithoutProductsNestedInput
+    customer?: CustomerUpdateOneWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutProductNestedInput
@@ -25807,7 +25807,7 @@ export namespace Prisma {
     unit?: StringFieldUpdateOperationsInput | string
     reorderLevel?: IntFieldUpdateOperationsInput | number
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -25825,7 +25825,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierCreateNestedManyWithoutBusinessInput
+    customers?: CustomerCreateNestedManyWithoutBusinessInput
     products?: ProductCreateNestedManyWithoutBusinessInput
     orders?: OrderCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutBusinessInput
@@ -25843,7 +25843,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierUncheckedCreateNestedManyWithoutBusinessInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutBusinessInput
@@ -25868,7 +25868,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutProductsInput
-    supplier?: SupplierCreateNestedOneWithoutProductsInput
+    customer?: CustomerCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
@@ -25884,7 +25884,7 @@ export namespace Prisma {
     unit?: string
     reorderLevel?: number
     businessId: string
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -25908,7 +25908,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutOrdersInput
-    supplier: SupplierCreateNestedOneWithoutOrdersInput
+    customer: CustomerCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
     statusHistory?: OrderStatusHistoryCreateNestedManyWithoutOrderInput
     manufacturingStages?: ManufacturingStageCreateNestedManyWithoutOrderInput
@@ -25922,7 +25922,7 @@ export namespace Prisma {
     totalAmount?: number
     notes?: string | null
     businessId: string
-    supplierId: string
+    customerId: string
     expectedDelivery?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25957,7 +25957,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput
     products?: ProductUpdateManyWithoutBusinessNestedInput
     orders?: OrderUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutBusinessNestedInput
@@ -25975,7 +25975,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUncheckedUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutBusinessNestedInput
@@ -26006,7 +26006,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput
-    supplier?: SupplierUpdateOneWithoutProductsNestedInput
+    customer?: CustomerUpdateOneWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
@@ -26022,7 +26022,7 @@ export namespace Prisma {
     unit?: StringFieldUpdateOperationsInput | string
     reorderLevel?: IntFieldUpdateOperationsInput | number
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -26052,7 +26052,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutOrdersNestedInput
-    supplier?: SupplierUpdateOneRequiredWithoutOrdersNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     statusHistory?: OrderStatusHistoryUpdateManyWithoutOrderNestedInput
     manufacturingStages?: ManufacturingStageUpdateManyWithoutOrderNestedInput
@@ -26066,7 +26066,7 @@ export namespace Prisma {
     totalAmount?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
     expectedDelivery?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26087,7 +26087,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     business: BusinessCreateNestedOneWithoutProductsInput
-    supplier?: SupplierCreateNestedOneWithoutProductsInput
+    customer?: CustomerCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutProductInput
     inventoryUsages?: InventoryUsageCreateNestedManyWithoutProductInput
@@ -26103,7 +26103,7 @@ export namespace Prisma {
     unit?: string
     reorderLevel?: number
     businessId: string
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -26126,7 +26126,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierCreateNestedManyWithoutBusinessInput
+    customers?: CustomerCreateNestedManyWithoutBusinessInput
     products?: ProductCreateNestedManyWithoutBusinessInput
     orders?: OrderCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutBusinessInput
@@ -26144,7 +26144,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierUncheckedCreateNestedManyWithoutBusinessInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutBusinessInput
@@ -26180,7 +26180,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput
-    supplier?: SupplierUpdateOneWithoutProductsNestedInput
+    customer?: CustomerUpdateOneWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
@@ -26196,7 +26196,7 @@ export namespace Prisma {
     unit?: StringFieldUpdateOperationsInput | string
     reorderLevel?: IntFieldUpdateOperationsInput | number
     businessId?: StringFieldUpdateOperationsInput | string
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -26225,7 +26225,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput
     products?: ProductUpdateManyWithoutBusinessNestedInput
     orders?: OrderUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutBusinessNestedInput
@@ -26243,7 +26243,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUncheckedUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutBusinessNestedInput
@@ -26261,7 +26261,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierCreateNestedManyWithoutBusinessInput
+    customers?: CustomerCreateNestedManyWithoutBusinessInput
     products?: ProductCreateNestedManyWithoutBusinessInput
     orders?: OrderCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotCreateNestedManyWithoutBusinessInput
@@ -26279,7 +26279,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutBusinessInput
-    suppliers?: SupplierUncheckedCreateNestedManyWithoutBusinessInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput
     inventoryLots?: InventoryLotUncheckedCreateNestedManyWithoutBusinessInput
@@ -26313,7 +26313,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput
     products?: ProductUpdateManyWithoutBusinessNestedInput
     orders?: OrderUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutBusinessNestedInput
@@ -26331,7 +26331,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutBusinessNestedInput
-    suppliers?: SupplierUncheckedUpdateManyWithoutBusinessNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput
     inventoryLots?: InventoryLotUncheckedUpdateManyWithoutBusinessNestedInput
@@ -26350,7 +26350,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type SupplierCreateManyBusinessInput = {
+  export type CustomerCreateManyBusinessInput = {
     id?: string
     name: string
     contactName?: string | null
@@ -26369,7 +26369,7 @@ export namespace Prisma {
     unitPrice?: number
     unit?: string
     reorderLevel?: number
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -26380,7 +26380,7 @@ export namespace Prisma {
     status?: string
     totalAmount?: number
     notes?: string | null
-    supplierId: string
+    customerId: string
     expectedDelivery?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26416,7 +26416,7 @@ export namespace Prisma {
     description?: string | null
     productId: string
     orderId?: string | null
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
   }
 
@@ -26468,7 +26468,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SupplierUpdateWithoutBusinessInput = {
+  export type CustomerUpdateWithoutBusinessInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contactName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26477,11 +26477,11 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductUpdateManyWithoutSupplierNestedInput
-    orders?: OrderUpdateManyWithoutSupplierNestedInput
+    products?: ProductUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUpdateManyWithoutCustomerNestedInput
   }
 
-  export type SupplierUncheckedUpdateWithoutBusinessInput = {
+  export type CustomerUncheckedUpdateWithoutBusinessInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contactName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26490,11 +26490,11 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductUncheckedUpdateManyWithoutSupplierNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutSupplierNestedInput
+    products?: ProductUncheckedUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
-  export type SupplierUncheckedUpdateManyWithoutBusinessInput = {
+  export type CustomerUncheckedUpdateManyWithoutBusinessInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contactName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26515,7 +26515,7 @@ export namespace Prisma {
     reorderLevel?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supplier?: SupplierUpdateOneWithoutProductsNestedInput
+    customer?: CustomerUpdateOneWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     inventoryLots?: InventoryLotUpdateManyWithoutProductNestedInput
     inventoryUsages?: InventoryUsageUpdateManyWithoutProductNestedInput
@@ -26531,7 +26531,7 @@ export namespace Prisma {
     unitPrice?: FloatFieldUpdateOperationsInput | number
     unit?: StringFieldUpdateOperationsInput | string
     reorderLevel?: IntFieldUpdateOperationsInput | number
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -26549,7 +26549,7 @@ export namespace Prisma {
     unitPrice?: FloatFieldUpdateOperationsInput | number
     unit?: StringFieldUpdateOperationsInput | string
     reorderLevel?: IntFieldUpdateOperationsInput | number
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -26563,7 +26563,7 @@ export namespace Prisma {
     expectedDelivery?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supplier?: SupplierUpdateOneRequiredWithoutOrdersNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     statusHistory?: OrderStatusHistoryUpdateManyWithoutOrderNestedInput
     manufacturingStages?: ManufacturingStageUpdateManyWithoutOrderNestedInput
@@ -26577,7 +26577,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     totalAmount?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
     expectedDelivery?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26594,7 +26594,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     totalAmount?: FloatFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
     expectedDelivery?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26670,7 +26670,7 @@ export namespace Prisma {
     unitPrice?: FloatFieldUpdateOperationsInput | number
     totalAmount?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     product?: ProductUpdateOneRequiredWithoutLedgerEntriesNestedInput
     order?: OrderUpdateOneWithoutLedgerEntriesNestedInput
@@ -26685,7 +26685,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     productId?: StringFieldUpdateOperationsInput | string
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -26698,7 +26698,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     productId?: StringFieldUpdateOperationsInput | string
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -26756,7 +26756,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ProductCreateManySupplierInput = {
+  export type ProductCreateManyCustomerInput = {
     id?: string
     name: string
     sku?: string | null
@@ -26769,7 +26769,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type OrderCreateManySupplierInput = {
+  export type OrderCreateManyCustomerInput = {
     id?: string
     orderNumber: string
     status?: string
@@ -26781,7 +26781,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ProductUpdateWithoutSupplierInput = {
+  export type ProductUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     sku?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26799,7 +26799,7 @@ export namespace Prisma {
     aiInsights?: AiInsightUpdateManyWithoutProductNestedInput
   }
 
-  export type ProductUncheckedUpdateWithoutSupplierInput = {
+  export type ProductUncheckedUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     sku?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26817,7 +26817,7 @@ export namespace Prisma {
     aiInsights?: AiInsightUncheckedUpdateManyWithoutProductNestedInput
   }
 
-  export type ProductUncheckedUpdateManyWithoutSupplierInput = {
+  export type ProductUncheckedUpdateManyWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     sku?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26830,7 +26830,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type OrderUpdateWithoutSupplierInput = {
+  export type OrderUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderNumber?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -26847,7 +26847,7 @@ export namespace Prisma {
     ledgerEntries?: LedgerEntryUpdateManyWithoutOrderNestedInput
   }
 
-  export type OrderUncheckedUpdateWithoutSupplierInput = {
+  export type OrderUncheckedUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderNumber?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -26864,7 +26864,7 @@ export namespace Prisma {
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutOrderNestedInput
   }
 
-  export type OrderUncheckedUpdateManyWithoutSupplierInput = {
+  export type OrderUncheckedUpdateManyWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderNumber?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -26914,7 +26914,7 @@ export namespace Prisma {
     description?: string | null
     businessId: string
     orderId?: string | null
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
   }
 
@@ -27023,7 +27023,7 @@ export namespace Prisma {
     unitPrice?: FloatFieldUpdateOperationsInput | number
     totalAmount?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutLedgerEntriesNestedInput
     order?: OrderUpdateOneWithoutLedgerEntriesNestedInput
@@ -27038,7 +27038,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     businessId?: StringFieldUpdateOperationsInput | string
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27051,7 +27051,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     businessId?: StringFieldUpdateOperationsInput | string
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27134,7 +27134,7 @@ export namespace Prisma {
     description?: string | null
     businessId: string
     productId: string
-    supplierId?: string | null
+    customerId?: string | null
     createdAt?: Date | string
   }
 
@@ -27256,7 +27256,7 @@ export namespace Prisma {
     unitPrice?: FloatFieldUpdateOperationsInput | number
     totalAmount?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     business?: BusinessUpdateOneRequiredWithoutLedgerEntriesNestedInput
     product?: ProductUpdateOneRequiredWithoutLedgerEntriesNestedInput
@@ -27271,7 +27271,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     businessId?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27284,7 +27284,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     businessId?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
-    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

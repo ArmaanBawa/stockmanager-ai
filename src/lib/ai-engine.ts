@@ -24,24 +24,30 @@ export async function generateInsights(businessId: string): Promise<Insight[]> {
         },
     });
 
+    // Get sales data
+    const salesEntries = await prisma.ledgerEntry.findMany({
+        where: { businessId, type: 'SALE' },
+        include: { product: { select: { name: true } } },
+    });
+
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
     for (const product of products) {
         const totalStock = product.inventoryLots.reduce((sum, lot) => sum + lot.remainingQty, 0);
 
-        // Recent usage (last 30 days)
+        // Recent usage/sales (last 30 days)
         const recentUsage = product.inventoryUsages
             .filter(u => new Date(u.createdAt) >= thirtyDaysAgo)
             .reduce((sum, u) => sum + u.quantity, 0);
         const dailyUsageRate = recentUsage / 30;
 
         // 1. Low stock alert
-        if (totalStock <= product.reorderLevel && totalStock > 0) {
+        if (totalStock > 0 && totalStock <= product.reorderLevel) {
             insights.push({
                 type: 'LOW_STOCK',
                 title: `Low Stock: ${product.name}`,
-                message: `Current stock (${totalStock} ${product.unit}) is at or below reorder level (${product.reorderLevel} ${product.unit}). Consider placing a reorder.`,
+                message: `Only ${totalStock} m remaining. You may not be able to fulfill upcoming orders. Consider restocking.`,
                 severity: 'warning',
                 productId: product.id,
             });
@@ -52,7 +58,7 @@ export async function generateInsights(businessId: string): Promise<Insight[]> {
             insights.push({
                 type: 'OUT_OF_STOCK',
                 title: `Out of Stock: ${product.name}`,
-                message: `${product.name} is completely out of stock. Immediate reorder recommended.`,
+                message: `${product.name} is completely out of stock. You cannot fulfill any new orders for this product. Restock immediately.`,
                 severity: 'critical',
                 productId: product.id,
             });
@@ -63,9 +69,9 @@ export async function generateInsights(businessId: string): Promise<Insight[]> {
             const daysRemaining = Math.round(totalStock / dailyUsageRate);
             if (daysRemaining <= 14) {
                 insights.push({
-                    type: 'REORDER_SOON',
-                    title: `Reorder Soon: ${product.name}`,
-                    message: `At current usage rate (${dailyUsageRate.toFixed(1)} ${product.unit}/day), stock will last approximately ${daysRemaining} days. Consider reordering now.`,
+                    type: 'STOCK_RUNNING_LOW',
+                    title: `Stock Running Low: ${product.name}`,
+                    message: `At current sales rate (${dailyUsageRate.toFixed(1)} m/day), stock will last ~${daysRemaining} days. Restock soon to avoid missed sales.`,
                     severity: daysRemaining <= 7 ? 'critical' : 'warning',
                     productId: product.id,
                 });
@@ -76,55 +82,72 @@ export async function generateInsights(businessId: string): Promise<Insight[]> {
         if (totalStock > 0 && recentUsage === 0 && product.inventoryLots.length > 0) {
             insights.push({
                 type: 'SLOW_MOVING',
-                title: `Slow Moving: ${product.name}`,
-                message: `${product.name} has ${totalStock} ${product.unit} in stock but no usage in the last 30 days. Consider reviewing if this stock is still needed.`,
+                title: `No Sales: ${product.name}`,
+                message: `${product.name} has ${totalStock} m in stock but no sales in the last 30 days. Consider running a promotion or adjusting pricing.`,
                 severity: 'info',
                 productId: product.id,
             });
         }
 
-        // 5. Duplicate order prevention
-        const pendingOrders = product.orderItems.filter(
-            oi => ['PLACED', 'ACCEPTED', 'IN_MANUFACTURING'].includes(oi.order.status)
+        // 5. High demand product
+        const recentSales = product.orderItems.filter(
+            oi => new Date(oi.order.createdAt) >= thirtyDaysAgo
         );
-        if (pendingOrders.length > 1) {
-            const pendingQty = pendingOrders.reduce((sum, oi) => sum + oi.quantity, 0);
+        if (recentSales.length >= 3) {
+            const totalSoldQty = recentSales.reduce((sum, oi) => sum + oi.quantity, 0);
             insights.push({
-                type: 'DUPLICATE_ORDERS',
-                title: `Multiple Pending Orders: ${product.name}`,
-                message: `There are ${pendingOrders.length} pending orders for ${product.name} totaling ${pendingQty} ${product.unit}. Check if these are intentional.`,
-                severity: 'warning',
+                type: 'HIGH_DEMAND',
+                title: `Top Seller: ${product.name}`,
+                message: `${product.name} has ${recentSales.length} orders totaling ${totalSoldQty} m sold in the last 30 days. Keep stock levels high.`,
+                severity: 'info',
                 productId: product.id,
             });
         }
 
-        // 6. Demand prediction (monthly trend)
-        const threeMonthsAgo = new Date();
-        threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+        // 6. Sales trend (monthly comparison)
         const twoMonthsAgo = new Date();
         twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
         const oneMonthAgo = new Date();
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
-        const usageM3 = product.inventoryUsages
-            .filter(u => new Date(u.createdAt) >= threeMonthsAgo && new Date(u.createdAt) < twoMonthsAgo)
-            .reduce((sum, u) => sum + u.quantity, 0);
-        const usageM2 = product.inventoryUsages
-            .filter(u => new Date(u.createdAt) >= twoMonthsAgo && new Date(u.createdAt) < oneMonthAgo)
-            .reduce((sum, u) => sum + u.quantity, 0);
-        const usageM1 = product.inventoryUsages
+        const usageLastMonth = product.inventoryUsages
             .filter(u => new Date(u.createdAt) >= oneMonthAgo)
             .reduce((sum, u) => sum + u.quantity, 0);
+        const usagePrevMonth = product.inventoryUsages
+            .filter(u => new Date(u.createdAt) >= twoMonthsAgo && new Date(u.createdAt) < oneMonthAgo)
+            .reduce((sum, u) => sum + u.quantity, 0);
 
-        if (usageM1 > 0 && usageM2 > 0 && usageM1 > usageM2 * 1.3) {
+        if (usageLastMonth > 0 && usagePrevMonth > 0 && usageLastMonth > usagePrevMonth * 1.3) {
             insights.push({
-                type: 'DEMAND_INCREASING',
-                title: `Rising Demand: ${product.name}`,
-                message: `Usage of ${product.name} increased ${Math.round(((usageM1 - usageM2) / usageM2) * 100)}% compared to the previous month. Consider increasing order quantities.`,
+                type: 'SALES_INCREASING',
+                title: `Sales Growing: ${product.name}`,
+                message: `Sales of ${product.name} increased ${Math.round(((usageLastMonth - usagePrevMonth) / usagePrevMonth) * 100)}% compared to the previous month. Great momentum!`,
                 severity: 'info',
                 productId: product.id,
             });
         }
+
+        if (usageLastMonth > 0 && usagePrevMonth > 0 && usageLastMonth < usagePrevMonth * 0.7) {
+            insights.push({
+                type: 'SALES_DECLINING',
+                title: `Sales Declining: ${product.name}`,
+                message: `Sales of ${product.name} dropped ${Math.round(((usagePrevMonth - usageLastMonth) / usagePrevMonth) * 100)}% compared to the previous month. Review pricing or demand.`,
+                severity: 'warning',
+                productId: product.id,
+            });
+        }
+    }
+
+    // Overall revenue insight
+    const recentSalesEntries = salesEntries.filter(e => new Date(e.createdAt) >= thirtyDaysAgo);
+    const monthlyRevenue = recentSalesEntries.reduce((sum, e) => sum + e.totalAmount, 0);
+    if (monthlyRevenue > 0) {
+        insights.push({
+            type: 'REVENUE_SUMMARY',
+            title: 'Monthly Revenue',
+            message: `Total revenue in the last 30 days: ₹${monthlyRevenue.toLocaleString()} from ${recentSalesEntries.length} sales transactions.`,
+            severity: 'info',
+        });
     }
 
     // Sort by severity

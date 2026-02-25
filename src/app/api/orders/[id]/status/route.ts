@@ -64,15 +64,15 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
             // Create ledger entry
             await prisma.ledgerEntry.create({
                 data: {
-                    type: 'PURCHASE',
+                    type: 'SALE',
                     quantity: item.quantity,
                     unitPrice: item.unitPrice,
                     totalAmount: item.total,
-                    description: `Purchase of ${item.product.name} via order ${order.orderNumber}`,
+                    description: `Sale of ${item.product.name} via order ${order.orderNumber}`,
                     businessId: user.businessId,
                     productId: item.productId,
                     orderId: id,
-                    supplierId: order.supplierId,
+                    customerId: order.customerId,
                 },
             });
         }

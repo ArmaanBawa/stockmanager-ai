@@ -150,7 +150,7 @@ exports.Prisma.BusinessScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.SupplierScalarFieldEnum = {
+exports.Prisma.CustomerScalarFieldEnum = {
   id: 'id',
   name: 'name',
   contactName: 'contactName',
@@ -171,7 +171,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   unit: 'unit',
   reorderLevel: 'reorderLevel',
   businessId: 'businessId',
-  supplierId: 'supplierId',
+  customerId: 'customerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -183,7 +183,7 @@ exports.Prisma.OrderScalarFieldEnum = {
   totalAmount: 'totalAmount',
   notes: 'notes',
   businessId: 'businessId',
-  supplierId: 'supplierId',
+  customerId: 'customerId',
   expectedDelivery: 'expectedDelivery',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -249,7 +249,7 @@ exports.Prisma.LedgerEntryScalarFieldEnum = {
   businessId: 'businessId',
   productId: 'productId',
   orderId: 'orderId',
-  supplierId: 'supplierId',
+  customerId: 'customerId',
   createdAt: 'createdAt'
 };
 
@@ -293,7 +293,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   VerificationToken: 'VerificationToken',
   Business: 'Business',
-  Supplier: 'Supplier',
+  Customer: 'Customer',
   Product: 'Product',
   Order: 'Order',
   OrderItem: 'OrderItem',

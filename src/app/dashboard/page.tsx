@@ -7,7 +7,7 @@ interface DashboardData {
     stats: {
         totalOrders: number;
         activeOrders: number;
-        totalSuppliers: number;
+        totalCustomers: number;
         totalProducts: number;
         totalStockValue: number;
         totalStockUnits: number;
@@ -19,7 +19,7 @@ interface DashboardData {
         status: string;
         totalAmount: number;
         createdAt: string;
-        supplier: { name: string };
+        customer: { name: string };
         items: Array<{ product: { name: string } }>;
     }>;
 }
@@ -81,8 +81,8 @@ export default function DashboardPage() {
                     <div className="stat-change">{stats?.activeOrders || 0} active</div>
                 </div>
                 <div className="stat-card">
-                    <div className="stat-label">Suppliers</div>
-                    <div className="stat-value">{stats?.totalSuppliers || 0}</div>
+                    <div className="stat-label">Customers</div>
+                    <div className="stat-value">{stats?.totalCustomers || 0}</div>
                 </div>
                 <div className="stat-card">
                     <div className="stat-label">Products</div>
@@ -110,7 +110,7 @@ export default function DashboardPage() {
                                     <div style={{ flex: 1 }}>
                                         <h4 style={{ fontSize: 14, fontWeight: 600 }}>{order.orderNumber}</h4>
                                         <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>
-                                            {order.supplier.name} • ₹{order.totalAmount.toLocaleString()}
+                                            {order.customer.name} • ₹{order.totalAmount.toLocaleString()}
                                         </p>
                                         <div className="flex-gap" style={{ marginTop: 6 }}>
                                             <span className={`badge badge-${order.status.toLowerCase()}`}>
@@ -158,7 +158,7 @@ export default function DashboardPage() {
                     ) : (
                         <div className="empty-state">
                             <p>✨ All looking good! No alerts.</p>
-                            <p style={{ fontSize: 13 }}>Add suppliers, products, and orders to get AI insights.</p>
+                            <p style={{ fontSize: 13 }}>Add customers, products, and orders to get AI insights.</p>
                         </div>
                     )}
                 </div>

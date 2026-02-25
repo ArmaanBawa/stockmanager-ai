@@ -7,13 +7,13 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { id } = await params;
-    const supplier = await prisma.supplier.findFirst({
+    const customer = await prisma.customer.findFirst({
         where: { id, businessId: user.businessId },
         include: { products: true, orders: { take: 5, orderBy: { createdAt: 'desc' } } },
     });
 
-    if (!supplier) return NextResponse.json({ error: 'Not found' }, { status: 404 });
-    return NextResponse.json(supplier);
+    if (!customer) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    return NextResponse.json(customer);
 }
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -22,12 +22,12 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
     const { id } = await params;
     const data = await req.json();
-    const supplier = await prisma.supplier.updateMany({
+    const customer = await prisma.customer.updateMany({
         where: { id, businessId: user.businessId },
         data,
     });
 
-    if (supplier.count === 0) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    if (customer.count === 0) return NextResponse.json({ error: 'Not found' }, { status: 404 });
     return NextResponse.json({ success: true });
 }
 
@@ -36,7 +36,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { id } = await params;
-    await prisma.supplier.deleteMany({
+    await prisma.customer.deleteMany({
         where: { id, businessId: user.businessId },
     });
 

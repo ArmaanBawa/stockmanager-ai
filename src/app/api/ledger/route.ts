@@ -7,13 +7,13 @@ export async function GET(req: NextRequest) {
     if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { searchParams } = new URL(req.url);
-    const supplierId = searchParams.get('supplierId');
+    const customerId = searchParams.get('customerId');
     const productId = searchParams.get('productId');
     const from = searchParams.get('from');
     const to = searchParams.get('to');
 
-    const where: Record<string, unknown> = { businessId: user.businessId };
-    if (supplierId) where.supplierId = supplierId;
+    const where: Record<string, unknown> = { businessId: user.businessId, type: 'SALE' };
+    if (customerId) where.customerId = customerId;
     if (productId) where.productId = productId;
     if (from || to) {
         where.createdAt = {};
@@ -24,16 +24,16 @@ export async function GET(req: NextRequest) {
     const entries = await prisma.ledgerEntry.findMany({
         where,
         include: {
-            product: { select: { id: true, name: true, sku: true } },
+            product: { select: { id: true, name: true } },
             order: { select: { id: true, orderNumber: true } },
         },
         orderBy: { createdAt: 'desc' },
     });
 
     // Summary stats
-    const totalPurchases = entries.length;
-    const totalSpent = entries.reduce((sum, e) => sum + e.totalAmount, 0);
-    const totalItems = entries.reduce((sum, e) => sum + e.quantity, 0);
+    const totalSales = entries.length;
+    const totalRevenue = entries.reduce((sum, e) => sum + e.totalAmount, 0);
+    const totalItemsSold = entries.reduce((sum, e) => sum + e.quantity, 0);
 
-    return NextResponse.json({ entries, summary: { totalPurchases, totalSpent, totalItems } });
+    return NextResponse.json({ entries, summary: { totalSales, totalRevenue, totalItemsSold } });
 }

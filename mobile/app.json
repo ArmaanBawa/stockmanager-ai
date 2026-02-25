@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "SalesManager AI",
+    "slug": "salesmanager-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#0f172a"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.procureflow.salesmanager"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0f172a"
+      },
+      "package": "com.procureflow.salesmanager"
+    },
+    "extra": {
+      "apiBaseUrl": "http://10.50.52.225:3000"
+    },
+    "plugins": [
+      "expo-asset",
+      "expo-font"
+    ]
+  }
+}

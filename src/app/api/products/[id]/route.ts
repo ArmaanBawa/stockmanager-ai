@@ -9,7 +9,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     const { id } = await params;
     const product = await prisma.product.findFirst({
         where: { id, businessId: user.businessId },
-        include: { supplier: true },
+        include: { customer: true },
     });
 
     if (!product) return NextResponse.json({ error: 'Not found' }, { status: 404 });

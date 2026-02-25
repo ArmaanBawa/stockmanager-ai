@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-interface Supplier {
+interface Customer {
     id: string;
     name: string;
     contactName?: string;
@@ -12,22 +12,22 @@ interface Supplier {
     _count: { products: number; orders: number };
 }
 
-export default function SuppliersPage() {
-    const [suppliers, setSuppliers] = useState<Supplier[]>([]);
+export default function CustomersPage() {
+    const [customers, setCustomers] = useState<Customer[]>([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [deleteId, setDeleteId] = useState<string | null>(null);
     const [editId, setEditId] = useState<string | null>(null);
     const [form, setForm] = useState({ name: '', contactName: '', email: '', phone: '', address: '' });
 
-    const fetchSuppliers = () => {
-        fetch('/api/suppliers').then(r => r.json()).then(data => {
-            setSuppliers(data);
+    const fetchCustomers = () => {
+        fetch('/api/customers').then(r => r.json()).then(data => {
+            setCustomers(data);
             setLoading(false);
         });
     };
 
-    useEffect(() => { fetchSuppliers(); }, []);
+    useEffect(() => { fetchCustomers(); }, []);
 
     const resetForm = () => {
         setForm({ name: '', contactName: '', email: '', phone: '', address: '' });
@@ -35,7 +35,7 @@ export default function SuppliersPage() {
     };
 
     const openAdd = () => { resetForm(); setShowModal(true); };
-    const openEdit = (s: Supplier) => {
+    const openEdit = (s: Customer) => {
         setForm({ name: s.name, contactName: s.contactName || '', email: s.email || '', phone: s.phone || '', address: s.address || '' });
         setEditId(s.id);
         setShowModal(true);
@@ -43,7 +43,7 @@ export default function SuppliersPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const url = editId ? `/api/suppliers/${editId}` : '/api/suppliers';
+        const url = editId ? `/api/customers/${editId}` : '/api/customers';
         await fetch(url, {
             method: editId ? 'PUT' : 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -51,14 +51,14 @@ export default function SuppliersPage() {
         });
         setShowModal(false);
         resetForm();
-        fetchSuppliers();
+        fetchCustomers();
     };
 
     const confirmDelete = async () => {
         if (!deleteId) return;
-        await fetch(`/api/suppliers/${deleteId}`, { method: 'DELETE' });
+        await fetch(`/api/customers/${deleteId}`, { method: 'DELETE' });
         setDeleteId(null);
-        fetchSuppliers();
+        fetchCustomers();
     };
 
     const update = (field: string, value: string) => setForm(prev => ({ ...prev, [field]: value }));
@@ -69,13 +69,13 @@ export default function SuppliersPage() {
         <div className="animate-in">
             <div className="page-header">
                 <div>
-                    <h1 className="page-title">Suppliers</h1>
-                    <p className="page-subtitle">Manage your manufacturers and vendors</p>
+                    <h1 className="page-title">Customers</h1>
+                    <p className="page-subtitle">Manage your customers</p>
                 </div>
-                <button type="button" onClick={openAdd} className="btn btn-primary">+ Add Supplier</button>
+                <button type="button" onClick={openAdd} className="btn btn-primary">+ Add Customer</button>
             </div>
 
-            {suppliers.length > 0 ? (
+            {customers.length > 0 ? (
                 <div className="table-container">
                     <table className="table">
                         <thead>
@@ -90,7 +90,7 @@ export default function SuppliersPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {suppliers.map(s => (
+                            {customers.map(s => (
                                 <tr key={s.id}>
                                     <td style={{ fontWeight: 600 }}>{s.name}</td>
                                     <td>{s.contactName || '—'}</td>
@@ -111,9 +111,9 @@ export default function SuppliersPage() {
                 </div>
             ) : (
                 <div className="card empty-state">
-                    <p>🏭 No suppliers yet</p>
-                    <p style={{ fontSize: 13, marginBottom: 16 }}>Add your first supplier to start managing orders</p>
-                    <button type="button" onClick={openAdd} className="btn btn-primary">Add Supplier</button>
+                    <p>👥 No customers yet</p>
+                    <p style={{ fontSize: 13, marginBottom: 16 }}>Add your first customer to start managing orders</p>
+                    <button type="button" onClick={openAdd} className="btn btn-primary">Add Customer</button>
                 </div>
             )}
 
@@ -121,12 +121,12 @@ export default function SuppliersPage() {
                 <div className="modal-overlay" onClick={() => setShowModal(false)}>
                     <div className="modal" onClick={e => e.stopPropagation()}>
                         <div className="modal-header">
-                            <h3 className="modal-title">{editId ? 'Edit Supplier' : 'Add Supplier'}</h3>
+                            <h3 className="modal-title">{editId ? 'Edit Customer' : 'Add Customer'}</h3>
                             <button type="button" className="modal-close" onClick={() => setShowModal(false)}>×</button>
                         </div>
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <label className="form-label">Company Name *</label>
+                                <label className="form-label">Name *</label>
                                 <input className="form-input" value={form.name} onChange={e => update('name', e.target.value)} required />
                             </div>
                             <div className="grid-2">
@@ -149,7 +149,7 @@ export default function SuppliersPage() {
                             </div>
                             <div className="modal-actions">
                                 <button type="button" onClick={() => setShowModal(false)} className="btn btn-secondary">Cancel</button>
-                                <button type="submit" className="btn btn-primary">{editId ? 'Update' : 'Add Supplier'}</button>
+                                <button type="submit" className="btn btn-primary">{editId ? 'Update' : 'Add Customer'}</button>
                             </div>
                         </form>
                     </div>
@@ -160,15 +160,15 @@ export default function SuppliersPage() {
                 <div className="modal-overlay" onClick={() => setDeleteId(null)}>
                     <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 400 }}>
                         <div className="modal-header">
-                            <h3 className="modal-title">Delete Supplier</h3>
+                            <h3 className="modal-title">Delete Customer</h3>
                             <button type="button" className="modal-close" onClick={() => setDeleteId(null)}>×</button>
                         </div>
                         <div style={{ padding: '20px 0', color: 'var(--text-secondary)' }}>
-                            Are you sure you want to delete this supplier? This action cannot be undone and will delete all associated products and orders.
+                            Are you sure you want to delete this customer? This action cannot be undone and will delete all associated products and orders.
                         </div>
                         <div className="modal-actions">
                             <button type="button" onClick={() => setDeleteId(null)} className="btn btn-secondary">Cancel</button>
-                            <button type="button" onClick={confirmDelete} className="btn btn-danger">Delete Supplier</button>
+                            <button type="button" onClick={confirmDelete} className="btn btn-danger">Delete Customer</button>
                         </div>
                     </div>
                 </div>

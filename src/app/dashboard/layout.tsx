@@ -8,10 +8,9 @@ import { useEffect, useState } from 'react';
 const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: '📊' },
     { href: '/dashboard/orders', label: 'Orders', icon: '📋' },
-    { href: '/dashboard/inventory', label: 'Inventory', icon: '📦' },
-    { href: '/dashboard/products', label: 'Products', icon: '🏷️' },
-    { href: '/dashboard/suppliers', label: 'Suppliers', icon: '🏭' },
-    { href: '/dashboard/ledger', label: 'Ledger', icon: '📒' },
+    { href: '/dashboard/products', label: 'Products & Inventory', icon: '📦' },
+    { href: '/dashboard/customers', label: 'Customers', icon: '👥' },
+    { href: '/dashboard/ledger', label: 'Sales Ledger', icon: '💰' },
     { divider: true },
     { href: '/dashboard/assistant', label: 'AI Assistant', icon: '🤖' },
 ];

@@ -1,18 +1,18 @@
 import prisma from '@/lib/prisma';
 import { generateInsights } from '@/lib/ai-engine';
 
-export async function getOrderTracking(businessId: string, supplierName?: string) {
+export async function getOrderTracking(businessId: string, customerName?: string) {
     const where: any = { businessId };
-    if (supplierName) {
-        const suppliers = await prisma.supplier.findMany({ where: { businessId } });
-        const matched = suppliers.find(s => s.name.toLowerCase().includes(supplierName.toLowerCase()));
-        if (matched) where.supplierId = matched.id;
+    if (customerName) {
+        const customers = await prisma.customer.findMany({ where: { businessId } });
+        const matched = customers.find(s => s.name.toLowerCase().includes(customerName.toLowerCase()));
+        if (matched) where.customerId = matched.id;
     }
 
     const orders = await prisma.order.findMany({
         where,
         include: {
-            supplier: { select: { name: true } },
+            customer: { select: { name: true } },
             items: { include: { product: { select: { name: true } } } },
         },
         orderBy: { createdAt: 'desc' },
@@ -39,9 +39,9 @@ export async function getBusinessInsights(businessId: string) {
     return await generateInsights(businessId);
 }
 
-export async function getPurchaseHistory(businessId: string, period?: string, supplierName?: string) {
+export async function getSalesHistory(businessId: string, period?: string, customerName?: string) {
     const now = new Date();
-    let from = new Date();
+    const from = new Date();
     if (period === 'last month') from.setMonth(from.getMonth() - 1);
     else if (period === 'last week') from.setDate(from.getDate() - 7);
     else if (period === 'last year') from.setFullYear(from.getFullYear() - 1);
@@ -49,26 +49,33 @@ export async function getPurchaseHistory(businessId: string, period?: string, su
 
     const where: any = {
         businessId,
+        type: 'SALE',
         createdAt: { gte: from, lte: now },
     };
 
-    if (supplierName) {
-        const suppliers = await prisma.supplier.findMany({ where: { businessId } });
-        const matched = suppliers.find(s => s.name.toLowerCase().includes(supplierName.toLowerCase()));
-        if (matched) where.supplierId = matched.id;
+    if (customerName) {
+        const customers = await prisma.customer.findMany({ where: { businessId } });
+        const matched = customers.find(s => s.name.toLowerCase().includes(customerName.toLowerCase()));
+        if (matched) where.customerId = matched.id;
     }
 
     const entries = await prisma.ledgerEntry.findMany({
         where,
-        include: { product: { select: { name: true } } },
+        include: {
+            product: { select: { name: true } },
+            order: { select: { orderNumber: true } },
+        },
         orderBy: { createdAt: 'desc' },
     });
 
-    return entries;
+    const totalRevenue = entries.reduce((sum, e) => sum + e.totalAmount, 0);
+    const totalItemsSold = entries.reduce((sum, e) => sum + e.quantity, 0);
+
+    return { entries, totalRevenue, totalItemsSold, totalSales: entries.length };
 }
 
-export async function getSuppliers(businessId: string) {
-    return await prisma.supplier.findMany({
+export async function getCustomers(businessId: string) {
+    return await prisma.customer.findMany({
         where: { businessId },
         include: { _count: { select: { orders: true, products: true } } },
     });

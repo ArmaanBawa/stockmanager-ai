@@ -9,7 +9,7 @@ export async function GET() {
     const [
         totalOrders,
         activeOrders,
-        totalSuppliers,
+        totalCustomers,
         totalProducts,
         recentOrders,
         inventoryLots,
@@ -17,12 +17,12 @@ export async function GET() {
     ] = await Promise.all([
         prisma.order.count({ where: { businessId: user.businessId } }),
         prisma.order.count({ where: { businessId: user.businessId, status: { notIn: ['DELIVERED', 'CANCELLED'] } } }),
-        prisma.supplier.count({ where: { businessId: user.businessId } }),
+        prisma.customer.count({ where: { businessId: user.businessId } }),
         prisma.product.count({ where: { businessId: user.businessId } }),
         prisma.order.findMany({
             where: { businessId: user.businessId },
             include: {
-                supplier: { select: { name: true } },
+                customer: { select: { name: true } },
                 items: { include: { product: { select: { name: true } } } },
             },
             orderBy: { createdAt: 'desc' },
@@ -44,7 +44,7 @@ export async function GET() {
         stats: {
             totalOrders,
             activeOrders,
-            totalSuppliers,
+            totalCustomers,
             totalProducts,
             totalStockValue,
             totalStockUnits,

@@ -38,7 +38,7 @@ model Business {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   users           User[]
-  suppliers       Supplier[]
+  customers       Customer[]
   products        Product[]
   orders          Order[]
   inventoryLots   InventoryLot[]
@@ -48,7 +48,7 @@ model Business {
   chatMessages    ChatMessage[]
 }
 
-model Supplier {
+model Customer {
   id          String    @id @default(cuid())
   name        String
   contactName String?
@@ -61,6 +61,8 @@ model Supplier {
   orders      Order[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@map("Supplier")
 }
 
 model Product {
@@ -73,8 +75,8 @@ model Product {
   reorderLevel    Int              @default(10)
   businessId      String
   business        Business         @relation(fields: [businessId], references: [id])
-  supplierId      String?
-  supplier        Supplier?        @relation(fields: [supplierId], references: [id])
+  customerId      String?          @map("supplierId")
+  customer        Customer?        @relation(fields: [customerId], references: [id])
   orderItems      OrderItem[]
   inventoryLots   InventoryLot[]
   inventoryUsages InventoryUsage[]
@@ -92,8 +94,8 @@ model Order {
   notes               String?
   businessId          String
   business            Business             @relation(fields: [businessId], references: [id])
-  supplierId          String
-  supplier            Supplier             @relation(fields: [supplierId], references: [id])
+  customerId          String               @map("supplierId")
+  customer            Customer             @relation(fields: [customerId], references: [id])
   items               OrderItem[]
   statusHistory       OrderStatusHistory[]
   manufacturingStages ManufacturingStage[]
@@ -176,7 +178,7 @@ model LedgerEntry {
   product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   orderId     String?
   order       Order?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  supplierId  String?
+  customerId  String?  @map("supplierId")
   createdAt   DateTime @default(now())
 }
 

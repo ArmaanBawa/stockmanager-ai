@@ -10,7 +10,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     const order = await prisma.order.findFirst({
         where: { id, businessId: user.businessId },
         include: {
-            supplier: true,
+            customer: true,
             items: { include: { product: true } },
             statusHistory: { orderBy: { createdAt: 'asc' } },
             manufacturingStages: { orderBy: { createdAt: 'asc' } },

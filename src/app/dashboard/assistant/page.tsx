@@ -16,7 +16,7 @@ const SUGGESTIONS = [
     'Where are my orders?',
     'Should I reorder anything?',
     'What did I purchase recently?',
-    'Show me my suppliers',
+    'Show me my customers',
 ];
 
 export default function AssistantPage() {

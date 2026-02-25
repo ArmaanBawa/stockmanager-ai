@@ -10,7 +10,7 @@ export async function GET() {
     const products = await prisma.product.findMany({
         where: { businessId: user.businessId },
         include: {
-            supplier: { select: { name: true } },
+            customer: { select: { name: true } },
             inventoryLots: {
                 select: { id: true, lotNumber: true, quantity: true, remainingQty: true, costPerUnit: true, receivedAt: true },
                 orderBy: { receivedAt: 'desc' },
@@ -39,7 +39,7 @@ export async function GET() {
             productName: product.name,
             sku: product.sku,
             unit: product.unit,
-            supplierName: product.supplier?.name,
+            customerName: product.customer?.name,
             reorderLevel: product.reorderLevel,
             totalStock,
             totalUsed,
@@ -96,3 +96,56 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true });
 }
+
+// PUT — Add stock directly to a product
+export async function PUT(req: NextRequest) {
+    const user = await getSessionUser();
+    if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const { productId, quantity, costPerUnit, note } = await req.json();
+
+    if (!productId || !quantity || quantity <= 0) {
+        return NextResponse.json({ error: 'Product and valid quantity required' }, { status: 400 });
+    }
+
+    const product = await prisma.product.findFirst({
+        where: { id: productId, businessId: user.businessId },
+    });
+
+    if (!product) {
+        return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+    }
+
+    // Create an inventory lot
+    const lotPrefix = 'LOT';
+    const timestamp = Date.now().toString(36).toUpperCase();
+    const random = Math.random().toString(36).substring(2, 5).toUpperCase();
+    const lotNumber = `${lotPrefix}-${timestamp}-${random}`;
+
+    await prisma.inventoryLot.create({
+        data: {
+            lotNumber,
+            quantity,
+            remainingQty: quantity,
+            costPerUnit: costPerUnit || product.unitPrice,
+            businessId: user.businessId,
+            productId,
+        },
+    });
+
+    // Create ledger entry for the stock addition
+    await prisma.ledgerEntry.create({
+        data: {
+            type: 'STOCK_IN',
+            quantity,
+            unitPrice: costPerUnit || product.unitPrice,
+            totalAmount: quantity * (costPerUnit || product.unitPrice),
+            description: note || `Stock added for ${product.name}`,
+            businessId: user.businessId,
+            productId,
+        },
+    });
+
+    return NextResponse.json({ success: true });
+}
+

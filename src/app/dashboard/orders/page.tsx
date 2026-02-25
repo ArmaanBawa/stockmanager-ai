@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-interface Supplier { id: string; name: string; }
-interface Product { id: string; name: string; unitPrice: number; unit: string; supplierId?: string; }
+interface Customer { id: string; name: string; }
+interface Product { id: string; name: string; unitPrice: number; unit: string; customerId?: string; }
+interface InventoryItem { productId: string; totalStock: number; unit: string; }
 interface OrderItem { product: { name: string }; quantity: number; unitPrice: number; total: number; }
 interface StatusHistory { status: string; note?: string; createdAt: string; }
 interface ManufacturingStage { id: string; stage: string; status: string; note?: string; }
@@ -14,7 +15,7 @@ interface Order {
     totalAmount: number;
     notes?: string;
     createdAt: string;
-    supplier: { id: string; name: string };
+    customer: { id: string; name: string };
     items: OrderItem[];
     statusHistory?: StatusHistory[];
     manufacturingStages?: ManufacturingStage[];
@@ -31,15 +32,16 @@ const MFG_LABELS: Record<string, string> = {
 
 export default function OrdersPage() {
     const [orders, setOrders] = useState<Order[]>([]);
-    const [suppliers, setSuppliers] = useState<Supplier[]>([]);
+    const [customers, setCustomers] = useState<Customer[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
+    const [inventory, setInventory] = useState<InventoryItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [showCreate, setShowCreate] = useState(false);
     const [deleteId, setDeleteId] = useState<string | null>(null);
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
     const [filterStatus, setFilterStatus] = useState('');
 
-    const [newOrder, setNewOrder] = useState({ supplierId: '', notes: '', items: [{ productId: '', quantity: 1, unitPrice: 0 }] });
+    const [newOrder, setNewOrder] = useState({ customerId: '', notes: '', items: [{ productId: '', quantity: '', unitPrice: '' }] });
 
     const fetchOrders = () => {
         const params = filterStatus ? `?status=${filterStatus}` : '';
@@ -49,12 +51,14 @@ export default function OrdersPage() {
     useEffect(() => {
         Promise.all([
             fetch('/api/orders').then(r => r.json()),
-            fetch('/api/suppliers').then(r => r.json()),
+            fetch('/api/customers').then(r => r.json()),
             fetch('/api/products').then(r => r.json()),
-        ]).then(([o, s, p]) => {
+            fetch('/api/inventory').then(r => r.json()),
+        ]).then(([o, s, p, inv]) => {
             setOrders(o);
-            setSuppliers(s);
+            setCustomers(s);
             setProducts(p);
+            setInventory(inv);
             setLoading(false);
         });
     }, []);
@@ -93,7 +97,7 @@ export default function OrdersPage() {
         viewOrder(orderId);
     };
 
-    const addItem = () => setNewOrder(prev => ({ ...prev, items: [...prev.items, { productId: '', quantity: 1, unitPrice: 0 }] }));
+    const addItem = () => setNewOrder(prev => ({ ...prev, items: [...prev.items, { productId: '', quantity: '', unitPrice: '' }] }));
     const removeItem = (i: number) => setNewOrder(prev => ({ ...prev, items: prev.items.filter((_, idx) => idx !== i) }));
     const updateItem = (i: number, field: string, value: string | number) => {
         setNewOrder(prev => ({
@@ -101,10 +105,6 @@ export default function OrdersPage() {
             items: prev.items.map((item, idx) => {
                 if (idx !== i) return item;
                 const updated = { ...item, [field]: value };
-                if (field === 'productId') {
-                    const product = products.find(p => p.id === value);
-                    if (product) updated.unitPrice = product.unitPrice;
-                }
                 return updated;
             }),
         }));
@@ -116,14 +116,16 @@ export default function OrdersPage() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                supplierId: newOrder.supplierId,
+                customerId: newOrder.customerId,
                 notes: newOrder.notes,
                 items: newOrder.items.map(i => ({ productId: i.productId, quantity: Number(i.quantity), unitPrice: Number(i.unitPrice) })),
             }),
         });
         setShowCreate(false);
-        setNewOrder({ supplierId: '', notes: '', items: [{ productId: '', quantity: 1, unitPrice: 0 }] });
+        setNewOrder({ customerId: '', notes: '', items: [{ productId: '', quantity: '', unitPrice: '' }] });
         fetchOrders();
+        // Refresh inventory after order deducts stock
+        fetch('/api/inventory').then(r => r.json()).then(setInventory);
     };
 
     if (loading) return <div className="loading-page"><div className="spinner" /> Loading...</div>;
@@ -139,7 +141,7 @@ export default function OrdersPage() {
                     <div>
                         <button type="button" onClick={() => setSelectedOrder(null)} className="btn btn-secondary btn-sm" style={{ marginBottom: 8 }}>← Back to Orders</button>
                         <h1 className="page-title">{selectedOrder.orderNumber}</h1>
-                        <p className="page-subtitle">{selectedOrder.supplier.name} • ₹{selectedOrder.totalAmount.toLocaleString()}</p>
+                        <p className="page-subtitle">{selectedOrder.customer.name} • ₹{selectedOrder.totalAmount.toLocaleString()}</p>
                     </div>
                     <div className="flex-gap">
                         <span className={`badge badge-${selectedOrder.status.toLowerCase()}`}>{selectedOrder.status.replace('_', ' ')}</span>
@@ -289,7 +291,7 @@ export default function OrdersPage() {
                         <thead>
                             <tr>
                                 <th>Order #</th>
-                                <th>Supplier</th>
+                                <th>Customer</th>
                                 <th>Items</th>
                                 <th>Amount</th>
                                 <th>Status</th>
@@ -301,7 +303,7 @@ export default function OrdersPage() {
                             {orders.map(order => (
                                 <tr key={order.id}>
                                     <td style={{ fontWeight: 600 }}>{order.orderNumber}</td>
-                                    <td>{order.supplier.name}</td>
+                                    <td>{order.customer.name}</td>
                                     <td>{order.items.map(i => i.product.name).join(', ')}</td>
                                     <td>₹{order.totalAmount.toLocaleString()}</td>
                                     <td><span className={`badge badge-${order.status.toLowerCase()}`}>{order.status.replace('_', ' ')}</span></td>
@@ -353,25 +355,45 @@ export default function OrdersPage() {
                         </div>
                         <form onSubmit={handleCreate}>
                             <div className="form-group">
-                                <label className="form-label">Supplier *</label>
-                                <select className="form-select" value={newOrder.supplierId} onChange={e => setNewOrder(prev => ({ ...prev, supplierId: e.target.value }))} required>
-                                    <option value="">Select supplier</option>
-                                    {suppliers.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                                <label className="form-label">Customer *</label>
+                                <select className="form-select" value={newOrder.customerId} onChange={e => setNewOrder(prev => ({ ...prev, customerId: e.target.value }))} required>
+                                    <option value="">Select customer</option>
+                                    {customers.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                                 </select>
                             </div>
 
                             <label className="form-label">Order Items</label>
-                            {newOrder.items.map((item, i) => (
-                                <div key={i} className="flex-gap" style={{ marginBottom: 12, gap: 8 }}>
-                                    <select className="form-select" style={{ flex: 2 }} value={item.productId} onChange={e => updateItem(i, 'productId', e.target.value)} required>
-                                        <option value="">Product</option>
-                                        {products.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
-                                    </select>
-                                    <input type="number" className="form-input" style={{ flex: 1 }} value={item.quantity} onChange={e => updateItem(i, 'quantity', e.target.value)} min="1" placeholder="Qty" required />
-                                    <input type="number" className="form-input" style={{ flex: 1 }} value={item.unitPrice} onChange={e => updateItem(i, 'unitPrice', e.target.value)} min="0" step="0.01" placeholder="Price" required />
-                                    {newOrder.items.length > 1 && <button type="button" onClick={() => removeItem(i)} className="btn btn-danger btn-sm">×</button>}
+                            {newOrder.items.map((item, i) => {
+                                const selectedProduct = products.find(p => p.id === item.productId);
+                                const stock = inventory.find(inv => inv.productId === item.productId);
+                                const stockQty = stock?.totalStock || 0;
+                                const qty = Number(item.quantity) || 0;
+                                const hasInsufficientStock = item.productId && qty > stockQty;
+                                return (
+                                <div key={i} style={{ marginBottom: 12 }}>
+                                    <div className="flex-gap" style={{ gap: 8 }}>
+                                        <select className="form-select" style={{ flex: 2 }} value={item.productId} onChange={e => updateItem(i, 'productId', e.target.value)} required>
+                                            <option value="">Product</option>
+                                            {products.map(p => {
+                                                const pStock = inventory.find(inv => inv.productId === p.id);
+                                                return <option key={p.id} value={p.id}>{p.name} ({pStock?.totalStock || 0} in stock)</option>;
+                                            })}
+                                        </select>
+                                        <input type="number" className="form-input" style={{ flex: 1 }} value={item.quantity} onChange={e => updateItem(i, 'quantity', e.target.value)} min="1" placeholder="Qty" required />
+                                        <input type="number" className="form-input" style={{ flex: 1 }} value={item.unitPrice} onChange={e => updateItem(i, 'unitPrice', e.target.value)} min="0" step="0.01" placeholder="Price" required />
+                                        {newOrder.items.length > 1 && <button type="button" onClick={() => removeItem(i)} className="btn btn-danger btn-sm">×</button>}
+                                    </div>
+                                    {item.productId && (
+                                        <div style={{ fontSize: 12, marginTop: 4, color: hasInsufficientStock ? 'var(--danger)' : 'var(--success)' }}>
+                                            {hasInsufficientStock
+                                                ? `⚠️ Only ${stockQty} ${selectedProduct?.unit || 'pcs'} in stock — order will deduct ${stockQty}, remaining: 0`
+                                                : `✓ Stock: ${stockQty} → After order: ${stockQty - qty} ${selectedProduct?.unit || 'pcs'}`
+                                            }
+                                        </div>
+                                    )}
                                 </div>
-                            ))}
+                                );
+                            })}
                             <button type="button" onClick={addItem} className="btn btn-secondary btn-sm" style={{ marginBottom: 16 }}>+ Add Item</button>
 
                             <div className="form-group">
