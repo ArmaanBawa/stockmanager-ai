@@ -7,6 +7,9 @@ node_modules/
 coverage/
 
 # next.js
+# dependencies
+node_modules/
+
 .next/
 out/
 
@@ -42,3 +45,7 @@ prisma/dev.db-journal
 
 # OS
 Thumbs.db
+
+# Expo
+mobile/.expo/
+
