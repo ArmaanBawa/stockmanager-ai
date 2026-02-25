@@ -15,16 +15,21 @@
     },
     "android": {
       "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0f172a"
       },
       "package": "com.procureflow.salesmanager"
     },
     "extra": {
-      "apiBaseUrl": "http://10.50.52.225:3000"
+      "apiBaseUrl": "https://stockmanagerai.vercel.app",
+      "eas": {
+        "projectId": "b20b5d6e-1366-4aa3-8ee9-75b6cd735493"
+      }
     },
     "plugins": [
       "expo-asset",
       "expo-font"
-    ]
+    ],
+    "owner": "armaan.bawa25"
   }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, InteractionManager } from 'react-native';
 
 interface Props {
   onSend: (text: string) => void;
@@ -13,9 +13,13 @@ export default function ChatInput({ onSend, disabled, autoFocus = true }: Props)
 
   useEffect(() => {
     if (autoFocus) {
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 500);
+      // Wait for screen transition/mount to finish, then focus
+      const handle = InteractionManager.runAfterInteractions(() => {
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 300);
+      });
+      return () => handle.cancel();
     }
   }, [autoFocus]);
 
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingHorizontal: 12,
     paddingTop: 8,
-    paddingBottom: 24,
+    paddingBottom: 8,
     borderTopWidth: 1,
     borderTopColor: '#1e293b',
     backgroundColor: '#0f172a',

@@ -147,7 +147,7 @@ export default function ChatScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <StatusBar style="light" />
 
       {/* Header */}
@@ -172,7 +172,7 @@ export default function ChatScreen() {
 
       <KeyboardAvoidingView
         style={styles.chatArea}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={0}
       >
         {/* Suggestions */}
