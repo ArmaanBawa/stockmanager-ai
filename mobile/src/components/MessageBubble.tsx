@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#1e293b',
+    backgroundColor: '#1e1e1c',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 8,
@@ -84,11 +84,11 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   userBubble: {
-    backgroundColor: '#6366f1',
+    backgroundColor: '#c4622d',
     borderBottomRightRadius: 4,
   },
   assistantBubble: {
-    backgroundColor: '#1e293b',
+    backgroundColor: '#1e1e1c',
     borderBottomLeftRadius: 4,
   },
   text: {
@@ -99,10 +99,9 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   assistantText: {
-    color: '#e2e8f0',
+    color: '#f0ede3',
   },
   bold: {
     fontWeight: '700',
   },
 });
-

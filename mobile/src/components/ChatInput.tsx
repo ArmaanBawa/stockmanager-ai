@@ -38,7 +38,7 @@ export default function ChatInput({ onSend, disabled, autoFocus = true }: Props)
         value={text}
         onChangeText={setText}
         placeholder="Ask about your sales..."
-        placeholderTextColor="#64748b"
+        placeholderTextColor="#6a6860"
         multiline
         maxLength={500}
         editable={!disabled}
@@ -66,32 +66,32 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: Platform.OS === 'ios' ? 24 : 8,
     borderTopWidth: 1,
-    borderTopColor: '#1e293b',
-    backgroundColor: '#0f172a',
+    borderTopColor: '#2e2e2b',
+    backgroundColor: '#131312',
     gap: 8,
   },
   input: {
     flex: 1,
-    backgroundColor: '#1e293b',
+    backgroundColor: '#1e1e1c',
     borderRadius: 20,
     paddingHorizontal: 16,
     paddingVertical: 10,
-    color: '#e2e8f0',
+    color: '#f0ede3',
     fontSize: 15,
     maxHeight: 100,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#2e2e2b',
   },
   sendBtn: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#6366f1',
+    backgroundColor: '#c4622d',
     alignItems: 'center',
     justifyContent: 'center',
   },
   sendBtnDisabled: {
-    backgroundColor: '#334155',
+    backgroundColor: '#2e2e2b',
   },
   sendText: {
     color: '#fff',
@@ -99,4 +99,3 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
-

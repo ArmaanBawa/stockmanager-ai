@@ -52,22 +52,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   chip: {
-    backgroundColor: '#1e293b',
+    backgroundColor: '#1e1e1c',
     borderRadius: 20,
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#2e2e2b',
   },
   chipDisabled: {
     opacity: 0.5,
   },
   chipText: {
-    color: '#94a3b8',
+    color: '#a8a498',
     fontSize: 13,
   },
   chipTextDisabled: {
-    color: '#475569',
+    color: '#6a6860',
   },
 });
 

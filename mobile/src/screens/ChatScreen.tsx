@@ -139,7 +139,7 @@ export default function ChatScreen() {
       <SafeAreaView style={styles.container}>
         <StatusBar style="light" />
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#6366f1" />
+          <ActivityIndicator size="large" color="#c4622d" />
           <Text style={styles.loadingText}>Loading chat...</Text>
         </View>
       </SafeAreaView>
@@ -192,7 +192,7 @@ export default function ChatScreen() {
                     <Text style={{ fontSize: 16 }}>🤖</Text>
                   </View>
                   <View style={styles.thinkingBubble}>
-                    <ActivityIndicator size="small" color="#6366f1" />
+                    <ActivityIndicator size="small" color="#c4622d" />
                     <Text style={styles.thinkingText}>Thinking...</Text>
                   </View>
                 </View>
@@ -217,7 +217,7 @@ export default function ChatScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    backgroundColor: '#131312',
   },
   loadingContainer: {
     flex: 1,
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   loadingText: {
-    color: '#94a3b8',
+    color: '#a8a498',
     fontSize: 15,
   },
   header: {
@@ -236,18 +236,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#1e293b',
+    borderBottomColor: '#2e2e2b',
   },
   headerLeft: {
     flex: 1,
   },
   headerTitle: {
-    color: '#f1f5f9',
+    color: '#f0ede3',
     fontSize: 18,
     fontWeight: '700',
   },
   headerSubtitle: {
-    color: '#64748b',
+    color: '#6a6860',
     fontSize: 13,
     marginTop: 2,
   },
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#1e293b',
+    backgroundColor: '#1e1e1c',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#1e293b',
+    backgroundColor: '#1e1e1c',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 8,
@@ -294,15 +294,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    backgroundColor: '#1e293b',
+    backgroundColor: '#1e1e1c',
     borderRadius: 16,
     borderBottomLeftRadius: 4,
     paddingHorizontal: 14,
     paddingVertical: 10,
   },
   thinkingText: {
-    color: '#94a3b8',
+    color: '#a8a498',
     fontSize: 14,
   },
 });
-
