@@ -1,10 +1,15 @@
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
 import bcrypt from 'bcryptjs';
 import prisma from '@/lib/prisma';
 
 export const authOptions: NextAuthOptions = {
     providers: [
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID || '',
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+        }),
         CredentialsProvider({
             name: 'credentials',
             credentials: {
@@ -19,7 +24,7 @@ export const authOptions: NextAuthOptions = {
                     include: { business: true },
                 });
 
-                if (!user) return null;
+                if (!user || !user.hashedPassword) return null;
 
                 const isValid = await bcrypt.compare(credentials.password, user.hashedPassword);
                 if (!isValid) return null;
@@ -43,11 +48,64 @@ export const authOptions: NextAuthOptions = {
         signIn: '/login',
     },
     callbacks: {
-        async jwt({ token, user }) {
-            if (user) {
-                token.businessId = (user as any).businessId;
-                token.businessName = (user as any).businessName;
+        async signIn({ user, account }) {
+            if (account?.provider === 'google') {
+                // Find or create user for Google sign-in
+                let dbUser = await prisma.user.findUnique({
+                    where: { email: user.email! },
+                    include: { business: true },
+                });
+
+                if (!dbUser) {
+                    // Create business and user for new Google sign-in
+                    const business = await prisma.business.create({
+                        data: { name: `${user.name}'s Business` },
+                    });
+
+                    dbUser = await prisma.user.create({
+                        data: {
+                            email: user.email!,
+                            name: user.name || 'User',
+                            hashedPassword: null,
+                            emailVerified: true,
+                            image: user.image || null,
+                            businessId: business.id,
+                        },
+                        include: { business: true },
+                    });
+                } else if (!dbUser.image && user.image) {
+                    // Update image if not set
+                    await prisma.user.update({
+                        where: { id: dbUser.id },
+                        data: { image: user.image },
+                    });
+                }
             }
+            return true;
+        },
+        async jwt({ token, user, account }) {
+            if (user) {
+                // For credentials, businessId comes from authorize()
+                if ((user as any).businessId) {
+                    token.businessId = (user as any).businessId;
+                    token.businessName = (user as any).businessName;
+                }
+            }
+
+            // For Google sign-in, fetch from DB
+            if (account?.provider === 'google' && token.email) {
+                const dbUser = await prisma.user.findUnique({
+                    where: { email: token.email },
+                    include: { business: true },
+                });
+                if (dbUser) {
+                    token.sub = dbUser.id;
+                    token.businessId = dbUser.businessId;
+                    token.businessName = dbUser.business?.name;
+                    token.picture = dbUser.image;
+                }
+            }
+
             return token;
         },
         async session({ session, token }) {
