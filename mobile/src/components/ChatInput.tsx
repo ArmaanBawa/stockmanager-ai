@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, InteractionManager } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, InteractionManager, Platform } from 'react-native';
 
 interface Props {
   onSend: (text: string) => void;
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingHorizontal: 12,
     paddingTop: 8,
-    paddingBottom: 8,
+    paddingBottom: Platform.OS === 'ios' ? 24 : 8,
     borderTopWidth: 1,
     borderTopColor: '#1e293b',
     backgroundColor: '#0f172a',
