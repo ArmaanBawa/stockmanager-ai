@@ -55,34 +55,43 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         async signIn({ user, account }) {
             if (account?.provider === 'google') {
-                // Find or create user for Google sign-in
-                let dbUser = await prisma.user.findUnique({
-                    where: { email: user.email! },
-                    include: { business: true },
-                });
-
-                if (!dbUser) {
-                    // Auto-create account for Google users
-                    const business = await prisma.business.create({
-                        data: { name: `${user.name}'s Business` },
-                    });
-
-                    dbUser = await prisma.user.create({
-                        data: {
-                            email: user.email!,
-                            name: user.name || 'User',
-                            hashedPassword: null,
-                            emailVerified: true,
-                            image: user.image || null,
-                            businessId: business.id,
-                        },
+                try {
+                    // Find or create user for Google sign-in
+                    let dbUser = await prisma.user.findUnique({
+                        where: { email: user.email! },
                         include: { business: true },
                     });
-                } else if (!dbUser.image && user.image) {
-                    await prisma.user.update({
-                        where: { id: dbUser.id },
-                        data: { image: user.image },
-                    });
+
+                    if (!dbUser) {
+                        // Auto-create account for Google users
+                        const business = await prisma.business.create({
+                            data: { name: `${user.name}'s Business` },
+                        });
+
+                        dbUser = await prisma.user.create({
+                            data: {
+                                email: user.email!,
+                                name: user.name || 'User',
+                                hashedPassword: null,
+                                emailVerified: true,
+                                image: user.image || null,
+                                businessId: business.id,
+                            },
+                            include: { business: true },
+                        });
+                    } else {
+                        // Update image and ensure emailVerified
+                        await prisma.user.update({
+                            where: { id: dbUser.id },
+                            data: {
+                                ...(user.image && !dbUser.image ? { image: user.image } : {}),
+                                emailVerified: true,
+                            },
+                        });
+                    }
+                } catch (error) {
+                    console.error('Google sign-in error:', error);
+                    return false;
                 }
             }
             return true;
