@@ -27,6 +27,8 @@ function LoginForm() {
             setError('Verification link has expired. Please register again.');
         } else if (err === 'verification-failed') {
             setError('Verification failed. Please try again.');
+        } else if (err === 'no-account') {
+            setError('No account found with this Google email. Please sign up first.');
         }
     }, [searchParams]);
 
@@ -77,8 +79,13 @@ function LoginForm() {
                 <button
                     type="button"
                     className="btn-google"
-                    onClick={() => {
+                    onClick={async () => {
                         setGoogleLoading(true);
+                        await fetch('/api/auth/google-action', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ action: 'signin' }),
+                        });
                         signIn('google', { callbackUrl: '/dashboard' });
                     }}
                     disabled={googleLoading}

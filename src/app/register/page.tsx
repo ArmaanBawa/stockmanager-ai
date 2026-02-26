@@ -48,8 +48,13 @@ export default function RegisterPage() {
                 <button
                     type="button"
                     className="btn-google"
-                    onClick={() => {
+                    onClick={async () => {
                         setGoogleLoading(true);
+                        await fetch('/api/auth/google-action', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ action: 'signup' }),
+                        });
                         signIn('google', { callbackUrl: '/dashboard' });
                     }}
                     disabled={googleLoading}
