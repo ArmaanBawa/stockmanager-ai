@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       include: { business: true },
     });
 
-    if (!user) {
+    if (!user || !user.hashedPassword) {
       return NextResponse.json(
         { error: 'Invalid email or password' },
         { status: 401 }
