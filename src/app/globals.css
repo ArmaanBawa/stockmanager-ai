@@ -1,47 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Colors - Professional Light Theme */
-  --bg-primary: #f8fafc;
+  /* Colors - Anthropic Light Theme (cream, white, orange, dark grey) */
+  --bg-primary: #faf9f0;
   --bg-secondary: #ffffff;
   --bg-card: #ffffff;
-  --bg-card-hover: #f8fafc;
-  --bg-glass: rgba(248, 250, 252, 0.8);
+  --bg-card-hover: #f5f4ea;
+  --bg-glass: rgba(250, 249, 240, 0.85);
   --bg-input: #ffffff;
 
-  --border-color: #e2e8f0;
-  --border-hover: #cbd5e1;
-  --border-focus: #3b82f6;
+  --border-color: #e8e4d4;
+  --border-hover: #d4cfc0;
+  --border-focus: #d97757;
 
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
-  --text-accent: #3b82f6;
+  --text-primary: #1a1917;
+  --text-secondary: #5c5a52;
+  --text-muted: #8a8878;
+  --text-accent: #c4622d;
 
-  --accent: #2563eb;
-  --accent-light: #3b82f6;
-  --accent-dark: #1e40af;
-  --accent-glow: rgba(37, 99, 235, 0.1);
+  --accent: #c4622d;
+  --accent-light: #d97757;
+  --accent-dark: #a84e22;
+  --accent-glow: rgba(217, 119, 87, 0.12);
 
-  --success: #10b981;
-  --success-bg: rgba(16, 185, 129, 0.1);
-  --warning: #f59e0b;
-  --warning-bg: rgba(245, 158, 11, 0.1);
-  --danger: #ef4444;
-  --danger-bg: rgba(239, 68, 68, 0.1);
-  --info: #3b82f6;
-  --info-bg: rgba(59, 130, 246, 0.1);
+  --success: #2d9e6b;
+  --success-bg: rgba(45, 158, 107, 0.1);
+  --warning: #c08a2a;
+  --warning-bg: rgba(192, 138, 42, 0.1);
+  --danger: #c94040;
+  --danger-bg: rgba(201, 64, 64, 0.1);
+  --info: #4a7faf;
+  --info-bg: rgba(74, 127, 175, 0.1);
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #2563eb, #3b82f6);
-  --gradient-card: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(59, 130, 246, 0.03));
-  --gradient-glow: radial-gradient(ellipse at top, rgba(37, 99, 235, 0.08), transparent 70%);
+  --gradient-primary: linear-gradient(135deg, #c4622d, #d97757);
+  --gradient-card: linear-gradient(135deg, rgba(196, 98, 45, 0.05), rgba(217, 119, 87, 0.03));
+  --gradient-glow: radial-gradient(ellipse at top, rgba(217, 119, 87, 0.07), transparent 70%);
 
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
-  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.15);
+  --shadow-sm: 0 1px 3px rgba(26, 25, 23, 0.08), 0 1px 2px rgba(26, 25, 23, 0.05);
+  --shadow-md: 0 4px 6px rgba(26, 25, 23, 0.07), 0 2px 4px rgba(26, 25, 23, 0.05);
+  --shadow-lg: 0 10px 15px rgba(26, 25, 23, 0.08), 0 4px 6px rgba(26, 25, 23, 0.04);
+  --shadow-glow: 0 0 20px rgba(217, 119, 87, 0.18);
 
   /* Spacing */
   --radius-sm: 8px;
@@ -57,44 +57,44 @@
 
 /* ===== DARK THEME ===== */
 [data-theme="dark"] {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-card: #1e293b;
-  --bg-card-hover: #334155;
-  --bg-glass: rgba(30, 41, 59, 0.8);
-  --bg-input: #0f172a;
+  --bg-primary: #131312;
+  --bg-secondary: #1c1c1a;
+  --bg-card: #1e1e1c;
+  --bg-card-hover: #272724;
+  --bg-glass: rgba(28, 28, 26, 0.88);
+  --bg-input: #131312;
 
-  --border-color: #334155;
-  --border-hover: #475569;
-  --border-focus: #3b82f6;
+  --border-color: #2e2e2b;
+  --border-hover: #3e3e3a;
+  --border-focus: #d97757;
 
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-accent: #60a5fa;
+  --text-primary: #f0ede3;
+  --text-secondary: #a8a498;
+  --text-muted: #6a6860;
+  --text-accent: #e08a66;
 
-  --accent: #3b82f6;
-  --accent-light: #60a5fa;
-  --accent-dark: #2563eb;
-  --accent-glow: rgba(59, 130, 246, 0.15);
+  --accent: #d97757;
+  --accent-light: #e08a66;
+  --accent-dark: #c4622d;
+  --accent-glow: rgba(217, 119, 87, 0.18);
 
-  --success: #34d399;
-  --success-bg: rgba(52, 211, 153, 0.15);
-  --warning: #fbbf24;
-  --warning-bg: rgba(251, 191, 36, 0.15);
-  --danger: #f87171;
-  --danger-bg: rgba(248, 113, 113, 0.15);
-  --info: #60a5fa;
-  --info-bg: rgba(96, 165, 250, 0.15);
+  --success: #3dba82;
+  --success-bg: rgba(61, 186, 130, 0.15);
+  --warning: #d4a03a;
+  --warning-bg: rgba(212, 160, 58, 0.15);
+  --danger: #e06060;
+  --danger-bg: rgba(224, 96, 96, 0.15);
+  --info: #6a9fc8;
+  --info-bg: rgba(106, 159, 200, 0.15);
 
-  --gradient-primary: linear-gradient(135deg, #3b82f6, #60a5fa);
-  --gradient-card: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(96, 165, 250, 0.04));
-  --gradient-glow: radial-gradient(ellipse at top, rgba(59, 130, 246, 0.12), transparent 70%);
+  --gradient-primary: linear-gradient(135deg, #d97757, #e08a66);
+  --gradient-card: linear-gradient(135deg, rgba(217, 119, 87, 0.08), rgba(224, 138, 102, 0.04));
+  --gradient-glow: radial-gradient(ellipse at top, rgba(217, 119, 87, 0.1), transparent 70%);
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
-  --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.2);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.38), 0 2px 4px rgba(0, 0, 0, 0.26);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4), 0 4px 6px rgba(0, 0, 0, 0.26);
+  --shadow-glow: 0 0 20px rgba(217, 119, 87, 0.22);
 }
 
 html {
@@ -164,7 +164,7 @@ a:hover {
 .btn-primary:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
-  background: linear-gradient(135deg, #1e40af, #2563eb);
+  background: linear-gradient(135deg, #a84e22, #c4622d);
 }
 
 .btn-secondary {
@@ -256,7 +256,7 @@ a:hover {
 .form-textarea:focus {
   outline: none;
   border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.12);
   background: var(--bg-input);
 }
 
@@ -381,7 +381,7 @@ a:hover {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.5);
+  background: rgba(19, 19, 18, 0.55);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -588,7 +588,7 @@ a:hover {
 }
 
 .sidebar-link.active {
-  background: rgba(37, 99, 235, 0.1);
+  background: rgba(217, 119, 87, 0.12);
   color: var(--accent);
   font-weight: 600;
 }
@@ -811,8 +811,8 @@ a:hover {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.08), transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.05), transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(217, 119, 87, 0.07), transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(196, 98, 45, 0.05), transparent 50%);
 }
 
 .auth-card {
