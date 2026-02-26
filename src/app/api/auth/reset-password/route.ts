@@ -31,6 +31,9 @@ export async function POST(req: NextRequest) {
         }
 
         // Verify current password
+        if (!dbUser.hashedPassword) {
+            return NextResponse.json({ error: 'This account uses Google sign-in and has no password' }, { status: 400 });
+        }
         const isValid = await bcrypt.compare(currentPassword, dbUser.hashedPassword);
         if (!isValid) {
             return NextResponse.json({ error: 'Current password is incorrect' }, { status: 400 });
