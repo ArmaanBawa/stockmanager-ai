@@ -3,7 +3,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import bcrypt from 'bcryptjs';
 import prisma from '@/lib/prisma';
-import { cookies } from 'next/headers';
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -56,40 +55,30 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         async signIn({ user, account }) {
             if (account?.provider === 'google') {
-                // Check if this is a sign-up or sign-in flow using cookie
-                const cookieStore = await cookies();
-                const googleAction = cookieStore.get('google_auth_action')?.value || 'signin';
-
-                // Find existing user
+                // Find or create user for Google sign-in
                 let dbUser = await prisma.user.findUnique({
                     where: { email: user.email! },
                     include: { business: true },
                 });
 
                 if (!dbUser) {
-                    if (googleAction === 'signup') {
-                        // Create business and user for new Google sign-up
-                        const business = await prisma.business.create({
-                            data: { name: `${user.name}'s Business` },
-                        });
+                    // Auto-create account for Google users
+                    const business = await prisma.business.create({
+                        data: { name: `${user.name}'s Business` },
+                    });
 
-                        dbUser = await prisma.user.create({
-                            data: {
-                                email: user.email!,
-                                name: user.name || 'User',
-                                hashedPassword: null,
-                                emailVerified: true,
-                                image: user.image || null,
-                                businessId: business.id,
-                            },
-                            include: { business: true },
-                        });
-                    } else {
-                        // Sign-in flow but user doesn't exist — reject
-                        return '/login?error=no-account';
-                    }
+                    dbUser = await prisma.user.create({
+                        data: {
+                            email: user.email!,
+                            name: user.name || 'User',
+                            hashedPassword: null,
+                            emailVerified: true,
+                            image: user.image || null,
+                            businessId: business.id,
+                        },
+                        include: { business: true },
+                    });
                 } else if (!dbUser.image && user.image) {
-                    // Update image if not set
                     await prisma.user.update({
                         where: { id: dbUser.id },
                         data: { image: user.image },
