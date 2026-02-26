@@ -26,6 +26,34 @@ export async function login(email: string, password: string): Promise<User> {
 }
 
 /**
+ * Google login using the mobile-google JWT endpoint.
+ * POST /api/auth/mobile-google with Google user info
+ * Returns { token, user }
+ */
+export async function googleLogin(googleUser: {
+  idToken?: string;
+  email: string;
+  name?: string;
+  picture?: string;
+}): Promise<User> {
+  const res = await fetch(`${API_BASE_URL}/api/auth/mobile-google`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(googleUser),
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error || 'Google login failed');
+  }
+
+  const data = await res.json();
+  await saveToken(data.token);
+
+  return data.user as User;
+}
+
+/**
  * Get the current session user info by verifying the stored token.
  */
 export async function getSession(): Promise<User | null> {
