@@ -56,9 +56,22 @@ function LoginForm() {
     return (
         <div className="auth-page">
             <div className="auth-bg" />
-            <div className="auth-card animate-in">
-                <h1 className="auth-title">StockManager AI</h1>
-                <p className="auth-subtitle">Sign in to your procurement platform</p>
+            <div className="grain-overlay" />
+            <div className="auth-card">
+                <Link href="/" style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '13px',
+                    color: 'var(--text-muted)',
+                    textDecoration: 'none',
+                    marginBottom: '24px',
+                    transition: 'color 0.2s',
+                }}>
+                    ← Back to home
+                </Link>
+                <h1 className="auth-title">SalesManager AI</h1>
+                <p className="auth-subtitle">Sign in to your sales platform</p>
 
                 {success && (
                     <div style={{

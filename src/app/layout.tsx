@@ -3,8 +3,8 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "StockManager AI — Smart Inventory & Procurement Platform",
-  description: "AI-powered inventory and procurement management for B2B businesses",
+  title: "SalesManager AI — AI-Powered Sales & Inventory Platform",
+  description: "Manage your sales, inventory, and customers with an AI assistant that understands your business",
 };
 
 export default function RootLayout({
