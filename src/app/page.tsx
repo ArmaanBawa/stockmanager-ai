@@ -127,7 +127,7 @@ export default function Home() {
 					</div>
 					<h1 className="land-hero-title land-zoom-in" style={{ animationDelay: '0.25s' }}>
 						Your entire business,<br />
-						<span className="land-hero-accent">one conversation away.</span>
+						<span className="land-hero-accent">one conversation</span> away.
 					</h1>
 					<p className="land-hero-sub land-zoom-in" style={{ animationDelay: '0.4s' }}>
 						Stop digging through spreadsheets. Just ask — your AI assistant knows
@@ -141,13 +141,6 @@ export default function Home() {
 							See It In Action
 						</a>
 					</div>
-				</div>
-
-				<div className="land-scroll-hint land-zoom-in" style={{ animationDelay: '0.8s' }}>
-					<div className="land-scroll-mouse">
-						<div className="land-scroll-dot" />
-					</div>
-					<span>Scroll to explore</span>
 				</div>
 			</section>
 
@@ -180,7 +173,7 @@ export default function Home() {
 				<div className="land-container">
 					<div className="land-section-header" data-reveal="">
 						<span className="land-section-tag">See it in action</span>
-						<h2 className="land-section-title">Talk to your business like you&apos;d talk to a colleague</h2>
+						<h2 className="land-section-title">Talk to your business like you&apos;d talk to <em>a colleague</em></h2>
 					</div>
 
 					<div className="land-demo-window" data-reveal="" data-reveal-delay="100">
@@ -213,7 +206,7 @@ export default function Home() {
 				<div className="land-container">
 					<div className="land-section-header" data-reveal="">
 						<span className="land-section-tag">Features</span>
-						<h2 className="land-section-title">Everything you need.<br />Nothing you don&apos;t.</h2>
+						<h2 className="land-section-title"><em>Everything</em> you need.<br />Nothing you don&apos;t.</h2>
 						<p className="land-section-desc">
 							Simple tools that work together — designed for real business owners, not enterprises.
 						</p>
@@ -236,7 +229,7 @@ export default function Home() {
 				<div className="land-container">
 					<div className="land-section-header" data-reveal="">
 						<span className="land-section-tag">How it works</span>
-						<h2 className="land-section-title">Three steps. That&apos;s it.</h2>
+						<h2 className="land-section-title"><em>Three steps.</em> That&apos;s it.</h2>
 					</div>
 
 					<div className="land-steps">
@@ -270,7 +263,7 @@ export default function Home() {
 				<div className="land-cta-glow" />
 				<div className="land-container land-cta-inner" data-reveal="">
 					<h2 className="land-cta-title">
-						Ready to know your<br />business better?
+						Ready to know your<br /><em>business</em> better?
 					</h2>
 					<p className="land-cta-desc">
 						Free to start. Set up in under 5 minutes.
