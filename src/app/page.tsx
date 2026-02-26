@@ -183,7 +183,7 @@ export default function Home() {
 						<h2 className="land-section-title">Talk to your business like you&apos;d talk to a colleague</h2>
 					</div>
 
-					<div className="land-demo-window" data-scale-scroll="" data-scale-from="0.88">
+					<div className="land-demo-window" data-reveal="" data-reveal-delay="100">
 						<div className="land-demo-topbar">
 							<div className="land-demo-dots">
 								<span /><span /><span />

@@ -1085,9 +1085,9 @@ a:hover {
 /* Scroll reveal — zoom-in variation */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(40px) scale(0.97);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-reveal].revealed {
@@ -1097,12 +1097,14 @@ a:hover {
 
 /* Hero zoom-in entrance */
 .land-zoom-in {
-  opacity: 0;
-  transform: scale(0.88) translateY(20px);
-  animation: landZoomIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: landZoomIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes landZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(16px);
+  }
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -1559,7 +1561,7 @@ a:hover {
 
 /* ===== SECTIONS ===== */
 .land-section {
-  padding: 120px 0;
+  padding: 80px 0;
   position: relative;
 }
 
@@ -1570,7 +1572,7 @@ a:hover {
 .land-section-header {
   text-align: center;
   max-width: 600px;
-  margin: 0 auto 72px;
+  margin: 0 auto 48px;
 }
 
 .land-section-tag {
@@ -1839,7 +1841,7 @@ a:hover {
 /* ===== CTA SECTION ===== */
 .land-cta-section {
   position: relative;
-  padding: 140px 0;
+  padding: 80px 0;
   overflow: hidden;
 }
 
@@ -2115,11 +2117,11 @@ a:hover {
   }
 
   .land-section {
-    padding: 80px 0;
+    padding: 60px 0;
   }
 
   .land-cta-section {
-    padding: 80px 0;
+    padding: 60px 0;
   }
 
   .land-hero-ctas {

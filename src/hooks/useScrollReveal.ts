@@ -4,15 +4,6 @@ import { useEffect, useCallback } from 'react';
 
 export function useScrollReveal() {
   const handleScroll = useCallback(() => {
-    // Parallax elements
-    const parallaxEls = document.querySelectorAll('[data-parallax]');
-    parallaxEls.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      const speed = parseFloat((el as HTMLElement).dataset.parallax || '0.1');
-      const offset = (rect.top - window.innerHeight / 2) * speed;
-      (el as HTMLElement).style.transform = `translateY(${offset}px)`;
-    });
-
     // Scale-on-scroll elements
     const scaleEls = document.querySelectorAll('[data-scale-scroll]');
     scaleEls.forEach((el) => {
@@ -28,31 +19,34 @@ export function useScrollReveal() {
   }, []);
 
   useEffect(() => {
-    // Intersection observer for reveal animations
-    const elements = document.querySelectorAll('[data-reveal]');
-    if (elements.length) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const el = entry.target as HTMLElement;
-              const delay = el.dataset.revealDelay || '0';
-              el.style.transitionDelay = `${delay}ms`;
-              el.classList.add('revealed');
-              observer.unobserve(el);
-            }
-          });
-        },
-        { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
-      );
-      elements.forEach((el) => observer.observe(el));
-    }
+    // Small delay to let layout settle
+    const timer = setTimeout(() => {
+      const elements = document.querySelectorAll('[data-reveal]');
+      if (elements.length) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const el = entry.target as HTMLElement;
+                const delay = el.dataset.revealDelay || '0';
+                el.style.transitionDelay = `${delay}ms`;
+                el.classList.add('revealed');
+                observer.unobserve(el);
+              }
+            });
+          },
+          { threshold: 0.05, rootMargin: '20px 0px -20px 0px' }
+        );
+        elements.forEach((el) => observer.observe(el));
+      }
 
-    // Scroll listener for parallax & scale
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // initial call
+      // Scroll listener for scale effects
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+    }, 100);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
     };
   }, [handleScroll]);
