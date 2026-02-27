@@ -75,8 +75,14 @@ function ChatUI({ initialMessages }: { initialMessages: any[] }) {
     });
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+    const mediaStreamRef = useRef<MediaStream | null>(null);
+    const chunksRef = useRef<Blob[]>([]);
     const [clearing, setClearing] = useState(false);
     const [confirmClear, setConfirmClear] = useState(false);
+    const [isRecording, setIsRecording] = useState(false);
+    const [isTranscribing, setIsTranscribing] = useState(false);
+    const [speechError, setSpeechError] = useState<string | null>(null);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -110,6 +116,93 @@ function ChatUI({ initialMessages }: { initialMessages: any[] }) {
             setClearing(false);
         }
     }, [setMessages, confirmClear]);
+
+    const startRecording = useCallback(async () => {
+        if (isRecording || isTranscribing) return;
+        setSpeechError(null);
+        if (typeof window === 'undefined') return;
+
+        if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
+            setSpeechError('Voice input is not supported in this browser.');
+            return;
+        }
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaStreamRef.current = stream;
+
+            let recorder: MediaRecorder;
+            if (MediaRecorder.isTypeSupported?.('audio/webm')) {
+                recorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+            } else {
+                recorder = new MediaRecorder(stream);
+            }
+
+            chunksRef.current = [];
+            recorder.ondataavailable = (event) => {
+                if (event.data && event.data.size > 0) {
+                    chunksRef.current.push(event.data);
+                }
+            };
+
+            recorder.onerror = () => {
+                setSpeechError('Recording failed. Please try again.');
+            };
+
+            recorder.onstop = async () => {
+                setIsRecording(false);
+                stream.getTracks().forEach(track => track.stop());
+                mediaStreamRef.current = null;
+
+                const blob = new Blob(chunksRef.current, { type: recorder.mimeType || 'audio/webm' });
+                if (blob.size === 0) return;
+
+                setIsTranscribing(true);
+                try {
+                    const formData = new FormData();
+                    formData.append('audio', blob, 'speech.webm');
+                    const response = await fetch('/api/ai/transcribe', {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(errorText || 'Transcription failed');
+                    }
+                    const data = await response.json();
+                    const transcript = (data?.text || '').trim();
+                    if (transcript) {
+                        append({ role: 'user', content: transcript });
+                    }
+                } catch (error) {
+                    console.error(error);
+                    setSpeechError('Transcription failed. Please try again.');
+                } finally {
+                    setIsTranscribing(false);
+                }
+            };
+
+            mediaRecorderRef.current = recorder;
+            recorder.start();
+            setIsRecording(true);
+        } catch (error) {
+            console.error(error);
+            setSpeechError('Microphone permission denied or unavailable.');
+        }
+    }, [append, isRecording, isTranscribing]);
+
+    const stopRecording = useCallback(() => {
+        if (!isRecording) return;
+        mediaRecorderRef.current?.stop();
+    }, [isRecording]);
+
+    const toggleVoiceInput = useCallback(() => {
+        if (isRecording) {
+            stopRecording();
+            return;
+        }
+        startRecording();
+    }, [isRecording, startRecording, stopRecording]);
 
     const hasHistory = messages.length > 1; // more than just the welcome message
 
@@ -193,10 +286,24 @@ function ChatUI({ initialMessages }: { initialMessages: any[] }) {
                         placeholder="Ask me anything about your business..."
                         disabled={isLoading}
                     />
+                    <button
+                        type="button"
+                        className={`btn ${isRecording ? 'btn-danger' : 'btn-secondary'}`}
+                        onClick={toggleVoiceInput}
+                        disabled={isLoading || isTranscribing}
+                        title={isRecording ? 'Stop recording' : 'Speak your message'}
+                    >
+                        {isRecording ? 'Stop' : isTranscribing ? 'Transcribing...' : '🎙️ Speak'}
+                    </button>
                     <button type="submit" className="btn btn-primary" disabled={isLoading || !input.trim()}>
                         Send
                     </button>
                 </form>
+                {speechError && (
+                    <div style={{ marginTop: 8, fontSize: 12, color: 'var(--danger)' }}>
+                        {speechError}
+                    </div>
+                )}
             </div>
         </div>
     );
