@@ -86,3 +86,27 @@ export async function sendMessage(
   }
 }
 
+/**
+ * Transcribe an audio file via the server-side OpenAI transcription endpoint.
+ */
+export async function transcribeAudio(uri: string): Promise<string> {
+  const formData = new FormData();
+  formData.append('audio', {
+    uri,
+    name: 'speech.m4a',
+    type: 'audio/m4a',
+  } as any);
+
+  const res = await authFetch('/api/ai/transcribe', {
+    method: 'POST',
+    body: formData as any,
+  });
+
+  if (!res.ok) {
+    const message = await res.text().catch(() => '');
+    throw new Error(message || 'Transcription failed');
+  }
+
+  const data = await res.json();
+  return data?.text || '';
+}
