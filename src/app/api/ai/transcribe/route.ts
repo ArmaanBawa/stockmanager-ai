@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
         } catch {
             // ignore JSON parse errors
         }
+        console.error('OpenAI transcription error:', detail);
         return NextResponse.json(
             { error: 'Transcription failed', details: detail },
             { status: 502 }

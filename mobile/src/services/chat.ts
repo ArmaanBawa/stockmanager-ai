@@ -119,6 +119,12 @@ export async function transcribeAudio(uri: string): Promise<string> {
   });
 
   if (!res.ok) {
+    const contentType = res.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      const data = await res.json().catch(() => ({}));
+      const detail = data?.details || data?.error || 'Transcription failed';
+      throw new Error(detail);
+    }
     const message = await res.text().catch(() => '');
     throw new Error(message || 'Transcription failed');
   }

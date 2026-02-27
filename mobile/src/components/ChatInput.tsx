@@ -17,6 +17,31 @@ export default function ChatInput({ onSend, disabled, autoFocus = true }: Props)
   const inputRef = useRef<TextInput>(null);
   const recordingRef = useRef<Audio.Recording | null>(null);
 
+  const recordingOptions: Audio.RecordingOptions = {
+    android: {
+      extension: '.m4a',
+      outputFormat: Audio.AndroidOutputFormat.MPEG_4,
+      audioEncoder: Audio.AndroidAudioEncoder.AAC,
+      sampleRate: 44100,
+      numberOfChannels: 1,
+      bitRate: 128000,
+    },
+    ios: {
+      extension: '.m4a',
+      audioQuality: Audio.IOSAudioQuality.HIGH,
+      sampleRate: 44100,
+      numberOfChannels: 1,
+      bitRate: 128000,
+      linearPCMBitDepth: 16,
+      linearPCMIsBigEndian: false,
+      linearPCMIsFloat: false,
+    },
+    web: {
+      mimeType: 'audio/webm',
+      bitsPerSecond: 128000,
+    },
+  };
+
   useEffect(() => {
     if (autoFocus) {
       // Wait for screen transition/mount to finish, then focus
@@ -53,7 +78,7 @@ export default function ChatInput({ onSend, disabled, autoFocus = true }: Props)
       });
 
       const recording = new Audio.Recording();
-      await recording.prepareToRecordAsync(Audio.RecordingOptionsPresets.HIGH_QUALITY);
+      await recording.prepareToRecordAsync(recordingOptions);
       await recording.startAsync();
       recordingRef.current = recording;
       setIsRecording(true);
