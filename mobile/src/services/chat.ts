@@ -90,11 +90,27 @@ export async function sendMessage(
  * Transcribe an audio file via the server-side OpenAI transcription endpoint.
  */
 export async function transcribeAudio(uri: string): Promise<string> {
+  const ext = uri.split('.').pop()?.toLowerCase() || 'm4a';
+  const mimeMap: Record<string, string> = {
+    m4a: 'audio/m4a',
+    mp4: 'audio/mp4',
+    mp3: 'audio/mpeg',
+    wav: 'audio/wav',
+    webm: 'audio/webm',
+    aac: 'audio/aac',
+    caf: 'audio/x-caf',
+    ogg: 'audio/ogg',
+    opus: 'audio/opus',
+    '3gp': 'audio/3gpp',
+    '3gpp': 'audio/3gpp',
+  };
+  const mimeType = mimeMap[ext] || 'audio/m4a';
+
   const formData = new FormData();
   formData.append('audio', {
     uri,
-    name: 'speech.m4a',
-    type: 'audio/m4a',
+    name: `speech.${ext}`,
+    type: mimeType,
   } as any);
 
   const res = await authFetch('/api/ai/transcribe', {

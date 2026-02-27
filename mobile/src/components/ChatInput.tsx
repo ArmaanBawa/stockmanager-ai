@@ -81,7 +81,8 @@ export default function ChatInput({ onSend, disabled, autoFocus = true }: Props)
       }
     } catch (error) {
       console.error(error);
-      setSpeechError('Transcription failed. Please try again.');
+      const message = error instanceof Error ? error.message : 'Transcription failed. Please try again.';
+      setSpeechError(message);
     } finally {
       setIsTranscribing(false);
     }

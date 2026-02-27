@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     const audio = formData.get('audio');
     const model = (formData.get('model') as string) || 'gpt-4o-mini-transcribe';
 
-    if (!audio || !(audio instanceof File)) {
+    if (!audio || !(audio instanceof Blob)) {
         return NextResponse.json({ error: 'Audio file is required' }, { status: 400 });
     }
 
@@ -22,8 +22,10 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Audio file is too large (max 25MB)' }, { status: 413 });
     }
 
+    const filename = audio instanceof File ? audio.name : 'speech.webm';
+
     const upstream = new FormData();
-    upstream.append('file', audio, audio.name || 'speech.webm');
+    upstream.append('file', audio, filename);
     upstream.append('model', model);
     upstream.append('response_format', 'json');
     upstream.append('temperature', '0');
@@ -38,8 +40,15 @@ export async function POST(req: NextRequest) {
 
     if (!response.ok) {
         const errorText = await response.text();
+        let detail = errorText;
+        try {
+            const parsed = JSON.parse(errorText);
+            detail = parsed?.error?.message || errorText;
+        } catch {
+            // ignore JSON parse errors
+        }
         return NextResponse.json(
-            { error: 'Transcription failed', details: errorText },
+            { error: 'Transcription failed', details: detail },
             { status: 502 }
         );
     }
