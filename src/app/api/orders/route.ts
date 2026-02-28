@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { getSessionUser, generateOrderNumber } from '@/lib/helpers';
+import { generateOrderNumber } from '@/lib/helpers';
+import { requireActiveSubscription } from '@/lib/billing';
 
 export async function GET(req: NextRequest) {
-    const user = await getSessionUser();
-    if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     const { searchParams } = new URL(req.url);
     const status = searchParams.get('status');
@@ -28,8 +30,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-    const user = await getSessionUser();
-    if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     const { customerId, items, notes, expectedDelivery } = await req.json();
 

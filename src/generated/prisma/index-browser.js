@@ -274,6 +274,18 @@ exports.Prisma.ChatMessageScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  razorpayCustomerId: 'razorpayCustomerId',
+  razorpaySubscriptionId: 'razorpaySubscriptionId',
+  status: 'status',
+  currentPeriodEnd: 'currentPeriodEnd',
+  cancelAtPeriodEnd: 'cancelAtPeriodEnd',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -304,7 +316,8 @@ exports.Prisma.ModelName = {
   InventoryUsage: 'InventoryUsage',
   LedgerEntry: 'LedgerEntry',
   AiInsight: 'AiInsight',
-  ChatMessage: 'ChatMessage'
+  ChatMessage: 'ChatMessage',
+  Subscription: 'Subscription'
 };
 
 /**

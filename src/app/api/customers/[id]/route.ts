@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { getSessionUser } from '@/lib/helpers';
+import { requireActiveSubscription } from '@/lib/billing';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-    const user = await getSessionUser();
-    if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     const { id } = await params;
     const customer = await prisma.customer.findFirst({
@@ -17,8 +18,9 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 }
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-    const user = await getSessionUser();
-    if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     const { id } = await params;
     const data = await req.json();
@@ -32,8 +34,9 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-    const user = await getSessionUser();
-    if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     const { id } = await params;
     await prisma.customer.deleteMany({

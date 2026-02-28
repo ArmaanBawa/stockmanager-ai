@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { SignJWT } from 'jose';
+import { isSubscriptionActive } from '@/lib/subscription';
 
 const SECRET = new TextEncoder().encode(
   process.env.NEXTAUTH_SECRET || 'procureflow-secret-key-change-in-production'
@@ -39,6 +40,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const subscription = user.businessId
+      ? await prisma.subscription.findUnique({ where: { businessId: user.businessId } })
+      : null;
+    const subscriptionStatus = subscription?.status || 'inactive';
+    const subscriptionActive = isSubscriptionActive(subscription);
+
     // Create a JWT token
     const token = await new SignJWT({
       sub: user.id,
@@ -46,6 +53,8 @@ export async function POST(req: NextRequest) {
       name: user.name,
       businessId: user.businessId,
       businessName: user.business?.name,
+      subscriptionStatus,
+      subscriptionActive,
     })
       .setProtectedHeader({ alg: 'HS256' })
       .setExpirationTime('30d')
@@ -60,6 +69,8 @@ export async function POST(req: NextRequest) {
         name: user.name,
         businessId: user.businessId,
         businessName: user.business?.name || '',
+        subscriptionStatus,
+        subscriptionActive,
       },
     });
   } catch {
@@ -69,4 +80,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-

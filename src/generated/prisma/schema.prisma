@@ -39,6 +39,7 @@ model Business {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   users           User[]
+  subscription    Subscription?
   customers       Customer[]
   products        Product[]
   orders          Order[]
@@ -204,4 +205,17 @@ model ChatMessage {
   businessId String
   business   Business @relation(fields: [businessId], references: [id])
   createdAt  DateTime @default(now())
+}
+
+model Subscription {
+  id                     String    @id @default(cuid())
+  businessId             String    @unique
+  business               Business  @relation(fields: [businessId], references: [id])
+  razorpayCustomerId     String?   @unique
+  razorpaySubscriptionId String?   @unique
+  status                 String    @default("inactive")
+  currentPeriodEnd       DateTime?
+  cancelAtPeriodEnd      Boolean   @default(false)
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
 }

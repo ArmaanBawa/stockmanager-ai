@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { getSessionUser } from '@/lib/helpers';
+import { requireActiveSubscription } from '@/lib/billing';
 
-export async function GET() {
-    const user = await getSessionUser();
-    if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+export async function GET(req: NextRequest) {
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     // Get all products with their inventory lots and usage
     const products = await prisma.product.findMany({
@@ -54,8 +55,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-    const user = await getSessionUser();
-    if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     const { productId, quantity, reason } = await req.json();
 
@@ -99,8 +101,9 @@ export async function POST(req: NextRequest) {
 
 // PUT — Add stock directly to a product
 export async function PUT(req: NextRequest) {
-    const user = await getSessionUser();
-    if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     const { productId, quantity, costPerUnit, note } = await req.json();
 
@@ -148,4 +151,3 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json({ success: true });
 }
-

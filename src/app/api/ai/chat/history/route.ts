@@ -1,13 +1,12 @@
-import { getSessionUser } from '@/lib/helpers';
-import { getMobileUser } from '@/lib/mobile-auth';
 import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
+import { requireActiveSubscription } from '@/lib/billing';
 
 // GET — load chat history for the logged-in user's business
 export async function GET(req: NextRequest) {
-    let user = await getSessionUser();
-    if (!user?.businessId) user = await getMobileUser(req);
-    if (!user?.businessId) return new Response('Unauthorized', { status: 401 });
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     const messages = await prisma.chatMessage.findMany({
         where: { businessId: user.businessId },
@@ -20,9 +19,9 @@ export async function GET(req: NextRequest) {
 
 // DELETE — clear all chat history for the logged-in user's business
 export async function DELETE(req: NextRequest) {
-    let user = await getSessionUser();
-    if (!user?.businessId) user = await getMobileUser(req);
-    if (!user?.businessId) return new Response('Unauthorized', { status: 401 });
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     await prisma.chatMessage.deleteMany({
         where: { businessId: user.businessId },

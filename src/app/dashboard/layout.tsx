@@ -13,6 +13,7 @@ const navItems = [
     { href: '/dashboard/ledger', label: 'Sales Ledger', icon: '💰' },
     { divider: true },
     { href: '/dashboard/assistant', label: 'AI Assistant', icon: '🤖' },
+    { href: '/billing', label: 'Billing & Plan', icon: '💳' },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -20,9 +21,37 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const router = useRouter();
     const pathname = usePathname();
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
+    const [billingChecked, setBillingChecked] = useState(false);
 
     useEffect(() => {
         if (status === 'unauthenticated') router.push('/login');
+    }, [status, router]);
+
+    useEffect(() => {
+        if (status !== 'authenticated') return;
+
+        let active = true;
+        fetch('/api/billing/status')
+            .then(async (res) => {
+                if (!res.ok) throw new Error('Billing status failed');
+                return res.json();
+            })
+            .then((data) => {
+                if (!active) return;
+                if (!data?.active) {
+                    router.push('/billing');
+                }
+            })
+            .catch(() => {
+                if (active) router.push('/billing');
+            })
+            .finally(() => {
+                if (active) setBillingChecked(true);
+            });
+
+        return () => {
+            active = false;
+        };
     }, [status, router]);
 
     // Load saved theme on mount
@@ -40,7 +69,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         localStorage.setItem('stockmanager-theme', next);
     };
 
-    if (status === 'loading') {
+    if (status === 'loading' || !billingChecked) {
         return <div className="loading-page"><div className="spinner" /> Loading...</div>;
     }
 

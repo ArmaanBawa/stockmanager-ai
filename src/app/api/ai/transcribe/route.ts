@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { requireActiveSubscription } from '@/lib/billing';
 
 export const runtime = 'nodejs';
 
 const MAX_FILE_BYTES = 25 * 1024 * 1024;
 
 export async function POST(req: NextRequest) {
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
         return NextResponse.json({ error: 'OpenAI API key not configured' }, { status: 500 });
