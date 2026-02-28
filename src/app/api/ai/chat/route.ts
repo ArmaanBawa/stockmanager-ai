@@ -1,21 +1,17 @@
 import { openai } from '@ai-sdk/openai';
 import { streamText, tool } from 'ai';
 import { z } from 'zod';
-import { getSessionUser } from '@/lib/helpers';
-import { getMobileUser } from '@/lib/mobile-auth';
 import prisma from '@/lib/prisma';
 import * as aiTools from '@/lib/ai-chat';
 import { NextRequest } from 'next/server';
+import { requireActiveSubscription } from '@/lib/billing';
 
 export const maxDuration = 30;
 
 export async function POST(req: NextRequest) {
-    // Try NextAuth session first, then mobile JWT
-    let user = await getSessionUser();
-    if (!user?.businessId) {
-        user = await getMobileUser(req);
-    }
-    if (!user?.businessId) return new Response('Unauthorized', { status: 401 });
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     const { messages } = await req.json();
 

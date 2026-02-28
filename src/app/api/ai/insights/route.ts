@@ -1,10 +1,11 @@
-import { NextResponse } from 'next/server';
-import { getSessionUser } from '@/lib/helpers';
+import { NextRequest, NextResponse } from 'next/server';
+import { requireActiveSubscription } from '@/lib/billing';
 import { generateInsights } from '@/lib/ai-engine';
 
-export async function GET() {
-    const user = await getSessionUser();
-    if (!user?.businessId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+export async function GET(req: NextRequest) {
+    const gate = await requireActiveSubscription(req);
+    if (!gate.ok) return gate.response;
+    const user = gate.user;
 
     const insights = await generateInsights(user.businessId);
     return NextResponse.json(insights);
