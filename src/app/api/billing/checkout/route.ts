@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { razorpay } from '@/lib/razorpay';
+import { getRazorpay } from '@/lib/razorpay';
 import { getBillingUser } from '@/lib/billing';
 
 export async function POST(req: NextRequest) {
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     if (!customerId) {
         try {
-            const customer = await razorpay.customers.create({
+            const customer = await getRazorpay().customers.create({
                 name: user.businessName || user.name,
                 email: user.email,
                 notes: {
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-        const subscription = await razorpay.subscriptions.create({
+        const subscription = await getRazorpay().subscriptions.create({
             plan_id: planId,
             customer_notify: 1, // Let Razorpay handle emails/portal links
             total_count: 120, // max billing cycles (e.g. 10 years for monthly)
