@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import prisma from '@/lib/prisma';
-import { razorpay } from '@/lib/razorpay';
+
 
 export async function POST(req: NextRequest) {
     const signature = req.headers.get('x-razorpay-signature');
