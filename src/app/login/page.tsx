@@ -70,12 +70,15 @@ function LoginForm() {
         if (result?.error) {
             if (result.error.includes('EMAIL_NOT_VERIFIED')) {
                 setError('Please verify your email before signing in. Check your inbox for the verification link.');
+            } else if (result.error.includes('SUBSCRIPTION_REQUIRED')) {
+                setError('Your subscription is inactive. Please subscribe to continue.');
+                setTimeout(() => router.push('/billing'), 2000);
             } else {
                 setError('Invalid email or password');
             }
             setLoading(false);
         } else {
-            router.push('/dashboard');
+            router.push('/billing');
         }
     };
 
