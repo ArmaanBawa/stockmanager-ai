@@ -3,6 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import bcrypt from 'bcryptjs';
 import prisma from '@/lib/prisma';
+import { isSubscriptionActive } from '@/lib/subscription';
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -36,6 +37,17 @@ export const authOptions: NextAuthOptions = {
 
                 if (!user.emailVerified) {
                     throw new Error('EMAIL_NOT_VERIFIED');
+                }
+
+                // Block sign-in if subscription was previously active but is now halted/cancelled
+                if (user.businessId) {
+                    const subscription = await prisma.subscription.findUnique({
+                        where: { businessId: user.businessId },
+                    });
+                    const blockedStatuses = new Set(['halted', 'cancelled', 'completed', 'expired']);
+                    if (subscription && blockedStatuses.has(subscription.status)) {
+                        throw new Error('SUBSCRIPTION_REQUIRED');
+                    }
                 }
 
                 return {
@@ -119,6 +131,14 @@ export const authOptions: NextAuthOptions = {
                 }
             }
 
+            if (token.businessId) {
+                const subscription = await prisma.subscription.findUnique({
+                    where: { businessId: token.businessId as string },
+                });
+                token.subscriptionStatus = subscription?.status || 'inactive';
+                token.subscriptionActive = isSubscriptionActive(subscription);
+            }
+
             return token;
         },
         async session({ session, token }) {
@@ -126,6 +146,8 @@ export const authOptions: NextAuthOptions = {
                 (session.user as any).id = token.sub;
                 (session.user as any).businessId = token.businessId;
                 (session.user as any).businessName = token.businessName;
+                (session.user as any).subscriptionStatus = (token as any).subscriptionStatus;
+                (session.user as any).subscriptionActive = (token as any).subscriptionActive;
             }
             return session;
         },
