@@ -3,7 +3,7 @@
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: '📊' },
@@ -16,7 +16,7 @@ const navItems = [
     { href: '/billing', label: 'Billing & Plan', icon: '💳' },
 ];
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+function DashboardInner({ children }: { children: React.ReactNode }) {
     const { data: session, status } = useSession();
     const router = useRouter();
     const pathname = usePathname();
@@ -178,3 +178,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
     );
 }
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+    return (
+        <Suspense fallback={<div className="loading-page"><div className="spinner" /> Loading...</div>}>
+            <DashboardInner>{children}</DashboardInner>
+        </Suspense>
+    );
+}
+
