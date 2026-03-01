@@ -48,7 +48,20 @@ export default function BillingPage() {
                 subscription_id: subscriptionId,
                 name: 'ProcureFlow AI',
                 description: 'Super++ Plan — ₹1,499/month',
-                handler: function () {
+                handler: async function (response: { razorpay_subscription_id: string; razorpay_payment_id: string }) {
+                    // Immediately confirm the subscription in our DB (don't wait for webhook)
+                    try {
+                        await fetch('/api/billing/confirm', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                razorpay_subscription_id: response.razorpay_subscription_id,
+                                razorpay_payment_id: response.razorpay_payment_id,
+                            }),
+                        });
+                    } catch {
+                        // Even if confirm fails, webhook will handle it — still redirect
+                    }
                     router.push('/dashboard?payment_success=true');
                 },
                 theme: { color: '#c4622d' },
