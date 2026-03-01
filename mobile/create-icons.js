@@ -67,7 +67,7 @@ function crc32(buf) {
 
 // Create a 1024x1024 blue icon
 const icon = createPNG(1024, 1024, 59, 130, 246);
-fs.writeFileSync('assets/icon.png', icon);
+fs.writeFileSync('assets/Mar 1, 2026, 07_56_11 PM.png', icon);
 console.log('Created assets/icon.png');
 
 fs.writeFileSync('assets/adaptive-icon.png', icon);

@@ -49,13 +49,18 @@ export const authOptions: NextAuthOptions = {
                 }
 
                 // Block sign-in if subscription was previously active but is now halted/cancelled
+                // BUT allow access if they still have time remaining in their current period
                 if (user.businessId) {
                     const subscription = await prisma.subscription.findUnique({
                         where: { businessId: user.businessId },
                     });
                     const blockedStatuses = new Set(['halted', 'cancelled', 'completed', 'expired']);
                     if (subscription && blockedStatuses.has(subscription.status)) {
-                        throw new Error('SUBSCRIPTION_REQUIRED');
+                        // Allow if currentPeriodEnd is still in the future
+                        const stillHasTime = subscription.currentPeriodEnd && subscription.currentPeriodEnd > new Date();
+                        if (!stillHasTime) {
+                            throw new Error('SUBSCRIPTION_REQUIRED');
+                        }
                     }
                 }
 

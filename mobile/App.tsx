@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import LoginScreen from './src/screens/LoginScreen';
 import ChatScreen from './src/screens/ChatScreen';
+import SubscriptionWallScreen from './src/screens/SubscriptionWallScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,10 +23,12 @@ function AppNavigator() {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {user ? (
+      {!user ? (
+        <Stack.Screen name="Login" component={LoginScreen} />
+      ) : user.subscriptionActive ? (
         <Stack.Screen name="Chat" component={ChatScreen} />
       ) : (
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="SubscriptionWall" component={SubscriptionWallScreen} />
       )}
     </Stack.Navigator>
   );

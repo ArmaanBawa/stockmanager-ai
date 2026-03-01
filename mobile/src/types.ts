@@ -11,5 +11,7 @@ export interface User {
   email: string;
   businessId: string;
   businessName: string;
+  subscriptionActive?: boolean;
+  subscriptionStatus?: string;
 }
 

@@ -79,6 +79,8 @@ export async function getSession(): Promise<User | null> {
       email: payload.email || '',
       businessId: payload.businessId || '',
       businessName: payload.businessName || '',
+      subscriptionActive: payload.subscriptionActive || false,
+      subscriptionStatus: payload.subscriptionStatus || 'inactive',
     };
   } catch {
     return null;
