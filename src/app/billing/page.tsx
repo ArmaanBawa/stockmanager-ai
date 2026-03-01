@@ -145,7 +145,7 @@ export default function BillingPage() {
             {/* RIGHT — Billing form */}
             <div className="auth-split-right">
                 <div className="auth-card">
-                    <Link href={isLoggedIn ? '/dashboard' : '/login'} style={{
+                    <Link href={isLoggedIn && subscription?.active ? '/dashboard' : isLoggedIn ? '/' : '/login'} style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '6px',
@@ -155,7 +155,7 @@ export default function BillingPage() {
                         marginBottom: '24px',
                         transition: 'color 0.2s',
                     }}>
-                        {isLoggedIn ? '← Back to dashboard' : '← Back to sign in'}
+                        {isLoggedIn && subscription?.active ? '← Back to dashboard' : isLoggedIn ? '← Back to home' : '← Back to sign in'}
                     </Link>
 
                     <h1 className="auth-title">ProcureFlow Pro</h1>
@@ -313,11 +313,11 @@ export default function BillingPage() {
                                 </button>
                                 {isLoggedIn && (
                                     <button
-                                        onClick={() => router.push('/dashboard')}
+                                        onClick={() => router.push('/')}
                                         className="btn btn-secondary btn-lg"
                                         style={{ width: '100%' }}
                                     >
-                                        ← Back to Dashboard
+                                        ← Back to Home
                                     </button>
                                 )}
                             </div>
