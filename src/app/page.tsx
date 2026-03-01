@@ -1,7 +1,6 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
@@ -48,14 +47,8 @@ const CHAT_DEMO = [
 
 export default function Home() {
 	const { status } = useSession();
-	const router = useRouter();
 	const heroRef = useRef<HTMLDivElement>(null);
 
-	useEffect(() => {
-		if (status === 'authenticated') {
-			router.push('/dashboard');
-		}
-	}, [status, router]);
 
 	useScrollReveal();
 
@@ -86,7 +79,6 @@ export default function Home() {
 		);
 	}
 
-	if (status === 'authenticated') return null;
 
 	return (
 		<div className="landing">
@@ -105,8 +97,14 @@ export default function Home() {
 						<a href="#how-it-works">How it works</a>
 					</div>
 					<div className="land-nav-actions">
-						<Link href="/login" className="land-nav-login">Log in</Link>
-						<Link href="/register" className="land-btn-primary land-btn-nav">Get Started</Link>
+						{status === 'authenticated' ? (
+							<Link href="/dashboard" className="land-btn-primary land-btn-nav">Go to Dashboard</Link>
+						) : (
+							<>
+								<Link href="/login" className="land-nav-login">Log in</Link>
+								<Link href="/register" className="land-btn-primary land-btn-nav">Get Started</Link>
+							</>
+						)}
 					</div>
 				</div>
 			</nav>
