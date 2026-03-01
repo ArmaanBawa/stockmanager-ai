@@ -188,7 +188,7 @@ export async function GET(req: NextRequest) {
             try {
                 const { default: Razorpay } = await import('razorpay');
                 const rzp = new Razorpay({ key_id: keyId, key_secret: keySecret });
-                const plan = await rzp.plans.fetch(planId) as Record<string, unknown>;
+                const plan = await rzp.plans.fetch(planId) as unknown as Record<string, unknown>;
                 const item = plan.item as Record<string, unknown> | undefined;
                 pass('Razorpay Plan', `"${planId}" → ${plan.interval}x ${plan.period}, amount: ${item ? Number(item.amount) / 100 : '?'} ${item?.currency ?? ''}`);
             } catch (e: unknown) {
