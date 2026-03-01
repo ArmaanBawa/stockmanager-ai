@@ -10,10 +10,13 @@ export async function POST(req: NextRequest) {
     }
 
     const planId = process.env.RAZORPAY_PLAN_ID;
+    const keyId = process.env.RAZORPAY_KEY_ID;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET;
 
-    if (!planId) {
+    if (!planId || !keyId || !keySecret) {
+        console.error('Missing Razorpay env vars:', { planId: !!planId, keyId: !!keyId, keySecret: !!keySecret });
         return NextResponse.json(
-            { error: 'Billing plan is not configured' },
+            { error: 'Billing is not configured on the server. Please contact support.' },
             { status: 500 }
         );
     }
@@ -47,9 +50,9 @@ export async function POST(req: NextRequest) {
                     razorpayCustomerId: customerId,
                 },
             });
-        } catch (error) {
-            console.error('Failed to create Razorpay customer:', error);
-            return NextResponse.json({ error: 'Failed to initialize billing' }, { status: 500 });
+        } catch (error: any) {
+            console.error('Failed to create Razorpay customer:', error?.message || error);
+            return NextResponse.json({ error: 'Failed to initialize billing', detail: error?.message }, { status: 500 });
         }
     }
 
@@ -70,8 +73,8 @@ export async function POST(req: NextRequest) {
             keyId: process.env.RAZORPAY_KEY_ID
         });
 
-    } catch (error) {
-        console.error('Failed to create Razorpay subscription:', error);
-        return NextResponse.json({ error: 'Failed to create subscription' }, { status: 500 });
+    } catch (error: any) {
+        console.error('Failed to create Razorpay subscription:', error?.message || error);
+        return NextResponse.json({ error: 'Failed to create subscription', detail: error?.message }, { status: 500 });
     }
 }

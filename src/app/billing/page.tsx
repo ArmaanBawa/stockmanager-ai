@@ -40,7 +40,7 @@ export default function BillingPage() {
         try {
             const res = await fetch('/api/billing/checkout', { method: 'POST' });
             const data = await res.json();
-            if (!res.ok) throw new Error(data.error || 'Failed to initialize checkout');
+            if (!res.ok) throw new Error(data.detail || data.error || 'Failed to initialize checkout');
 
             const { subscriptionId, keyId } = data;
             const options = {
