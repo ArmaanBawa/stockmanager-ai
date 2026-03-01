@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 type SubscriptionStatus = {
@@ -24,7 +25,10 @@ export default function BillingPage() {
     const [error, setError] = useState('');
     const [subscription, setSubscription] = useState<SubscriptionStatus | null>(null);
     const [statusLoading, setStatusLoading] = useState(true);
+    const [cancelConfirm, setCancelConfirm] = useState(false);
     const router = useRouter();
+    const { status: authStatus } = useSession();
+    const isLoggedIn = authStatus === 'authenticated';
 
     useEffect(() => {
         fetch('/api/billing/status')
@@ -78,19 +82,18 @@ export default function BillingPage() {
         }
     };
 
-    const handleManage = async () => {
+    const handleCancel = async () => {
         setLoading(true);
         setError('');
         try {
-            const res = await fetch('/api/billing/portal', { method: 'POST' });
+            const res = await fetch('/api/billing/cancel', { method: 'POST' });
             const data = await res.json();
-            if (data.url) {
-                window.open(data.url, '_blank');
-            } else {
-                setError(data.error || 'No active subscription found. Please subscribe first.');
-            }
+            if (!res.ok) throw new Error(data.detail || data.error || 'Failed to cancel subscription');
+            // Update local state to reflect cancellation
+            setSubscription((prev) => prev ? { ...prev, cancelAtPeriodEnd: true } : prev);
+            setCancelConfirm(false);
         } catch (err: any) {
-            setError(err.message || 'Failed to open portal');
+            setError(err.message || 'Failed to cancel subscription');
         } finally {
             setLoading(false);
         }
@@ -142,7 +145,7 @@ export default function BillingPage() {
             {/* RIGHT — Billing form */}
             <div className="auth-split-right">
                 <div className="auth-card">
-                    <Link href="/login" style={{
+                    <Link href={isLoggedIn ? '/dashboard' : '/login'} style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '6px',
@@ -152,7 +155,7 @@ export default function BillingPage() {
                         marginBottom: '24px',
                         transition: 'color 0.2s',
                     }}>
-                        ← Back to sign in
+                        {isLoggedIn ? '← Back to dashboard' : '← Back to sign in'}
                     </Link>
 
                     <h1 className="auth-title">ProcureFlow Pro</h1>
@@ -208,14 +211,66 @@ export default function BillingPage() {
                                 >
                                     Go to Dashboard
                                 </button>
-                                <button
-                                    onClick={handleManage}
-                                    disabled={loading}
-                                    className="btn btn-secondary btn-lg"
-                                    style={{ width: '100%' }}
-                                >
-                                    {loading ? <><div className="spinner" /> Opening...</> : 'Manage Subscription'}
-                                </button>
+
+                                {subscription.cancelAtPeriodEnd ? (
+                                    <p style={{
+                                        textAlign: 'center',
+                                        fontSize: '13px',
+                                        color: 'var(--text-muted)',
+                                        padding: '10px 0',
+                                    }}>
+                                        ⚠️ Your subscription is set to cancel at the end of the billing period.
+                                    </p>
+                                ) : !cancelConfirm ? (
+                                    <button
+                                        onClick={() => setCancelConfirm(true)}
+                                        className="btn btn-secondary btn-lg"
+                                        style={{ width: '100%' }}
+                                    >
+                                        Cancel Subscription
+                                    </button>
+                                ) : (
+                                    <div style={{
+                                        background: 'rgba(239,68,68,0.06)',
+                                        border: '1px solid rgba(239,68,68,0.2)',
+                                        borderRadius: 'var(--radius-md)',
+                                        padding: '16px',
+                                    }}>
+                                        <p style={{ fontSize: '14px', color: 'var(--text-primary)', marginBottom: '12px', fontWeight: 600 }}>
+                                            Are you sure you want to cancel?
+                                        </p>
+                                        <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
+                                            You'll keep access until the end of your current billing period
+                                            {subscription.currentPeriodEnd && (
+                                                <> ({new Date(subscription.currentPeriodEnd).toLocaleDateString('en-IN', {
+                                                    day: 'numeric', month: 'long', year: 'numeric',
+                                                })})</>
+                                            )}.
+                                        </p>
+                                        <div style={{ display: 'flex', gap: '10px' }}>
+                                            <button
+                                                onClick={handleCancel}
+                                                disabled={loading}
+                                                className="btn btn-lg"
+                                                style={{
+                                                    flex: 1,
+                                                    background: 'rgba(239,68,68,0.9)',
+                                                    color: '#fff',
+                                                    border: 'none',
+                                                }}
+                                            >
+                                                {loading ? <><div className="spinner" /> Cancelling...</> : 'Yes, Cancel'}
+                                            </button>
+                                            <button
+                                                onClick={() => setCancelConfirm(false)}
+                                                className="btn btn-secondary btn-lg"
+                                                style={{ flex: 1 }}
+                                            >
+                                                Keep Plan
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -256,14 +311,15 @@ export default function BillingPage() {
                                 >
                                     {loading ? <><div className="spinner" /> Processing...</> : 'Subscribe Now — ₹1,499/mo'}
                                 </button>
-                                <button
-                                    onClick={handleManage}
-                                    disabled={loading}
-                                    className="btn btn-secondary btn-lg"
-                                    style={{ width: '100%' }}
-                                >
-                                    Already subscribed? Manage
-                                </button>
+                                {isLoggedIn && (
+                                    <button
+                                        onClick={() => router.push('/dashboard')}
+                                        className="btn btn-secondary btn-lg"
+                                        style={{ width: '100%' }}
+                                    >
+                                        ← Back to Dashboard
+                                    </button>
+                                )}
                             </div>
 
                             <p style={{ textAlign: 'center', marginTop: '16px', fontSize: '12px', color: 'var(--text-muted)' }}>
