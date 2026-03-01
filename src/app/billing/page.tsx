@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 
 type SubscriptionStatus = {
@@ -311,13 +311,25 @@ export default function BillingPage() {
                                 >
                                     {loading ? <><div className="spinner" /> Processing...</> : 'Subscribe Now — ₹1,499/mo'}
                                 </button>
+                                <button
+                                    onClick={() => router.push('/')}
+                                    className="btn btn-secondary btn-lg"
+                                    style={{ width: '100%' }}
+                                >
+                                    ← Back to Home
+                                </button>
                                 {isLoggedIn && (
                                     <button
-                                        onClick={() => router.push('/')}
-                                        className="btn btn-secondary btn-lg"
-                                        style={{ width: '100%' }}
+                                        onClick={() => signOut({ callbackUrl: '/login' })}
+                                        className="btn btn-lg"
+                                        style={{
+                                            width: '100%',
+                                            background: 'rgba(239,68,68,0.08)',
+                                            color: 'var(--text-secondary)',
+                                            border: '1px solid rgba(239,68,68,0.2)',
+                                        }}
                                     >
-                                        ← Back to Home
+                                        Log Out
                                     </button>
                                 )}
                             </div>
