@@ -73,6 +73,12 @@ function LoginForm() {
             } else if (result.error.includes('SUBSCRIPTION_REQUIRED')) {
                 setError('Your subscription is inactive. Please subscribe to continue.');
                 setTimeout(() => router.push('/billing'), 2000);
+            } else if (result.error.includes('NO_ACCOUNT')) {
+                setError('No account found with this email. Please sign up first.');
+            } else if (result.error.includes('USE_GOOGLE')) {
+                setError('This account was created with Google. Please use "Continue with Google" to sign in.');
+            } else if (result.error.includes('INVALID_PASSWORD')) {
+                setError('Incorrect password. Please try again.');
             } else {
                 setError('Invalid email or password');
             }

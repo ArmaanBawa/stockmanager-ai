@@ -30,10 +30,19 @@ export const authOptions: NextAuthOptions = {
                     include: { business: true },
                 });
 
-                if (!user || !user.hashedPassword) return null;
+                if (!user) {
+                    throw new Error('NO_ACCOUNT');
+                }
+
+                if (!user.hashedPassword) {
+                    // User exists but signed up via Google (no password set)
+                    throw new Error('USE_GOOGLE');
+                }
 
                 const isValid = await bcrypt.compare(credentials.password, user.hashedPassword);
-                if (!isValid) return null;
+                if (!isValid) {
+                    throw new Error('INVALID_PASSWORD');
+                }
 
                 if (!user.emailVerified) {
                     throw new Error('EMAIL_NOT_VERIFIED');

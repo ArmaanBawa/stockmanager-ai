@@ -38,7 +38,36 @@ export async function POST(req: NextRequest) {
                 },
             });
             customerId = customer.id;
+        } catch (error: any) {
+            // If customer already exists in Razorpay, fetch them by email
+            const desc = error?.error?.description || error?.message || '';
+            if (desc.toLowerCase().includes('already exists')) {
+                try {
+                    const customers = await getRazorpay().customers.all({ count: 1 } as any);
+                    // Razorpay doesn't support email filter — search through recent customers
+                    // Instead, use a direct fetch if we have the ID, or iterate
+                    const allCustomers = (customers as any).items || [];
+                    const match = allCustomers.find((c: any) => c.email === user.email);
+                    if (match) {
+                        customerId = match.id;
+                    }
+                } catch {
+                    // Fallback: proceed without customerId — subscription creation still works
+                }
 
+                if (!customerId) {
+                    // If we still can't find the customer, that's OK —
+                    // Razorpay subscriptions work without customer_id
+                    console.warn('Customer exists in Razorpay but could not fetch ID, proceeding without it');
+                }
+            } else {
+                console.error('Failed to create Razorpay customer:', error?.message || error);
+                return NextResponse.json({ error: 'Failed to initialize billing', detail: error?.message }, { status: 500 });
+            }
+        }
+
+        // Save the customerId if we got one
+        if (customerId) {
             await prisma.subscription.upsert({
                 where: { businessId: user.businessId },
                 create: {
@@ -50,9 +79,6 @@ export async function POST(req: NextRequest) {
                     razorpayCustomerId: customerId,
                 },
             });
-        } catch (error: any) {
-            console.error('Failed to create Razorpay customer:', error?.message || error);
-            return NextResponse.json({ error: 'Failed to initialize billing', detail: error?.message }, { status: 500 });
         }
     }
 
