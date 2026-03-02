@@ -42,13 +42,21 @@ export default function LoginScreen() {
   const orb2 = useRef(new Animated.Value(0)).current;
 
   // Google Auth — using the dedicated Google provider handles redirect URIs
-  // correctly for Expo Go, standalone Android, and standalone iOS builds
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    webClientId: WEB_CLIENT_ID,
-    androidClientId: ANDROID_CLIENT_ID,
-    iosClientId: IOS_CLIENT_ID,
-    scopes: ['openid', 'profile', 'email'],
-  });
+  // correctly for Expo Go, standalone Android, and standalone iOS builds.
+  // On iOS, Google requires the reversed client ID as the URL scheme for redirects.
+  const [request, response, promptAsync] = Google.useAuthRequest(
+    {
+      webClientId: WEB_CLIENT_ID,
+      androidClientId: ANDROID_CLIENT_ID,
+      iosClientId: IOS_CLIENT_ID,
+    },
+    {
+      native: Platform.select({
+        ios: 'com.googleusercontent.apps.335604282591-7paolmv2jm93g2lbn7g6gdrfo8jh3l0j:/oauthredirect',
+        default: undefined,
+      }),
+    }
+  );
 
   useEffect(() => {
     // Entrance animations
