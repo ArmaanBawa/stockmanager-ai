@@ -16,7 +16,14 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.procureflow.salesmanager",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "com.googleusercontent.apps.335604282591-7paolmv2jm93g2lbn7g6gdrfo8jh3l0j"
+            ]
+          }
+        ]
       }
     },
     "android": {

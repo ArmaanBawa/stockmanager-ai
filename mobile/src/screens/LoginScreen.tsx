@@ -14,12 +14,17 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as WebBrowser from 'expo-web-browser';
-import * as AuthSession from 'expo-auth-session';
+import * as Google from 'expo-auth-session/providers/google';
 import { useAuth } from '../context/AuthContext';
 
 WebBrowser.maybeCompleteAuthSession();
 
-const GOOGLE_CLIENT_ID = '335604282591-m3kh1o4f958gbthdpjbtac2qt9tnni47.apps.googleusercontent.com';
+// Web client ID (used for Expo Go and web)
+const WEB_CLIENT_ID = '335604282591-m3kh1o4f958gbthdpjbtac2qt9tnni47.apps.googleusercontent.com';
+// Android client ID (SHA-1 fingerprint of EAS build keystore)
+const ANDROID_CLIENT_ID = '335604282591-ku352ttuo1jbqt4tuq2m15s578iqn6ng.apps.googleusercontent.com';
+// iOS client ID (bundle ID: com.procureflow.salesmanager)
+const IOS_CLIENT_ID = '335604282591-7paolmv2jm93g2lbn7g6gdrfo8jh3l0j.apps.googleusercontent.com';
 
 export default function LoginScreen() {
   const { login, googleLogin } = useAuth();
@@ -36,19 +41,14 @@ export default function LoginScreen() {
   const orb1 = useRef(new Animated.Value(0)).current;
   const orb2 = useRef(new Animated.Value(0)).current;
 
-  // Google Auth
-  const discovery = AuthSession.useAutoDiscovery('https://accounts.google.com');
-  const redirectUri = AuthSession.makeRedirectUri({ scheme: 'procureflow' });
-
-  const [request, response, promptAsync] = AuthSession.useAuthRequest(
-    {
-      clientId: GOOGLE_CLIENT_ID,
-      scopes: ['openid', 'profile', 'email'],
-      redirectUri,
-      responseType: AuthSession.ResponseType.Token,
-    },
-    discovery
-  );
+  // Google Auth — using the dedicated Google provider handles redirect URIs
+  // correctly for Expo Go, standalone Android, and standalone iOS builds
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    webClientId: WEB_CLIENT_ID,
+    androidClientId: ANDROID_CLIENT_ID,
+    iosClientId: IOS_CLIENT_ID,
+    scopes: ['openid', 'profile', 'email'],
+  });
 
   useEffect(() => {
     // Entrance animations
@@ -81,11 +81,19 @@ export default function LoginScreen() {
   // Handle Google response
   useEffect(() => {
     if (response?.type === 'success') {
-      const { access_token } = response.params;
-      handleGoogleTokenAsync(access_token);
+      const { authentication } = response;
+      if (authentication?.accessToken) {
+        handleGoogleTokenAsync(authentication.accessToken);
+      } else {
+        setGoogleLoading(false);
+        Alert.alert('Error', 'No access token received from Google.');
+      }
     } else if (response?.type === 'error') {
       setGoogleLoading(false);
-      Alert.alert('Error', 'Google sign-in failed. Please try again.');
+      console.error('Google auth error:', response.error);
+      Alert.alert('Error', response.error?.message || 'Google sign-in failed. Please try again.');
+    } else if (response?.type === 'dismiss') {
+      setGoogleLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -97,7 +105,16 @@ export default function LoginScreen() {
       const userInfoRes = await fetch('https://www.googleapis.com/userinfo/v2/me', {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
+
+      if (!userInfoRes.ok) {
+        throw new Error('Failed to fetch Google user info');
+      }
+
       const userInfo = await userInfoRes.json();
+
+      if (!userInfo.email) {
+        throw new Error('No email returned from Google');
+      }
 
       await googleLogin({
         email: userInfo.email,
@@ -106,6 +123,7 @@ export default function LoginScreen() {
       });
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Google sign-in failed';
+      console.error('Google login error:', err);
       Alert.alert('Login Failed', message);
     } finally {
       setGoogleLoading(false);

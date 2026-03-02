@@ -3,10 +3,10 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { AuthProvider, useAuth } from './src/context/AuthContext';
-import LoginScreen from './src/screens/LoginScreen';
-import ChatScreen from './src/screens/ChatScreen';
-import SubscriptionWallScreen from './src/screens/SubscriptionWallScreen';
+import { AuthProvider, useAuth } from '@/context/AuthContext';
+import LoginScreen from '@/screens/LoginScreen';
+import ChatScreen from '@/screens/ChatScreen';
+import SubscriptionWallScreen from '@/screens/SubscriptionWallScreen';
 
 const Stack = createNativeStackNavigator();
 
