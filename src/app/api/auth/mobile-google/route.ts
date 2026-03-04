@@ -7,6 +7,18 @@ const SECRET = new TextEncoder().encode(
   process.env.NEXTAUTH_SECRET || 'procureflow-secret-key-change-in-production'
 );
 
+// All valid Google OAuth client IDs (web, iOS, Android)
+const VALID_CLIENT_IDS = [
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_IOS_CLIENT_ID,
+  process.env.GOOGLE_ANDROID_CLIENT_ID,
+  // Hardcoded fallbacks so token verification works even if env vars
+  // aren't deployed yet
+  '335604282591-m3kh1o4f958gbthdpjbtac2qt9tnni47.apps.googleusercontent.com', // web
+  '335604282591-7paolmv2jm93g2lbn7g6gdrfo8jh3l0j.apps.googleusercontent.com', // iOS
+  '335604282591-ku352ttuo1jbqt4tuq2m15s578iqn6ng.apps.googleusercontent.com', // Android
+].filter(Boolean) as string[];
+
 // POST — Mobile Google login: verify Google token and return JWT
 export async function POST(req: NextRequest) {
   try {
@@ -30,6 +42,14 @@ export async function POST(req: NextRequest) {
         if (!googleRes.ok || googleData.email !== email) {
           return NextResponse.json(
             { error: 'Invalid Google token' },
+            { status: 401 }
+          );
+        }
+
+        // Verify the token was issued for one of our client IDs
+        if (googleData.aud && !VALID_CLIENT_IDS.includes(googleData.aud)) {
+          return NextResponse.json(
+            { error: 'Token was not issued for this application' },
             { status: 401 }
           );
         }

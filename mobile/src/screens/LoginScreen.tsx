@@ -15,9 +15,18 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
+import { makeRedirectUri } from 'expo-auth-session';
 import { useAuth } from '../context/AuthContext';
 
 WebBrowser.maybeCompleteAuthSession();
+
+// Dismiss any lingering browser sessions on cold start so a previous
+// cancelled flow doesn't block future sign-in attempts.
+// NOTE: dismissAuthSession() is only available on iOS; calling it on
+// Android throws an "UnavailabilityError".
+if (Platform.OS === 'ios') {
+  WebBrowser.dismissAuthSession();
+}
 
 // Web client ID (used for Expo Go and web)
 const WEB_CLIENT_ID = '335604282591-m3kh1o4f958gbthdpjbtac2qt9tnni47.apps.googleusercontent.com';
@@ -25,6 +34,7 @@ const WEB_CLIENT_ID = '335604282591-m3kh1o4f958gbthdpjbtac2qt9tnni47.apps.google
 const ANDROID_CLIENT_ID = '335604282591-ku352ttuo1jbqt4tuq2m15s578iqn6ng.apps.googleusercontent.com';
 // iOS client ID (bundle ID: com.procureflow.salesmanager)
 const IOS_CLIENT_ID = '335604282591-7paolmv2jm93g2lbn7g6gdrfo8jh3l0j.apps.googleusercontent.com';
+
 
 export default function LoginScreen() {
   const { login, googleLogin } = useAuth();
@@ -41,22 +51,29 @@ export default function LoginScreen() {
   const orb1 = useRef(new Animated.Value(0)).current;
   const orb2 = useRef(new Animated.Value(0)).current;
 
-  // Google Auth — using the dedicated Google provider handles redirect URIs
-  // correctly for Expo Go, standalone Android, and standalone iOS builds.
-  // On iOS, Google requires the reversed client ID as the URL scheme for redirects.
-  const [request, response, promptAsync] = Google.useAuthRequest(
-    {
-      webClientId: WEB_CLIENT_ID,
-      androidClientId: ANDROID_CLIENT_ID,
-      iosClientId: IOS_CLIENT_ID,
-    },
-    {
-      native: Platform.select({
-        ios: 'com.googleusercontent.apps.335604282591-7paolmv2jm93g2lbn7g6gdrfo8jh3l0j:/oauthredirect',
-        default: undefined,
-      }),
-    }
-  );
+  // Google Auth configuration
+  // -----------------------------------------------------------------
+  // Requires a DEVELOPMENT BUILD (expo-dev-client) — Expo Go cannot
+  // register the native URL schemes that Google OAuth needs.
+  //
+  // On iOS the reversed iOS-client-ID scheme is already registered in
+  // app.json → CFBundleURLSchemes. Google's iOS OAuth client ID uses
+  // this scheme as its redirect URI.
+  // -----------------------------------------------------------------
+  const redirectUri = makeRedirectUri({
+    scheme: 'procureflow',
+    // Use Expo's auth proxy so it works in Expo Go
+    preferLocalhost: false,
+  });
+
+  console.log('[GoogleAuth] redirectUri:', redirectUri);
+
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    webClientId: WEB_CLIENT_ID,
+    iosClientId: IOS_CLIENT_ID,
+    androidClientId: ANDROID_CLIENT_ID,
+    redirectUri,
+  });
 
   useEffect(() => {
     // Entrance animations
@@ -88,25 +105,30 @@ export default function LoginScreen() {
 
   // Handle Google response
   useEffect(() => {
+    console.log('[GoogleAuth] response:', JSON.stringify(response, null, 2));
     if (response?.type === 'success') {
       const { authentication } = response;
-      if (authentication?.accessToken) {
-        handleGoogleTokenAsync(authentication.accessToken);
+      // Native flow may return id_token in params
+      const idToken = (response as any).params?.id_token || authentication?.idToken;
+      const accessToken = authentication?.accessToken;
+      if (accessToken) {
+        handleGoogleTokenAsync(accessToken, idToken);
       } else {
         setGoogleLoading(false);
         Alert.alert('Error', 'No access token received from Google.');
       }
     } else if (response?.type === 'error') {
       setGoogleLoading(false);
-      console.error('Google auth error:', response.error);
-      Alert.alert('Error', response.error?.message || 'Google sign-in failed. Please try again.');
+      console.error('Google auth error:', JSON.stringify(response.error, null, 2));
+      console.error('Google auth params:', JSON.stringify(response.params, null, 2));
+      Alert.alert('Error', response.error?.message || response.params?.error || 'Google sign-in failed. Please try again.');
     } else if (response?.type === 'dismiss') {
       setGoogleLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
-  const handleGoogleTokenAsync = async (accessToken: string) => {
+  const handleGoogleTokenAsync = async (accessToken: string, idToken?: string) => {
     try {
       setGoogleLoading(true);
       // Fetch user info from Google
@@ -119,12 +141,14 @@ export default function LoginScreen() {
       }
 
       const userInfo = await userInfoRes.json();
+      console.log('[GoogleAuth] userInfo:', JSON.stringify(userInfo, null, 2));
 
       if (!userInfo.email) {
         throw new Error('No email returned from Google');
       }
 
       await googleLogin({
+        idToken,
         email: userInfo.email,
         name: userInfo.name,
         picture: userInfo.picture,
@@ -175,7 +199,7 @@ export default function LoginScreen() {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <StatusBar style="light" />
 
@@ -207,9 +231,24 @@ export default function LoginScreen() {
           {/* Google Button */}
           <TouchableOpacity
             style={styles.googleButton}
-            onPress={() => {
+            onPress={async () => {
+              // Dismiss any lingering browser session from a previous attempt
+              if (Platform.OS === 'ios') {
+                try { WebBrowser.dismissAuthSession(); } catch { }
+              }
               setGoogleLoading(true);
-              promptAsync();
+              try {
+                const result = await promptAsync();
+                console.log('[GoogleAuth] promptAsync result:', JSON.stringify(result, null, 2));
+                // Reset loading for anything that is NOT a success
+                // (success is handled by the useEffect → handleGoogleTokenAsync)
+                if (!result || result.type !== 'success') {
+                  setGoogleLoading(false);
+                }
+              } catch (err) {
+                console.error('[GoogleAuth] promptAsync error:', err);
+                setGoogleLoading(false);
+              }
             }}
             disabled={googleLoading || !request}
             activeOpacity={0.8}

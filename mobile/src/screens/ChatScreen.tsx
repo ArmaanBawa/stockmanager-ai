@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   View,
@@ -12,6 +13,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDrawer } from '../components/AppDrawer';
 import { useAuth } from '../context/AuthContext';
 import { ChatMessage } from '../types';
 import * as chatService from '../services/chat';
@@ -28,6 +30,7 @@ const WELCOME: ChatMessage = {
 
 export default function ChatScreen() {
   const { user, logout } = useAuth();
+  const { openDrawer } = useDrawer();
   const [messages, setMessages] = useState<ChatMessage[]>([WELCOME]);
   const [isLoading, setIsLoading] = useState(false);
   const [historyLoading, setHistoryLoading] = useState(true);
@@ -152,6 +155,12 @@ export default function ChatScreen() {
 
       {/* Header */}
       <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => openDrawer()}
+          style={styles.headerBtn}
+        >
+          <Text style={styles.headerBtnText}>☰</Text>
+        </TouchableOpacity>
         <View style={styles.headerLeft}>
           <Text style={styles.headerTitle}>🤖 Sales Assistant</Text>
           <Text style={styles.headerSubtitle}>
