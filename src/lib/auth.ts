@@ -70,6 +70,7 @@ export const authOptions: NextAuthOptions = {
                     name: user.name,
                     businessId: user.businessId,
                     businessName: user.business?.name,
+                    role: user.role,
                 };
             },
         }),
@@ -101,6 +102,7 @@ export const authOptions: NextAuthOptions = {
                                 hashedPassword: null,
                                 emailVerified: true,
                                 image: user.image || null,
+                                role: 'OWNER',
                                 businessId: business.id,
                             },
                             include: { business: true },
@@ -128,6 +130,7 @@ export const authOptions: NextAuthOptions = {
                 if ((user as any).businessId) {
                     token.businessId = (user as any).businessId;
                     token.businessName = (user as any).businessName;
+                    token.role = (user as any).role;
                 }
             }
 
@@ -142,6 +145,7 @@ export const authOptions: NextAuthOptions = {
                     token.businessId = dbUser.businessId;
                     token.businessName = dbUser.business?.name;
                     token.picture = dbUser.image;
+                    token.role = dbUser.role;
                 }
             }
 
@@ -160,6 +164,7 @@ export const authOptions: NextAuthOptions = {
                 (session.user as any).id = token.sub;
                 (session.user as any).businessId = token.businessId;
                 (session.user as any).businessName = token.businessName;
+                (session.user as any).role = token.role;
                 (session.user as any).subscriptionStatus = (token as any).subscriptionStatus;
                 (session.user as any).subscriptionActive = (token as any).subscriptionActive;
             }

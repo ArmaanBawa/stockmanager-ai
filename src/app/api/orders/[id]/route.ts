@@ -13,8 +13,12 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
         include: {
             customer: true,
             items: { include: { product: true } },
-            statusHistory: { orderBy: { createdAt: 'asc' } },
+            statusHistory: {
+                orderBy: { createdAt: 'asc' },
+                include: { changedBy: { select: { id: true, name: true } } },
+            },
             manufacturingStages: { orderBy: { createdAt: 'asc' } },
+            createdBy: { select: { id: true, name: true } },
         },
     });
 

@@ -9,7 +9,10 @@ export async function GET(req: NextRequest) {
 
     const products = await prisma.product.findMany({
         where: { businessId: user.businessId },
-        include: { customer: { select: { id: true, name: true } } },
+        include: {
+            customer: { select: { id: true, name: true } },
+            createdBy: { select: { id: true, name: true } },
+        },
         orderBy: { createdAt: 'desc' },
     });
 
@@ -23,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     const data = await req.json();
     const product = await prisma.product.create({
-        data: { ...data, businessId: user.businessId },
+        data: { ...data, businessId: user.businessId, createdById: user.id },
     });
 
     return NextResponse.json(product, { status: 201 });

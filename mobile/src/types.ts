@@ -11,6 +11,7 @@ export interface User {
   email: string;
   businessId: string;
   businessName: string;
+  role: string;
   subscriptionActive?: boolean;
   subscriptionStatus?: string;
 }
@@ -49,6 +50,7 @@ export interface OrderItem {
 export interface StatusHistory {
   status: string;
   note?: string;
+  changedBy?: { id: string; name: string };
   createdAt: string;
 }
 
@@ -67,6 +69,7 @@ export interface Order {
   notes?: string;
   createdAt: string;
   customer: { id: string; name: string };
+  createdBy?: { id: string; name: string };
   items: OrderItem[];
   statusHistory?: StatusHistory[];
   manufacturingStages?: ManufacturingStage[];
@@ -82,6 +85,7 @@ export interface Product {
   unit: string;
   reorderLevel: number;
   customer?: { id: string; name: string };
+  createdBy?: { id: string; name: string };
 }
 
 export interface InventoryLot {
@@ -116,6 +120,7 @@ export interface Customer {
   email?: string;
   phone?: string;
   address?: string;
+  createdBy?: { id: string; name: string };
   _count: { products: number; orders: number };
 }
 
@@ -137,4 +142,13 @@ export interface LedgerSummary {
   totalSales: number;
   totalRevenue: number;
   totalItemsSold: number;
+}
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  image?: string;
+  createdAt: string;
 }

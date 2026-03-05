@@ -21,6 +21,7 @@ export async function GET(req: NextRequest) {
         include: {
             customer: { select: { id: true, name: true } },
             items: { include: { product: { select: { id: true, name: true } } } },
+            createdBy: { select: { id: true, name: true } },
             _count: { select: { statusHistory: true } },
         },
         orderBy: { createdAt: 'desc' },
@@ -51,6 +52,7 @@ export async function POST(req: NextRequest) {
             customerId,
             totalAmount,
             notes,
+            createdById: user.id,
             expectedDelivery: expectedDelivery ? new Date(expectedDelivery) : null,
             items: {
                 create: items.map((item: { productId: string; quantity: number; unitPrice: number }) => ({
@@ -61,13 +63,14 @@ export async function POST(req: NextRequest) {
                 })),
             },
             statusHistory: {
-                create: { status: 'PLACED', note: 'Order placed' },
+                create: { status: 'PLACED', note: 'Order placed', changedById: user.id },
             },
         },
         include: {
             customer: true,
             items: { include: { product: true } },
-            statusHistory: true,
+            statusHistory: { include: { changedBy: { select: { id: true, name: true } } } },
+            createdBy: { select: { id: true, name: true } },
         },
     });
 

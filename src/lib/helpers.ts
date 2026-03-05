@@ -10,6 +10,7 @@ export async function getSessionUser() {
         name: string;
         businessId: string;
         businessName: string;
+        role: string;
     };
 }
 

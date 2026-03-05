@@ -26,10 +26,10 @@ interface DrawerContextType {
 }
 
 const DrawerContext = createContext<DrawerContextType>({
-  openDrawer: () => {},
-  closeDrawer: () => {},
+  openDrawer: () => { },
+  closeDrawer: () => { },
   currentScreen: 'Dashboard',
-  navigateTo: () => {},
+  navigateTo: () => { },
 });
 
 export function useDrawer() {
@@ -44,6 +44,7 @@ const NAV_ITEMS = [
   { key: 'Customers', label: 'Customers', icon: '👥' },
   { key: 'Ledger', label: 'Sales Ledger', icon: '💰' },
   { key: 'divider' },
+  { key: 'Team', label: 'Team', icon: '🏢' },
   { key: 'Chat', label: 'AI Assistant', icon: '🤖' },
 ];
 

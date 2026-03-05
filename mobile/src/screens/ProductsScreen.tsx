@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   View, Text, StyleSheet, ScrollView, TouchableOpacity,
   ActivityIndicator, RefreshControl, Alert, Modal, TextInput, FlatList,
-  KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback,
+  Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -135,170 +135,167 @@ export default function ProductsScreen() {
 
       {/* Product Modal */}
       <Modal visible={showModal} animationType="slide" transparent>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.modalOverlay}>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-              style={styles.keyboardAvoid}
-            >
-              <View style={styles.modalContent}>
-                <View style={styles.modalHeader}>
-                  <Text style={styles.modalTitle}>{editId ? 'Edit Product' : 'New Product'}</Text>
-                  <TouchableOpacity onPress={() => setShowModal(false)}>
-                    <Text style={styles.modalClose}>✕</Text>
-                  </TouchableOpacity>
-                </View>
-                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-                  <Text style={styles.formLabel}>Name *</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Product name"
-                    placeholderTextColor="#6a6860"
-                    returnKeyType="next"
-                    value={form.name}
-                    onChangeText={v => setForm({ ...form, name: v })}
-                  />
-                  <Text style={styles.formLabel}>Description</Text>
-                  <TextInput
-                    style={[styles.input, { height: 60, textAlignVertical: 'top' }]}
-                    placeholder="Description"
-                    placeholderTextColor="#6a6860"
-                    multiline
-                    returnKeyType="next"
-                    value={form.description}
-                    onChangeText={v => setForm({ ...form, description: v })}
-                  />
-                  <Text style={styles.formLabel}>Unit Price (₹)</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="0"
-                    placeholderTextColor="#6a6860"
-                    keyboardType="numeric"
-                    returnKeyType="done"
-                    onSubmitEditing={Keyboard.dismiss}
-                    value={form.unitPrice}
-                    onChangeText={v => setForm({ ...form, unitPrice: v })}
-                  />
-                  <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit}>
-                    <Text style={styles.submitBtnText}>{editId ? 'Update' : 'Create'}</Text>
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </KeyboardAvoidingView>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.modalOverlay}
+        >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{ flex: 1 }} />
+          </TouchableWithoutFeedback>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>{editId ? 'Edit Product' : 'New Product'}</Text>
+              <TouchableOpacity onPress={() => setShowModal(false)}>
+                <Text style={styles.modalClose}>✕</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+              <Text style={styles.formLabel}>Name *</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Product name"
+                placeholderTextColor="#6a6860"
+                returnKeyType="next"
+                value={form.name}
+                onChangeText={v => setForm({ ...form, name: v })}
+              />
+              <Text style={styles.formLabel}>Description</Text>
+              <TextInput
+                style={[styles.input, { height: 60, textAlignVertical: 'top' }]}
+                placeholder="Description"
+                placeholderTextColor="#6a6860"
+                multiline
+                returnKeyType="next"
+                value={form.description}
+                onChangeText={v => setForm({ ...form, description: v })}
+              />
+              <Text style={styles.formLabel}>Unit Price (₹)</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="0"
+                placeholderTextColor="#6a6860"
+                keyboardType="numeric"
+                returnKeyType="done"
+                onSubmitEditing={Keyboard.dismiss}
+                value={form.unitPrice}
+                onChangeText={v => setForm({ ...form, unitPrice: v })}
+              />
+              <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit}>
+                <Text style={styles.submitBtnText}>{editId ? 'Update' : 'Create'}</Text>
+              </TouchableOpacity>
+            </ScrollView>
           </View>
-        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
       </Modal>
 
       {/* Usage Modal */}
       <Modal visible={showUsage} animationType="slide" transparent>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.modalOverlay}>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-              style={styles.keyboardAvoid}
-            >
-              <View style={styles.modalContent}>
-                <View style={styles.modalHeader}>
-                  <Text style={styles.modalTitle}>Record Usage</Text>
-                  <TouchableOpacity onPress={() => setShowUsage(false)}>
-                    <Text style={styles.modalClose}>✕</Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.modalOverlay}
+        >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{ flex: 1 }} />
+          </TouchableWithoutFeedback>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Record Usage</Text>
+              <TouchableOpacity onPress={() => setShowUsage(false)}>
+                <Text style={styles.modalClose}>✕</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+              <Text style={styles.formLabel}>Product</Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.pickerRow}>
+                {products.map(p => (
+                  <TouchableOpacity
+                    key={p.id}
+                    style={[styles.pickerChip, usageForm.productId === p.id && styles.pickerChipActive]}
+                    onPress={() => setUsageForm({ ...usageForm, productId: p.id })}
+                  >
+                    <Text style={[styles.pickerChipText, usageForm.productId === p.id && styles.pickerChipTextActive]}>
+                      {p.name}
+                    </Text>
                   </TouchableOpacity>
-                </View>
-                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-                  <Text style={styles.formLabel}>Product</Text>
-                  <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.pickerRow}>
-                    {products.map(p => (
-                      <TouchableOpacity
-                        key={p.id}
-                        style={[styles.pickerChip, usageForm.productId === p.id && styles.pickerChipActive]}
-                        onPress={() => setUsageForm({ ...usageForm, productId: p.id })}
-                      >
-                        <Text style={[styles.pickerChipText, usageForm.productId === p.id && styles.pickerChipTextActive]}>
-                          {p.name}
-                        </Text>
-                      </TouchableOpacity>
-                    ))}
-                  </ScrollView>
-                  <Text style={styles.formLabel}>Quantity</Text>
-                  <TextInput
-                    style={styles.input} keyboardType="numeric"
-                    returnKeyType="next"
-                    value={usageForm.quantity}
-                    onChangeText={v => setUsageForm({ ...usageForm, quantity: v })}
-                  />
-                  <Text style={styles.formLabel}>Reason</Text>
-                  <TextInput
-                    style={styles.input} placeholder="Optional"
-                    placeholderTextColor="#6a6860"
-                    returnKeyType="done"
-                    onSubmitEditing={Keyboard.dismiss}
-                    value={usageForm.reason}
-                    onChangeText={v => setUsageForm({ ...usageForm, reason: v })}
-                  />
-                  <TouchableOpacity style={styles.submitBtn} onPress={handleUsage}>
-                    <Text style={styles.submitBtnText}>Record Usage</Text>
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </KeyboardAvoidingView>
+                ))}
+              </ScrollView>
+              <Text style={styles.formLabel}>Quantity</Text>
+              <TextInput
+                style={styles.input} keyboardType="numeric"
+                returnKeyType="next"
+                value={usageForm.quantity}
+                onChangeText={v => setUsageForm({ ...usageForm, quantity: v })}
+              />
+              <Text style={styles.formLabel}>Reason</Text>
+              <TextInput
+                style={styles.input} placeholder="Optional"
+                placeholderTextColor="#6a6860"
+                returnKeyType="done"
+                onSubmitEditing={Keyboard.dismiss}
+                value={usageForm.reason}
+                onChangeText={v => setUsageForm({ ...usageForm, reason: v })}
+              />
+              <TouchableOpacity style={styles.submitBtn} onPress={handleUsage}>
+                <Text style={styles.submitBtnText}>Record Usage</Text>
+              </TouchableOpacity>
+            </ScrollView>
           </View>
-        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
       </Modal>
 
       {/* Add Stock Modal */}
       <Modal visible={showAddStock} animationType="slide" transparent>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.modalOverlay}>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-              style={styles.keyboardAvoid}
-            >
-              <View style={styles.modalContent}>
-                <View style={styles.modalHeader}>
-                  <Text style={styles.modalTitle}>Add Stock</Text>
-                  <TouchableOpacity onPress={() => setShowAddStock(false)}>
-                    <Text style={styles.modalClose}>✕</Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.modalOverlay}
+        >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{ flex: 1 }} />
+          </TouchableWithoutFeedback>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Add Stock</Text>
+              <TouchableOpacity onPress={() => setShowAddStock(false)}>
+                <Text style={styles.modalClose}>✕</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+              <Text style={styles.formLabel}>Product</Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.pickerRow}>
+                {products.map(p => (
+                  <TouchableOpacity
+                    key={p.id}
+                    style={[styles.pickerChip, addStockForm.productId === p.id && styles.pickerChipActive]}
+                    onPress={() => setAddStockForm({ ...addStockForm, productId: p.id })}
+                  >
+                    <Text style={[styles.pickerChipText, addStockForm.productId === p.id && styles.pickerChipTextActive]}>
+                      {p.name}
+                    </Text>
                   </TouchableOpacity>
-                </View>
-                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-                  <Text style={styles.formLabel}>Product</Text>
-                  <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.pickerRow}>
-                    {products.map(p => (
-                      <TouchableOpacity
-                        key={p.id}
-                        style={[styles.pickerChip, addStockForm.productId === p.id && styles.pickerChipActive]}
-                        onPress={() => setAddStockForm({ ...addStockForm, productId: p.id })}
-                      >
-                        <Text style={[styles.pickerChipText, addStockForm.productId === p.id && styles.pickerChipTextActive]}>
-                          {p.name}
-                        </Text>
-                      </TouchableOpacity>
-                    ))}
-                  </ScrollView>
-                  <Text style={styles.formLabel}>Quantity</Text>
-                  <TextInput
-                    style={styles.input} keyboardType="numeric"
-                    returnKeyType="next"
-                    value={addStockForm.quantity}
-                    onChangeText={v => setAddStockForm({ ...addStockForm, quantity: v })}
-                  />
-                  <Text style={styles.formLabel}>Cost per Unit (₹)</Text>
-                  <TextInput
-                    style={styles.input} keyboardType="numeric" placeholder="0"
-                    placeholderTextColor="#6a6860"
-                    returnKeyType="done"
-                    onSubmitEditing={Keyboard.dismiss}
-                    value={addStockForm.costPerUnit}
-                    onChangeText={v => setAddStockForm({ ...addStockForm, costPerUnit: v })}
-                  />
-                  <TouchableOpacity style={styles.submitBtn} onPress={handleAddStock}>
-                    <Text style={styles.submitBtnText}>Add Stock</Text>
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </KeyboardAvoidingView>
+                ))}
+              </ScrollView>
+              <Text style={styles.formLabel}>Quantity</Text>
+              <TextInput
+                style={styles.input} keyboardType="numeric"
+                returnKeyType="next"
+                value={addStockForm.quantity}
+                onChangeText={v => setAddStockForm({ ...addStockForm, quantity: v })}
+              />
+              <Text style={styles.formLabel}>Cost per Unit (₹)</Text>
+              <TextInput
+                style={styles.input} keyboardType="numeric" placeholder="0"
+                placeholderTextColor="#6a6860"
+                returnKeyType="done"
+                onSubmitEditing={Keyboard.dismiss}
+                value={addStockForm.costPerUnit}
+                onChangeText={v => setAddStockForm({ ...addStockForm, costPerUnit: v })}
+              />
+              <TouchableOpacity style={styles.submitBtn} onPress={handleAddStock}>
+                <Text style={styles.submitBtnText}>Add Stock</Text>
+              </TouchableOpacity>
+            </ScrollView>
           </View>
-        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
       </Modal>
 
       {/* Header */}
@@ -345,6 +342,9 @@ export default function ProductsScreen() {
                     <Text style={styles.productDesc} numberOfLines={1}>{product.description}</Text>
                   ) : null}
                   <Text style={styles.productPrice}>₹{product.unitPrice.toLocaleString()} / {product.unit}</Text>
+                  {product.createdBy && (
+                    <Text style={styles.productAttribution}>Added by: {product.createdBy.name}</Text>
+                  )}
                 </View>
                 <View style={styles.stockBadge}>
                   {stock ? (
@@ -446,6 +446,7 @@ const styles = StyleSheet.create({
   productName: { color: '#f0ede3', fontSize: 15, fontWeight: '600' },
   productDesc: { color: '#6a6860', fontSize: 13, marginTop: 2 },
   productPrice: { color: '#c4622d', fontSize: 13, marginTop: 4, fontWeight: '500' },
+  productAttribution: { color: '#c4622d', fontSize: 11, marginTop: 8, fontStyle: 'italic' },
 
   stockBadge: { alignItems: 'center', minWidth: 60 },
   stockValue: { color: '#f0ede3', fontSize: 22, fontWeight: '700' },
@@ -473,7 +474,7 @@ const styles = StyleSheet.create({
 
   // Modal
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'flex-end' },
-  keyboardAvoid: { width: '100%' },
+
   modalContent: {
     backgroundColor: '#1e1e1c', borderTopLeftRadius: 24, borderTopRightRadius: 24,
     padding: 20, maxHeight: '80%',

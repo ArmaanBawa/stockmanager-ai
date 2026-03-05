@@ -79,6 +79,7 @@ export async function getSession(): Promise<User | null> {
       email: payload.email || '',
       businessId: payload.businessId || '',
       businessName: payload.businessName || '',
+      role: (payload.role as string) || 'MEMBER',
       subscriptionActive: payload.subscriptionActive || false,
       subscriptionStatus: payload.subscriptionStatus || 'inactive',
     };

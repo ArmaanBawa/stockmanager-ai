@@ -128,6 +128,7 @@ exports.Prisma.UserScalarFieldEnum = {
   hashedPassword: 'hashedPassword',
   emailVerified: 'emailVerified',
   image: 'image',
+  role: 'role',
   businessId: 'businessId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -138,6 +139,17 @@ exports.Prisma.VerificationTokenScalarFieldEnum = {
   token: 'token',
   email: 'email',
   expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.InviteCodeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  businessId: 'businessId',
+  createdBy: 'createdBy',
+  expiresAt: 'expiresAt',
+  usedBy: 'usedBy',
+  usedAt: 'usedAt',
   createdAt: 'createdAt'
 };
 
@@ -159,6 +171,7 @@ exports.Prisma.CustomerScalarFieldEnum = {
   phone: 'phone',
   address: 'address',
   businessId: 'businessId',
+  createdById: 'createdById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -173,6 +186,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   reorderLevel: 'reorderLevel',
   businessId: 'businessId',
   customerId: 'customerId',
+  createdById: 'createdById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -185,6 +199,7 @@ exports.Prisma.OrderScalarFieldEnum = {
   notes: 'notes',
   businessId: 'businessId',
   customerId: 'customerId',
+  createdById: 'createdById',
   expectedDelivery: 'expectedDelivery',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -204,6 +219,7 @@ exports.Prisma.OrderStatusHistoryScalarFieldEnum = {
   status: 'status',
   note: 'note',
   orderId: 'orderId',
+  changedById: 'changedById',
   createdAt: 'createdAt'
 };
 
@@ -305,6 +321,7 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   User: 'User',
   VerificationToken: 'VerificationToken',
+  InviteCode: 'InviteCode',
   Business: 'Business',
   Customer: 'Customer',
   Product: 'Product',

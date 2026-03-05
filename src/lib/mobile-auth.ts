@@ -22,6 +22,7 @@ export async function getMobileUser(req: NextRequest) {
       name: payload.name as string,
       businessId: payload.businessId as string,
       businessName: payload.businessName as string,
+      role: (payload.role as string) || 'MEMBER',
     };
   } catch {
     return null;

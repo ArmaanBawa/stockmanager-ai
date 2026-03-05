@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   View, Text, StyleSheet, ScrollView, TouchableOpacity,
   ActivityIndicator, RefreshControl, Alert, Modal, TextInput, FlatList,
-  KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback,
+  Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -149,6 +149,11 @@ export default function OrdersScreen() {
             <Text style={styles.headerSubtitle}>
               {selectedOrder.customer.name} • ₹{selectedOrder.totalAmount.toLocaleString()}
             </Text>
+            {selectedOrder.createdBy && (
+              <Text style={styles.headerAttribution}>
+                Created by: {selectedOrder.createdBy.name}
+              </Text>
+            )}
           </View>
         </View>
         <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
@@ -197,9 +202,16 @@ export default function OrdersScreen() {
                       <Text style={styles.timelineNote}>{historyEntry.note}</Text>
                     )}
                     {historyEntry && (
-                      <Text style={styles.timelineDate}>
-                        {new Date(historyEntry.createdAt).toLocaleString()}
-                      </Text>
+                      <View style={styles.timelineMeta}>
+                        {historyEntry.changedBy && (
+                          <Text style={styles.timelineAttribution}>
+                            By {historyEntry.changedBy.name}
+                          </Text>
+                        )}
+                        <Text style={styles.timelineDate}>
+                          {new Date(historyEntry.createdAt).toLocaleString()}
+                        </Text>
+                      </View>
                     )}
                   </View>
                 </View>
@@ -272,116 +284,115 @@ export default function OrdersScreen() {
   // ─── CREATE ORDER MODAL ───
   const renderCreateModal = () => (
     <Modal visible={showCreate} animationType="slide" transparent>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.modalOverlay}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.keyboardAvoid}
-          >
-            <View style={styles.modalContent}>
-              <View style={styles.modalHeader}>
-                <Text style={styles.modalTitle}>New Order</Text>
-                <TouchableOpacity onPress={() => { setShowCreate(false); resetCreateForm(); }}>
-                  <Text style={styles.modalClose}>✕</Text>
-                </TouchableOpacity>
-              </View>
-              <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-                {/* Customer Picker */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.modalOverlay}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={{ flex: 1 }} />
+        </TouchableWithoutFeedback>
+        <View style={styles.modalContent}>
+          <View style={styles.modalHeader}>
+            <Text style={styles.modalTitle}>New Order</Text>
+            <TouchableOpacity onPress={() => { setShowCreate(false); resetCreateForm(); }}>
+              <Text style={styles.modalClose}>✕</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+            {/* Customer Picker */}
+            <SearchableSelect
+              label="Customer *"
+              options={customers}
+              selectedId={newCustomerId}
+              onSelect={setNewCustomerId}
+              placeholder="Select a customer..."
+            />
+
+            {/* Items */}
+            <Text style={[styles.formLabel, { marginTop: 16 }]}>Items *</Text>
+            {newItems.map((item, idx) => (
+              <View key={idx} style={styles.itemForm}>
                 <SearchableSelect
-                  label="Customer *"
-                  options={customers}
-                  selectedId={newCustomerId}
-                  onSelect={setNewCustomerId}
-                  placeholder="Select a customer..."
+                  label="Product *"
+                  options={products}
+                  selectedId={item.productId}
+                  onSelect={(id) => {
+                    const product = products.find(p => p.id === id);
+                    const updated = [...newItems];
+                    updated[idx] = {
+                      ...updated[idx],
+                      productId: id,
+                      unitPrice: product ? String(product.unitPrice) : updated[idx].unitPrice
+                    };
+                    setNewItems(updated);
+                  }}
+                  placeholder="Select a product..."
                 />
+                <View style={styles.itemInputRow}>
+                  <TextInput
+                    style={[styles.input, { flex: 1 }]}
+                    placeholder="Qty"
+                    placeholderTextColor="#6a6860"
+                    keyboardType="numeric"
+                    returnKeyType="next"
+                    value={item.quantity}
+                    onChangeText={v => {
+                      const updated = [...newItems];
+                      updated[idx] = { ...updated[idx], quantity: v };
+                      setNewItems(updated);
+                    }}
+                  />
+                  <TextInput
+                    style={[styles.input, { flex: 1 }]}
+                    placeholder="Price"
+                    placeholderTextColor="#6a6860"
+                    keyboardType="numeric"
+                    returnKeyType="done"
+                    onSubmitEditing={Keyboard.dismiss}
+                    value={item.unitPrice}
+                    onChangeText={v => {
+                      const updated = [...newItems];
+                      updated[idx] = { ...updated[idx], unitPrice: v };
+                      setNewItems(updated);
+                    }}
+                  />
+                  {newItems.length > 1 && (
+                    <TouchableOpacity
+                      style={styles.removeItemBtn}
+                      onPress={() => setNewItems(newItems.filter((_, i) => i !== idx))}
+                    >
+                      <Text style={styles.removeItemText}>✕</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              </View>
+            ))}
+            <TouchableOpacity
+              style={styles.addItemBtn}
+              onPress={() => setNewItems([...newItems, { productId: '', quantity: '', unitPrice: '' }])}
+            >
+              <Text style={styles.addItemBtnText}>+ Add Item</Text>
+            </TouchableOpacity>
 
-                {/* Items */}
-                <Text style={[styles.formLabel, { marginTop: 16 }]}>Items *</Text>
-                {newItems.map((item, idx) => (
-                  <View key={idx} style={styles.itemForm}>
-                    <SearchableSelect
-                      label="Product *"
-                      options={products}
-                      selectedId={item.productId}
-                      onSelect={(id) => {
-                        const product = products.find(p => p.id === id);
-                        const updated = [...newItems];
-                        updated[idx] = {
-                          ...updated[idx],
-                          productId: id,
-                          unitPrice: product ? String(product.unitPrice) : updated[idx].unitPrice
-                        };
-                        setNewItems(updated);
-                      }}
-                      placeholder="Select a product..."
-                    />
-                    <View style={styles.itemInputRow}>
-                      <TextInput
-                        style={[styles.input, { flex: 1 }]}
-                        placeholder="Qty"
-                        placeholderTextColor="#6a6860"
-                        keyboardType="numeric"
-                        returnKeyType="next"
-                        value={item.quantity}
-                        onChangeText={v => {
-                          const updated = [...newItems];
-                          updated[idx] = { ...updated[idx], quantity: v };
-                          setNewItems(updated);
-                        }}
-                      />
-                      <TextInput
-                        style={[styles.input, { flex: 1 }]}
-                        placeholder="Price"
-                        placeholderTextColor="#6a6860"
-                        keyboardType="numeric"
-                        returnKeyType="done"
-                        onSubmitEditing={Keyboard.dismiss}
-                        value={item.unitPrice}
-                        onChangeText={v => {
-                          const updated = [...newItems];
-                          updated[idx] = { ...updated[idx], unitPrice: v };
-                          setNewItems(updated);
-                        }}
-                      />
-                      {newItems.length > 1 && (
-                        <TouchableOpacity
-                          style={styles.removeItemBtn}
-                          onPress={() => setNewItems(newItems.filter((_, i) => i !== idx))}
-                        >
-                          <Text style={styles.removeItemText}>✕</Text>
-                        </TouchableOpacity>
-                      )}
-                    </View>
-                  </View>
-                ))}
-                <TouchableOpacity
-                  style={styles.addItemBtn}
-                  onPress={() => setNewItems([...newItems, { productId: '', quantity: '', unitPrice: '' }])}
-                >
-                  <Text style={styles.addItemBtnText}>+ Add Item</Text>
-                </TouchableOpacity>
+            {/* Notes */}
+            <Text style={[styles.formLabel, { marginTop: 16 }]}>Notes</Text>
+            <TextInput
+              style={[styles.input, { height: 60, textAlignVertical: 'top' }]}
+              placeholder="Optional notes..."
+              placeholderTextColor="#6a6860"
+              multiline
+              returnKeyType="done" blurOnSubmit
+              onSubmitEditing={Keyboard.dismiss}
+              value={newNotes}
+              onChangeText={setNewNotes}
+            />
 
-                {/* Notes */}
-                <Text style={[styles.formLabel, { marginTop: 16 }]}>Notes</Text>
-                <TextInput
-                  style={[styles.input, { height: 60, textAlignVertical: 'top' }]}
-                  placeholder="Optional notes..."
-                  placeholderTextColor="#6a6860"
-                  multiline
-                  returnKeyType="done" blurOnSubmit
-                  onSubmitEditing={Keyboard.dismiss}
-                  value={newNotes}
-                  onChangeText={setNewNotes}
-                />
-
-                <TouchableOpacity style={styles.submitBtn} onPress={handleCreate}>
-                  <Text style={styles.submitBtnText}>Create Order</Text>
-                </TouchableOpacity>
-              </ScrollView>
-            </View>
-          </KeyboardAvoidingView>
+            <TouchableOpacity style={styles.submitBtn} onPress={handleCreate}>
+              <Text style={styles.submitBtnText}>Create Order</Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
-      </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </Modal>
   );
 
@@ -455,6 +466,9 @@ export default function OrdersScreen() {
                 <View style={[styles.badge, { backgroundColor: BADGE_COLORS[order.status.toLowerCase()] || 'rgba(196,98,45,0.2)' }]}>
                   <Text style={styles.badgeText}>{order.status.replace('_', ' ')}</Text>
                 </View>
+                {order.createdBy && (
+                  <Text style={styles.orderCreatedBy}>by {order.createdBy.name}</Text>
+                )}
                 <Text style={styles.orderDate}>{new Date(order.createdAt).toLocaleDateString()}</Text>
               </View>
             </View>
@@ -490,6 +504,7 @@ const styles = StyleSheet.create({
   headerCenter: { flex: 1 },
   headerTitle: { color: '#f0ede3', fontSize: 18, fontWeight: '700' },
   headerSubtitle: { color: '#6a6860', fontSize: 13, marginTop: 1 },
+  headerAttribution: { color: '#c4622d', fontSize: 12, marginTop: 3, fontStyle: 'italic' },
   addOrderBtn: {
     backgroundColor: '#c4622d', paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10,
   },
@@ -521,6 +536,7 @@ const styles = StyleSheet.create({
   badge: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 6, backgroundColor: 'rgba(196,98,45,0.2)' },
   badgeText: { color: '#f0ede3', fontSize: 11, fontWeight: '600' },
   orderDate: { color: '#6a6860', fontSize: 12 },
+  orderCreatedBy: { color: '#c4622d', fontSize: 11, fontStyle: 'italic' },
 
   detailActions: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 16, marginHorizontal: 16 },
   actionBtn: { backgroundColor: '#c4622d', paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10 },
@@ -545,6 +561,8 @@ const styles = StyleSheet.create({
   timelineContent: { flex: 1 },
   timelineLabel: { color: '#f0ede3', fontSize: 14, fontWeight: '500' },
   timelineNote: { color: '#a8a498', fontSize: 12, marginTop: 2 },
+  timelineMeta: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 2, flexWrap: 'wrap' },
+  timelineAttribution: { color: '#c4622d', fontSize: 11, fontWeight: '600' },
   timelineDate: { color: '#6a6860', fontSize: 11, marginTop: 2 },
 
   mfgRow: {
@@ -574,7 +592,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1e1e1c', borderTopLeftRadius: 24, borderTopRightRadius: 24,
     padding: 20, maxHeight: '85%',
   },
-  keyboardAvoid: { width: '100%' },
+
   modalHeader: {
     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20,
   },

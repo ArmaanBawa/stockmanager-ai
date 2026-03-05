@@ -29,5 +29,11 @@ const getLanUrl = (): string => {
   })!;
 };
 
-export const API_BASE_URL: string =
-  Constants.expoConfig?.extra?.apiBaseUrl || getLanUrl();
+// In dev mode (Expo Go), prefer the LAN URL so we hit the local Next.js server.
+// In production builds, use the configured apiBaseUrl.
+const isDev = __DEV__;
+const configuredUrl = Constants.expoConfig?.extra?.apiBaseUrl as string | undefined;
+
+export const API_BASE_URL: string = isDev
+  ? getLanUrl()
+  : (configuredUrl || getLanUrl());

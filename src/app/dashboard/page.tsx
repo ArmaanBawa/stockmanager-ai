@@ -20,6 +20,7 @@ interface DashboardData {
         totalAmount: number;
         createdAt: string;
         customer: { name: string };
+        createdBy?: { id: string; name: string };
         items: Array<{ product: { name: string } }>;
     }>;
 }
@@ -116,6 +117,11 @@ export default function DashboardPage() {
                                             <span className={`badge badge-${order.status.toLowerCase()}`}>
                                                 {order.status.replace('_', ' ')}
                                             </span>
+                                            {order.createdBy && (
+                                                <span style={{ fontSize: 11, color: 'var(--accent-light)', fontStyle: 'italic' }}>
+                                                    by {order.createdBy.name}
+                                                </span>
+                                            )}
                                             <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>
                                                 {new Date(order.createdAt).toLocaleDateString()}
                                             </span>

@@ -11,6 +11,7 @@ type BillingUser = {
     name: string;
     businessId: string;
     businessName: string;
+    role: string;
 };
 
 export async function getBillingUser(req?: NextRequest): Promise<BillingUser | null> {

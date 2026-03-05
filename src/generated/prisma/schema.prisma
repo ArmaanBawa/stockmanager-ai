@@ -10,16 +10,21 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(cuid())
-  email          String    @unique
-  name           String
-  hashedPassword String?
-  emailVerified  Boolean   @default(true)
-  image          String?
-  businessId     String?
-  business       Business? @relation(fields: [businessId], references: [id])
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id               String               @id @default(cuid())
+  email            String               @unique
+  name             String
+  hashedPassword   String?
+  emailVerified    Boolean              @default(true)
+  image            String?
+  role             String               @default("MEMBER")
+  businessId       String?
+  business         Business?            @relation(fields: [businessId], references: [id])
+  createdOrders    Order[]              @relation("OrderCreator")
+  createdCustomers Customer[]           @relation("CustomerCreator")
+  createdProducts  Product[]            @relation("ProductCreator")
+  statusChanges    OrderStatusHistory[] @relation("StatusChanger")
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
 }
 
 model VerificationToken {
@@ -28,6 +33,18 @@ model VerificationToken {
   email     String
   expiresAt DateTime
   createdAt DateTime @default(now())
+}
+
+model InviteCode {
+  id         String    @id @default(cuid())
+  code       String    @unique
+  businessId String
+  business   Business  @relation(fields: [businessId], references: [id])
+  createdBy  String
+  expiresAt  DateTime
+  usedBy     String?
+  usedAt     DateTime?
+  createdAt  DateTime  @default(now())
 }
 
 model Business {
@@ -48,6 +65,7 @@ model Business {
   ledgerEntries   LedgerEntry[]
   aiInsights      AiInsight[]
   chatMessages    ChatMessage[]
+  inviteCodes     InviteCode[]
 }
 
 model Customer {
@@ -59,6 +77,8 @@ model Customer {
   address     String?
   businessId  String
   business    Business  @relation(fields: [businessId], references: [id])
+  createdById String?
+  createdBy   User?     @relation("CustomerCreator", fields: [createdById], references: [id])
   products    Product[]
   orders      Order[]
   createdAt   DateTime  @default(now())
@@ -79,6 +99,8 @@ model Product {
   business        Business         @relation(fields: [businessId], references: [id])
   customerId      String?          @map("supplierId")
   customer        Customer?        @relation(fields: [customerId], references: [id])
+  createdById     String?
+  createdBy       User?            @relation("ProductCreator", fields: [createdById], references: [id])
   orderItems      OrderItem[]
   inventoryLots   InventoryLot[]
   inventoryUsages InventoryUsage[]
@@ -98,6 +120,8 @@ model Order {
   business            Business             @relation(fields: [businessId], references: [id])
   customerId          String               @map("supplierId")
   customer            Customer             @relation(fields: [customerId], references: [id])
+  createdById         String?
+  createdBy           User?                @relation("OrderCreator", fields: [createdById], references: [id])
   items               OrderItem[]
   statusHistory       OrderStatusHistory[]
   manufacturingStages ManufacturingStage[]
@@ -120,12 +144,14 @@ model OrderItem {
 }
 
 model OrderStatusHistory {
-  id        String   @id @default(cuid())
-  status    String
-  note      String?
-  orderId   String
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
+  id          String   @id @default(cuid())
+  status      String
+  note        String?
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  changedById String?
+  changedBy   User?    @relation("StatusChanger", fields: [changedById], references: [id])
+  createdAt   DateTime @default(now())
 }
 
 model ManufacturingStage {

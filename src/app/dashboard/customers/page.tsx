@@ -9,6 +9,7 @@ interface Customer {
     email?: string;
     phone?: string;
     address?: string;
+    createdBy?: { id: string; name: string };
     _count: { products: number; orders: number };
 }
 
@@ -86,6 +87,7 @@ export default function CustomersPage() {
                                 <th>Phone</th>
                                 <th>Products</th>
                                 <th>Orders</th>
+                                <th>Added By</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -98,6 +100,7 @@ export default function CustomersPage() {
                                     <td>{s.phone || '—'}</td>
                                     <td>{s._count.products}</td>
                                     <td>{s._count.orders}</td>
+                                    <td style={{ fontSize: 13, color: 'var(--accent-light)' }}>{s.createdBy?.name || '—'}</td>
                                     <td>
                                         <div className="flex-gap">
                                             <button type="button" onClick={() => openEdit(s)} className="btn btn-secondary btn-sm">Edit</button>

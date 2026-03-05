@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
       name: user.name,
       businessId: user.businessId,
       businessName: user.business?.name,
+      role: user.role,
       subscriptionStatus,
       subscriptionActive,
     })
@@ -69,6 +70,7 @@ export async function POST(req: NextRequest) {
         name: user.name,
         businessId: user.businessId,
         businessName: user.business?.name || '',
+        role: user.role,
         subscriptionStatus,
         subscriptionActive,
       },

@@ -11,6 +11,7 @@ interface Product {
     unit: string;
     reorderLevel: number;
     customer?: { id: string; name: string };
+    createdBy?: { id: string; name: string };
 }
 
 interface Customer { id: string; name: string; }
@@ -222,6 +223,7 @@ export default function ProductsPage() {
                                             <div style={{ fontWeight: 600, fontSize: 15 }}>{p.name}</div>
                                             <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>
                                                 Base Price: ₹{p.unitPrice.toLocaleString()}/m
+                                                {p.createdBy && <span style={{ marginLeft: 8, color: 'var(--accent-light)' }}>• Added by {p.createdBy.name}</span>}
                                             </div>
                                         </div>
                                     </div>

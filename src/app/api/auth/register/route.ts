@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
                 email,
                 hashedPassword,
                 emailVerified: false,
+                role: 'OWNER',
                 businessId: business.id,
             },
         });

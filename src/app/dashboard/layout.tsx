@@ -12,6 +12,7 @@ const navItems = [
     { href: '/dashboard/customers', label: 'Customers', icon: '👥' },
     { href: '/dashboard/ledger', label: 'Sales Ledger', icon: '💰' },
     { divider: true },
+    { href: '/dashboard/team', label: 'Team', icon: '🏢' },
     { href: '/dashboard/assistant', label: 'AI Assistant', icon: '🤖' },
     { href: '/billing', label: 'Billing & Plan', icon: '💳' },
 ];

@@ -6,7 +6,7 @@ interface Customer { id: string; name: string; }
 interface Product { id: string; name: string; unitPrice: number; unit: string; customerId?: string; }
 interface InventoryItem { productId: string; totalStock: number; unit: string; }
 interface OrderItem { product: { name: string }; quantity: number; unitPrice: number; total: number; }
-interface StatusHistory { status: string; note?: string; createdAt: string; }
+interface StatusHistory { status: string; note?: string; changedBy?: { id: string; name: string }; createdAt: string; }
 interface ManufacturingStage { id: string; stage: string; status: string; note?: string; }
 interface Order {
     id: string;
@@ -16,6 +16,7 @@ interface Order {
     notes?: string;
     createdAt: string;
     customer: { id: string; name: string };
+    createdBy?: { id: string; name: string };
     items: OrderItem[];
     statusHistory?: StatusHistory[];
     manufacturingStages?: ManufacturingStage[];
@@ -142,6 +143,9 @@ export default function OrdersPage() {
                         <button type="button" onClick={() => setSelectedOrder(null)} className="btn btn-secondary btn-sm" style={{ marginBottom: 8 }}>← Back to Orders</button>
                         <h1 className="page-title">{selectedOrder.orderNumber}</h1>
                         <p className="page-subtitle">{selectedOrder.customer.name} • ₹{selectedOrder.totalAmount.toLocaleString()}</p>
+                        {selectedOrder.createdBy && (
+                            <p style={{ fontSize: 12, color: 'var(--accent-light)', marginTop: 4 }}>Created by: {selectedOrder.createdBy.name}</p>
+                        )}
                     </div>
                     <div className="flex-gap">
                         <span className={`badge badge-${selectedOrder.status.toLowerCase()}`}>{selectedOrder.status.replace('_', ' ')}</span>
@@ -168,12 +172,19 @@ export default function OrdersPage() {
                                         <div className={`timeline-dot ${isActive ? 'active' : ''} ${isCompleted && !isActive ? 'completed' : ''}`}>
                                             {isCompleted ? '✓' : ''}
                                         </div>
-                                        <div className="timeline-content">
+                                            <div className="timeline-content">
                                             <h4 style={{ opacity: isCompleted ? 1 : 0.4 }}>{STATUS_EMOJI[status]} {status.replace('_', ' ')}</h4>
                                             {historyEntry && (
                                                 <>
                                                     {historyEntry.note && <p>{historyEntry.note}</p>}
-                                                    <p className="timeline-date">{new Date(historyEntry.createdAt).toLocaleString()}</p>
+                                                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                                                        {historyEntry.changedBy && (
+                                                            <span style={{ fontSize: 11, color: 'var(--accent-light)', fontWeight: 600 }}>
+                                                                By {historyEntry.changedBy.name}
+                                                            </span>
+                                                        )}
+                                                        <p className="timeline-date">{new Date(historyEntry.createdAt).toLocaleString()}</p>
+                                                    </div>
                                                 </>
                                             )}
                                         </div>
@@ -295,6 +306,7 @@ export default function OrdersPage() {
                                 <th>Items</th>
                                 <th>Amount</th>
                                 <th>Status</th>
+                                <th>Created By</th>
                                 <th>Date</th>
                                 <th>Actions</th>
                             </tr>
@@ -307,6 +319,7 @@ export default function OrdersPage() {
                                     <td>{order.items.map(i => i.product.name).join(', ')}</td>
                                     <td>₹{order.totalAmount.toLocaleString()}</td>
                                     <td><span className={`badge badge-${order.status.toLowerCase()}`}>{order.status.replace('_', ' ')}</span></td>
+                                    <td style={{ fontSize: 13, color: 'var(--accent-light)' }}>{order.createdBy?.name || '—'}</td>
                                     <td style={{ fontSize: 13, color: 'var(--text-muted)' }}>{new Date(order.createdAt).toLocaleDateString()}</td>
                                     <td>
                                         <div className="flex-gap">

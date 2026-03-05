@@ -149,6 +149,9 @@ export default function DashboardScreen() {
                     <View style={[styles.badge, { backgroundColor: BADGE_COLORS[order.status.toLowerCase()] || 'rgba(196,98,45,0.2)' }]}>
                       <Text style={styles.badgeText}>{order.status.replace('_', ' ')}</Text>
                     </View>
+                    {order.createdBy && (
+                      <Text style={{ color: '#c4622d', fontSize: 11, fontStyle: 'italic' }}>by {order.createdBy.name}</Text>
+                    )}
                     <Text style={styles.orderDate}>
                       {new Date(order.createdAt).toLocaleDateString()}
                     </Text>

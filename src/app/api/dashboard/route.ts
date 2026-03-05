@@ -35,6 +35,7 @@ export async function GET(req: NextRequest) {
             include: {
                 customer: { select: { name: true } },
                 items: { include: { product: { select: { name: true } } } },
+                createdBy: { select: { id: true, name: true } },
             },
             orderBy: { createdAt: 'desc' },
             take: 5,

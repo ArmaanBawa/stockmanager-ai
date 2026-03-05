@@ -32,7 +32,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
     // Record in status history
     await prisma.orderStatusHistory.create({
-        data: { orderId: id, status, note },
+        data: { orderId: id, status, note, changedById: user.id },
     });
 
     // If status is IN_MANUFACTURING, create manufacturing stages

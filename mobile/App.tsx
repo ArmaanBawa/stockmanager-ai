@@ -25,6 +25,7 @@ import ProductsScreen from '@/screens/ProductsScreen';
 import CustomersScreen from '@/screens/CustomersScreen';
 import LedgerScreen from '@/screens/LedgerScreen';
 import ChatScreen from '@/screens/ChatScreen';
+import TeamScreen from '@/screens/TeamScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ const SCREENS: Record<string, React.ComponentType<any>> = {
   Customers: CustomersScreen,
   Ledger: LedgerScreen,
   Chat: ChatScreen,
+  Team: TeamScreen,
 };
 
 function MainApp() {

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity,
   ActivityIndicator, RefreshControl, Alert, Modal, TextInput, FlatList,
-  KeyboardAvoidingView, ScrollView, Platform, Keyboard, TouchableWithoutFeedback,
+  ScrollView, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -92,64 +92,63 @@ export default function CustomersScreen() {
 
       {/* Modal */}
       <Modal visible={showModal} animationType="slide" transparent>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.modalOverlay}>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-              style={styles.keyboardAvoid}
-            >
-              <View style={styles.modalContent}>
-                <View style={styles.modalHeader}>
-                  <Text style={styles.modalTitle}>{editId ? 'Edit Customer' : 'New Customer'}</Text>
-                  <TouchableOpacity onPress={() => { setShowModal(false); resetForm(); }}>
-                    <Text style={styles.modalClose}>✕</Text>
-                  </TouchableOpacity>
-                </View>
-                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-                  <Text style={styles.formLabel}>Name *</Text>
-                  <TextInput
-                    style={styles.input} placeholder="Customer name"
-                    placeholderTextColor="#6a6860"
-                    returnKeyType="next"
-                    value={form.name} onChangeText={v => setForm({ ...form, name: v })}
-                  />
-                  <Text style={styles.formLabel}>Contact Person</Text>
-                  <TextInput
-                    style={styles.input} placeholder="Contact name"
-                    placeholderTextColor="#6a6860"
-                    returnKeyType="next"
-                    value={form.contactName} onChangeText={v => setForm({ ...form, contactName: v })}
-                  />
-                  <Text style={styles.formLabel}>Email</Text>
-                  <TextInput
-                    style={styles.input} placeholder="email@example.com"
-                    placeholderTextColor="#6a6860" keyboardType="email-address"
-                    returnKeyType="next"
-                    value={form.email} onChangeText={v => setForm({ ...form, email: v })}
-                  />
-                  <Text style={styles.formLabel}>Phone</Text>
-                  <TextInput
-                    style={styles.input} placeholder="Phone number"
-                    placeholderTextColor="#6a6860" keyboardType="phone-pad"
-                    returnKeyType="next"
-                    value={form.phone} onChangeText={v => setForm({ ...form, phone: v })}
-                  />
-                  <Text style={styles.formLabel}>Address</Text>
-                  <TextInput
-                    style={[styles.input, { height: 60, textAlignVertical: 'top' }]}
-                    placeholder="Address" placeholderTextColor="#6a6860" multiline
-                    returnKeyType="done" blurOnSubmit
-                    onSubmitEditing={Keyboard.dismiss}
-                    value={form.address} onChangeText={v => setForm({ ...form, address: v })}
-                  />
-                  <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit}>
-                    <Text style={styles.submitBtnText}>{editId ? 'Update' : 'Create'}</Text>
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </KeyboardAvoidingView>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.modalOverlay}
+        >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{ flex: 1 }} />
+          </TouchableWithoutFeedback>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>{editId ? 'Edit Customer' : 'New Customer'}</Text>
+              <TouchableOpacity onPress={() => { setShowModal(false); resetForm(); }}>
+                <Text style={styles.modalClose}>✕</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+              <Text style={styles.formLabel}>Name *</Text>
+              <TextInput
+                style={styles.input} placeholder="Customer name"
+                placeholderTextColor="#6a6860"
+                returnKeyType="next"
+                value={form.name} onChangeText={v => setForm({ ...form, name: v })}
+              />
+              <Text style={styles.formLabel}>Contact Person</Text>
+              <TextInput
+                style={styles.input} placeholder="Contact name"
+                placeholderTextColor="#6a6860"
+                returnKeyType="next"
+                value={form.contactName} onChangeText={v => setForm({ ...form, contactName: v })}
+              />
+              <Text style={styles.formLabel}>Email</Text>
+              <TextInput
+                style={styles.input} placeholder="email@example.com"
+                placeholderTextColor="#6a6860" keyboardType="email-address"
+                returnKeyType="next"
+                value={form.email} onChangeText={v => setForm({ ...form, email: v })}
+              />
+              <Text style={styles.formLabel}>Phone</Text>
+              <TextInput
+                style={styles.input} placeholder="Phone number"
+                placeholderTextColor="#6a6860" keyboardType="phone-pad"
+                returnKeyType="next"
+                value={form.phone} onChangeText={v => setForm({ ...form, phone: v })}
+              />
+              <Text style={styles.formLabel}>Address</Text>
+              <TextInput
+                style={[styles.input, { height: 60, textAlignVertical: 'top' }]}
+                placeholder="Address" placeholderTextColor="#6a6860" multiline
+                returnKeyType="done" blurOnSubmit
+                onSubmitEditing={Keyboard.dismiss}
+                value={form.address} onChangeText={v => setForm({ ...form, address: v })}
+              />
+              <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit}>
+                <Text style={styles.submitBtnText}>{editId ? 'Update' : 'Create'}</Text>
+              </TouchableOpacity>
+            </ScrollView>
           </View>
-        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
       </Modal>
 
       {/* Header */}
@@ -191,6 +190,10 @@ export default function CustomersScreen() {
                 ) : null}
               </View>
             </View>
+
+            {customer.createdBy && (
+              <Text style={styles.customerAttribution}>Added by: {customer.createdBy.name}</Text>
+            )}
 
             <View style={styles.customerStats}>
               <View style={styles.customerStat}>
@@ -257,6 +260,7 @@ const styles = StyleSheet.create({
   customerInfo: { flex: 1 },
   customerName: { color: '#f0ede3', fontSize: 15, fontWeight: '600' },
   customerMeta: { color: '#6a6860', fontSize: 13, marginTop: 1 },
+  customerAttribution: { color: '#c4622d', fontSize: 11, marginTop: 8, fontStyle: 'italic' },
 
   customerStats: { flexDirection: 'row', gap: 20, marginTop: 14, paddingTop: 12, borderTopWidth: 1, borderTopColor: '#2e2e2b' },
   customerStat: { alignItems: 'center' },
@@ -271,7 +275,6 @@ const styles = StyleSheet.create({
 
   // Modal
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'flex-end' },
-  keyboardAvoid: { width: '100%' },
   modalContent: {
     backgroundColor: '#1e1e1c', borderTopLeftRadius: 24, borderTopRightRadius: 24,
     padding: 20, maxHeight: '85%',
