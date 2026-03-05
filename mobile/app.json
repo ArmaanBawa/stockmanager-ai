@@ -32,7 +32,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#131312"
       },
-      "package": "com.procureflow.salesmanager"
+      "package": "com.procureflow.salesmanager",
+      "versionCode": 1
     },
     "extra": {
       "apiBaseUrl": "https://stockmanagerai.vercel.app",
