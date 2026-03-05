@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   View, Text, StyleSheet, ScrollView, TouchableOpacity,
   ActivityIndicator, RefreshControl, Alert, Modal, TextInput, FlatList,
+  KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -271,104 +272,116 @@ export default function OrdersScreen() {
   // ─── CREATE ORDER MODAL ───
   const renderCreateModal = () => (
     <Modal visible={showCreate} animationType="slide" transparent>
-      <View style={styles.modalOverlay}>
-        <View style={styles.modalContent}>
-          <View style={styles.modalHeader}>
-            <Text style={styles.modalTitle}>New Order</Text>
-            <TouchableOpacity onPress={() => { setShowCreate(false); resetCreateForm(); }}>
-              <Text style={styles.modalClose}>✕</Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {/* Customer Picker */}
-            <SearchableSelect
-              label="Customer *"
-              options={customers}
-              selectedId={newCustomerId}
-              onSelect={setNewCustomerId}
-              placeholder="Select a customer..."
-            />
-
-            {/* Items */}
-            <Text style={[styles.formLabel, { marginTop: 16 }]}>Items *</Text>
-            {newItems.map((item, idx) => (
-              <View key={idx} style={styles.itemForm}>
-                <SearchableSelect
-                  label="Product *"
-                  options={products}
-                  selectedId={item.productId}
-                  onSelect={(id) => {
-                    const product = products.find(p => p.id === id);
-                    const updated = [...newItems];
-                    updated[idx] = {
-                      ...updated[idx],
-                      productId: id,
-                      unitPrice: product ? String(product.unitPrice) : updated[idx].unitPrice
-                    };
-                    setNewItems(updated);
-                  }}
-                  placeholder="Select a product..."
-                />
-                <View style={styles.itemInputRow}>
-                  <TextInput
-                    style={[styles.input, { flex: 1 }]}
-                    placeholder="Qty"
-                    placeholderTextColor="#6a6860"
-                    keyboardType="numeric"
-                    value={item.quantity}
-                    onChangeText={v => {
-                      const updated = [...newItems];
-                      updated[idx] = { ...updated[idx], quantity: v };
-                      setNewItems(updated);
-                    }}
-                  />
-                  <TextInput
-                    style={[styles.input, { flex: 1 }]}
-                    placeholder="Price"
-                    placeholderTextColor="#6a6860"
-                    keyboardType="numeric"
-                    value={item.unitPrice}
-                    onChangeText={v => {
-                      const updated = [...newItems];
-                      updated[idx] = { ...updated[idx], unitPrice: v };
-                      setNewItems(updated);
-                    }}
-                  />
-                  {newItems.length > 1 && (
-                    <TouchableOpacity
-                      style={styles.removeItemBtn}
-                      onPress={() => setNewItems(newItems.filter((_, i) => i !== idx))}
-                    >
-                      <Text style={styles.removeItemText}>✕</Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.modalOverlay}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.keyboardAvoid}
+          >
+            <View style={styles.modalContent}>
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>New Order</Text>
+                <TouchableOpacity onPress={() => { setShowCreate(false); resetCreateForm(); }}>
+                  <Text style={styles.modalClose}>✕</Text>
+                </TouchableOpacity>
               </View>
-            ))}
-            <TouchableOpacity
-              style={styles.addItemBtn}
-              onPress={() => setNewItems([...newItems, { productId: '', quantity: '', unitPrice: '' }])}
-            >
-              <Text style={styles.addItemBtnText}>+ Add Item</Text>
-            </TouchableOpacity>
+              <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+                {/* Customer Picker */}
+                <SearchableSelect
+                  label="Customer *"
+                  options={customers}
+                  selectedId={newCustomerId}
+                  onSelect={setNewCustomerId}
+                  placeholder="Select a customer..."
+                />
 
-            {/* Notes */}
-            <Text style={[styles.formLabel, { marginTop: 16 }]}>Notes</Text>
-            <TextInput
-              style={[styles.input, { height: 60, textAlignVertical: 'top' }]}
-              placeholder="Optional notes..."
-              placeholderTextColor="#6a6860"
-              multiline
-              value={newNotes}
-              onChangeText={setNewNotes}
-            />
+                {/* Items */}
+                <Text style={[styles.formLabel, { marginTop: 16 }]}>Items *</Text>
+                {newItems.map((item, idx) => (
+                  <View key={idx} style={styles.itemForm}>
+                    <SearchableSelect
+                      label="Product *"
+                      options={products}
+                      selectedId={item.productId}
+                      onSelect={(id) => {
+                        const product = products.find(p => p.id === id);
+                        const updated = [...newItems];
+                        updated[idx] = {
+                          ...updated[idx],
+                          productId: id,
+                          unitPrice: product ? String(product.unitPrice) : updated[idx].unitPrice
+                        };
+                        setNewItems(updated);
+                      }}
+                      placeholder="Select a product..."
+                    />
+                    <View style={styles.itemInputRow}>
+                      <TextInput
+                        style={[styles.input, { flex: 1 }]}
+                        placeholder="Qty"
+                        placeholderTextColor="#6a6860"
+                        keyboardType="numeric"
+                        returnKeyType="next"
+                        value={item.quantity}
+                        onChangeText={v => {
+                          const updated = [...newItems];
+                          updated[idx] = { ...updated[idx], quantity: v };
+                          setNewItems(updated);
+                        }}
+                      />
+                      <TextInput
+                        style={[styles.input, { flex: 1 }]}
+                        placeholder="Price"
+                        placeholderTextColor="#6a6860"
+                        keyboardType="numeric"
+                        returnKeyType="done"
+                        onSubmitEditing={Keyboard.dismiss}
+                        value={item.unitPrice}
+                        onChangeText={v => {
+                          const updated = [...newItems];
+                          updated[idx] = { ...updated[idx], unitPrice: v };
+                          setNewItems(updated);
+                        }}
+                      />
+                      {newItems.length > 1 && (
+                        <TouchableOpacity
+                          style={styles.removeItemBtn}
+                          onPress={() => setNewItems(newItems.filter((_, i) => i !== idx))}
+                        >
+                          <Text style={styles.removeItemText}>✕</Text>
+                        </TouchableOpacity>
+                      )}
+                    </View>
+                  </View>
+                ))}
+                <TouchableOpacity
+                  style={styles.addItemBtn}
+                  onPress={() => setNewItems([...newItems, { productId: '', quantity: '', unitPrice: '' }])}
+                >
+                  <Text style={styles.addItemBtnText}>+ Add Item</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity style={styles.submitBtn} onPress={handleCreate}>
-              <Text style={styles.submitBtnText}>Create Order</Text>
-            </TouchableOpacity>
-          </ScrollView>
+                {/* Notes */}
+                <Text style={[styles.formLabel, { marginTop: 16 }]}>Notes</Text>
+                <TextInput
+                  style={[styles.input, { height: 60, textAlignVertical: 'top' }]}
+                  placeholder="Optional notes..."
+                  placeholderTextColor="#6a6860"
+                  multiline
+                  returnKeyType="done" blurOnSubmit
+                  onSubmitEditing={Keyboard.dismiss}
+                  value={newNotes}
+                  onChangeText={setNewNotes}
+                />
+
+                <TouchableOpacity style={styles.submitBtn} onPress={handleCreate}>
+                  <Text style={styles.submitBtnText}>Create Order</Text>
+                </TouchableOpacity>
+              </ScrollView>
+            </View>
+          </KeyboardAvoidingView>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 
@@ -561,6 +574,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1e1e1c', borderTopLeftRadius: 24, borderTopRightRadius: 24,
     padding: 20, maxHeight: '85%',
   },
+  keyboardAvoid: { width: '100%' },
   modalHeader: {
     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20,
   },
