@@ -11,6 +11,7 @@ import { Order, Customer, Product } from '../types';
 import * as ordersService from '../services/orders';
 import * as customersService from '../services/customers';
 import * as productsService from '../services/products';
+import SearchableSelect from '../components/SearchableSelect';
 
 const STATUSES = ['PLACED', 'ACCEPTED', 'IN_MANUFACTURING', 'DISPATCHED', 'DELIVERED'];
 const STATUS_EMOJI: Record<string, string> = {
@@ -213,9 +214,11 @@ export default function OrdersScreen() {
                 <View key={stage.id} style={styles.mfgRow}>
                   <View style={styles.mfgInfo}>
                     <Text style={styles.mfgLabel}>{MFG_LABELS[stage.stage] || stage.stage}</Text>
-                    <View style={[styles.badge, { backgroundColor: stage.status === 'COMPLETED'
-                      ? BADGE_COLORS.delivered : stage.status === 'IN_PROGRESS'
-                        ? BADGE_COLORS.in_manufacturing : BADGE_COLORS.placed }]}>
+                    <View style={[styles.badge, {
+                      backgroundColor: stage.status === 'COMPLETED'
+                        ? BADGE_COLORS.delivered : stage.status === 'IN_PROGRESS'
+                          ? BADGE_COLORS.in_manufacturing : BADGE_COLORS.placed
+                    }]}>
                       <Text style={styles.badgeText}>{stage.status}</Text>
                     </View>
                   </View>
@@ -278,42 +281,34 @@ export default function OrdersScreen() {
           </View>
           <ScrollView showsVerticalScrollIndicator={false}>
             {/* Customer Picker */}
-            <Text style={styles.formLabel}>Customer *</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.pickerRow}>
-              {customers.map(c => (
-                <TouchableOpacity
-                  key={c.id}
-                  style={[styles.pickerChip, newCustomerId === c.id && styles.pickerChipActive]}
-                  onPress={() => setNewCustomerId(c.id)}
-                >
-                  <Text style={[styles.pickerChipText, newCustomerId === c.id && styles.pickerChipTextActive]}>
-                    {c.name}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
+            <SearchableSelect
+              label="Customer *"
+              options={customers}
+              selectedId={newCustomerId}
+              onSelect={setNewCustomerId}
+              placeholder="Select a customer..."
+            />
 
             {/* Items */}
             <Text style={[styles.formLabel, { marginTop: 16 }]}>Items *</Text>
             {newItems.map((item, idx) => (
               <View key={idx} style={styles.itemForm}>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.pickerRow}>
-                  {products.map(p => (
-                    <TouchableOpacity
-                      key={p.id}
-                      style={[styles.pickerChip, item.productId === p.id && styles.pickerChipActive]}
-                      onPress={() => {
-                        const updated = [...newItems];
-                        updated[idx] = { ...updated[idx], productId: p.id, unitPrice: String(p.unitPrice) };
-                        setNewItems(updated);
-                      }}
-                    >
-                      <Text style={[styles.pickerChipText, item.productId === p.id && styles.pickerChipTextActive]}>
-                        {p.name}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </ScrollView>
+                <SearchableSelect
+                  label="Product *"
+                  options={products}
+                  selectedId={item.productId}
+                  onSelect={(id) => {
+                    const product = products.find(p => p.id === id);
+                    const updated = [...newItems];
+                    updated[idx] = {
+                      ...updated[idx],
+                      productId: id,
+                      unitPrice: product ? String(product.unitPrice) : updated[idx].unitPrice
+                    };
+                    setNewItems(updated);
+                  }}
+                  placeholder="Select a product..."
+                />
                 <View style={styles.itemInputRow}>
                   <TextInput
                     style={[styles.input, { flex: 1 }]}
@@ -424,6 +419,15 @@ export default function OrdersScreen() {
       <FlatList
         data={orders}
         keyExtractor={item => item.id}
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        windowSize={5}
+        removeClippedSubviews={true}
+        getItemLayout={(_, index) => ({
+          length: 94, // Height of orderCard (padding + info + gap)
+          offset: 94 * index,
+          index,
+        })}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#c4622d" />}
         contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 20 }}
         renderItem={({ item: order }) => (
@@ -564,14 +568,6 @@ const styles = StyleSheet.create({
   modalClose: { color: '#a8a498', fontSize: 24, padding: 4 },
 
   formLabel: { color: '#a8a498', fontSize: 13, fontWeight: '600', marginBottom: 8 },
-  pickerRow: { marginBottom: 8, maxHeight: 44 },
-  pickerChip: {
-    paddingHorizontal: 14, paddingVertical: 9, borderRadius: 10,
-    backgroundColor: '#2e2e2b', marginRight: 8,
-  },
-  pickerChipActive: { backgroundColor: '#c4622d' },
-  pickerChipText: { color: '#a8a498', fontSize: 13 },
-  pickerChipTextActive: { color: '#fff', fontWeight: '600' },
 
   itemForm: { marginBottom: 12, backgroundColor: '#262624', borderRadius: 10, padding: 10 },
   itemInputRow: { flexDirection: 'row', gap: 8, marginTop: 8 },

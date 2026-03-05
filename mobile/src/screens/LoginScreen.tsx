@@ -60,13 +60,12 @@ export default function LoginScreen() {
   // app.json → CFBundleURLSchemes. Google's iOS OAuth client ID uses
   // this scheme as its redirect URI.
   // -----------------------------------------------------------------
-  const redirectUri = makeRedirectUri({
+  const redirectUri = React.useMemo(() => makeRedirectUri({
     scheme: 'procureflow',
     // Use Expo's auth proxy so it works in Expo Go
     preferLocalhost: false,
-  });
+  }), []);
 
-  console.log('[GoogleAuth] redirectUri:', redirectUri);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     webClientId: WEB_CLIENT_ID,
@@ -105,7 +104,6 @@ export default function LoginScreen() {
 
   // Handle Google response
   useEffect(() => {
-    console.log('[GoogleAuth] response:', JSON.stringify(response, null, 2));
     if (response?.type === 'success') {
       const { authentication } = response;
       // Native flow may return id_token in params
@@ -179,22 +177,22 @@ export default function LoginScreen() {
     }
   };
 
-  const orb1TranslateY = orb1.interpolate({
+  const orb1TranslateY = React.useMemo(() => orb1.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -20],
-  });
-  const orb1TranslateX = orb1.interpolate({
+  }), [orb1]);
+  const orb1TranslateX = React.useMemo(() => orb1.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 15],
-  });
-  const orb2TranslateY = orb2.interpolate({
+  }), [orb1]);
+  const orb2TranslateY = React.useMemo(() => orb2.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 18],
-  });
-  const orb2TranslateX = orb2.interpolate({
+  }), [orb2]);
+  const orb2TranslateX = React.useMemo(() => orb2.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -12],
-  });
+  }), [orb2]);
 
   return (
     <KeyboardAvoidingView

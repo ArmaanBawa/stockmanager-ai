@@ -71,52 +71,54 @@ export async function POST(req: NextRequest) {
         },
     });
 
-    // Deduct stock and create sale ledger entries for each order item
-    for (const item of order.items) {
-        // FIFO stock deduction
-        const lots = await prisma.inventoryLot.findMany({
-            where: { productId: item.productId, businessId: user.businessId, remainingQty: { gt: 0 } },
-            orderBy: { receivedAt: 'asc' },
-        });
-
-        let remaining = item.quantity;
-        for (const lot of lots) {
-            if (remaining <= 0) break;
-            const deduct = Math.min(remaining, lot.remainingQty);
-            await prisma.inventoryLot.update({
-                where: { id: lot.id },
-                data: { remainingQty: lot.remainingQty - deduct },
+    // Deduct stock and create sale ledger entries for each order item (in parallel, transactionally)
+    await prisma.$transaction(async (tx) => {
+        await Promise.all(order.items.map(async (item) => {
+            // FIFO stock deduction
+            const lots = await tx.inventoryLot.findMany({
+                where: { productId: item.productId, businessId: user.businessId, remainingQty: { gt: 0 } },
+                orderBy: { receivedAt: 'asc' },
             });
-            remaining -= deduct;
-        }
 
-        // Record usage for tracking
-        if (item.quantity - remaining > 0) {
-            await prisma.inventoryUsage.create({
+            let remaining = item.quantity;
+            for (const lot of lots) {
+                if (remaining <= 0) break;
+                const deduct = Math.min(remaining, lot.remainingQty);
+                await tx.inventoryLot.update({
+                    where: { id: lot.id },
+                    data: { remainingQty: lot.remainingQty - deduct },
+                });
+                remaining -= deduct;
+            }
+
+            // Record usage for tracking
+            if (item.quantity - remaining > 0) {
+                await tx.inventoryUsage.create({
+                    data: {
+                        quantity: item.quantity - remaining,
+                        reason: `Sold via order ${order.orderNumber}`,
+                        businessId: user.businessId,
+                        productId: item.productId,
+                    },
+                });
+            }
+
+            // Create SALE ledger entry
+            await tx.ledgerEntry.create({
                 data: {
-                    quantity: item.quantity - remaining,
-                    reason: `Sold via order ${order.orderNumber}`,
+                    type: 'SALE',
+                    quantity: item.quantity,
+                    unitPrice: item.unitPrice,
+                    totalAmount: item.quantity * item.unitPrice,
+                    description: `Sale of ${item.product.name} to ${order.customer.name} via ${order.orderNumber}`,
                     businessId: user.businessId,
                     productId: item.productId,
+                    orderId: order.id,
+                    customerId,
                 },
             });
-        }
-
-        // Create SALE ledger entry
-        await prisma.ledgerEntry.create({
-            data: {
-                type: 'SALE',
-                quantity: item.quantity,
-                unitPrice: item.unitPrice,
-                totalAmount: item.quantity * item.unitPrice,
-                description: `Sale of ${item.product.name} to ${order.customer.name} via ${order.orderNumber}`,
-                businessId: user.businessId,
-                productId: item.productId,
-                orderId: order.id,
-                customerId,
-            },
-        });
-    }
+        }));
+    });
 
     return NextResponse.json(order, { status: 201 });
 }

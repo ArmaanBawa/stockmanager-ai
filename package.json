@@ -26,6 +26,7 @@
     "@prisma/adapter-libsql": "^7.4.1",
     "@prisma/client": "^6.19.2",
     "@types/better-sqlite3": "^7.6.13",
+    "@upstash/redis": "^1.36.3",
     "@vercel/analytics": "^1.6.1",
     "ai": "4.0",
     "bcryptjs": "^3.0.3",

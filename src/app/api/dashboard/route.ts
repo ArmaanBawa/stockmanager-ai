@@ -1,11 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { requireActiveSubscription } from '@/lib/billing';
+import redis from '@/lib/redis';
 
 export async function GET(req: NextRequest) {
     const gate = await requireActiveSubscription(req);
     if (!gate.ok) return gate.response;
     const user = gate.user;
+
+    // Try to get cached data
+    const cacheKey = `dashboard:${user.businessId}`;
+    try {
+        const cached = await redis.get(cacheKey);
+        if (cached) return NextResponse.json(cached);
+    } catch (err) {
+        console.error('Redis cache error:', err);
+    }
 
     const [
         totalOrders,
@@ -41,7 +51,7 @@ export async function GET(req: NextRequest) {
     const totalStockUnits = inventoryLots.reduce((sum, lot) => sum + lot.remainingQty, 0);
     const totalSpent = ledgerEntries.reduce((sum, e) => sum + e.totalAmount, 0);
 
-    return NextResponse.json({
+    const data = {
         stats: {
             totalOrders,
             activeOrders,
@@ -52,5 +62,14 @@ export async function GET(req: NextRequest) {
             totalSpent,
         },
         recentOrders,
-    });
+    };
+
+    // Cache the data for 5 minutes
+    try {
+        await redis.set(cacheKey, JSON.stringify(data), { ex: 300 });
+    } catch (err) {
+        console.error('Redis set error:', err);
+    }
+
+    return NextResponse.json(data);
 }
